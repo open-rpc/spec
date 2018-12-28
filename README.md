@@ -627,59 +627,28 @@ components:
 
 #### <a name="methodsObject"></a>Methods Object
 
-Holds the mapping of method name to method defininition. The method name is used as the `method` field of the JSON RPC body.
+Holds the mapping of method name to method defininition. The method name is used as the `method` field of the JSON RPC body. It therefor MUST be unique. Contrary to OpenAPI specification,
+
+
 The Methods MAY be empty, due to [ACL constraints](#securityFiltering).
 
 ##### Patterned Fields
 
 Field Pattern | Type | Description
 ---|:---:|---
-<a name="methodsMethod"></a>/{method} | [Method Item Object](#methodItemObject) | The literal name of the JSON RPC method. [Method templating](#methodTemplating) is allowed. When matching Methods, concrete (non-templated) method names would be matched before their templated counterparts. Templated methods with the same hierarchy but different templated names MUST NOT exist as they are identical. In case of ambiguous matching, it's up to the tooling to decide which one to use.
+<a name="methodsMethod"></a>{method} | [Method Item Object](#methodItemObject) | The literal name of the JSON RPC method. This field is to be used as the cannonical id for the method/operation. Pattern matching MUST NOT be used.
 
 This object MAY be extended with [Specification Extensions](#specificationExtensions).
-
-##### Method Templating Matching
-
-Assuming the following methods, the concrete definition, `list_pets`, will be matched first if used:
-
-```
-  list_{modelname}
-  list_pets
-```
-
-The following methods are considered identical and invalid:
-
-```
-  get_{modelname}
-  get_{otherthingname}
-```
-
-The following may lead to ambiguous resolution:
-
-```
-  {operation}_person
-  get_{modelname}
-```
 
 ##### Methods Object Example
 
 ```json
 {
   "list_pets": {
-    "description": "Returns all pets from the system that the user has access to",
-    "responses": {
-      "success": {
-        "description": "A list of pets.",
-        "content": {
-          "schema": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/pet"
-            }
-          }
-        }
-      }
-    }
+    tags: [
+      "pet"
+    ],
+    summary: "Lists the pets in the store"
   }
 }
 ```
@@ -697,13 +666,11 @@ Field Name | Type | Description
 <a name="methodSummary"></a>summary | `string` | A short summary of what the method does.
 <a name="methodDescription"></a>description | `string` | A verbose explanation of the method behavior. [CommonMark syntax](http://spec.commonmark.org/) MAY be used for rich text representation.
 <a name="methodExternalDocs"></a>externalDocs | [External Documentation Object](#externalDocumentationObject) | Additional external documentation for this method.
-<a name="methodParameters"></a>parameters | [[Parameter Object](#parameterObject) \| [Reference Object](#referenceObject)] | A list of parameters that are applicable for this operation. If a parameter is already defined at the [Path Item](#methodItemParameters), the new definition will override it but can never remove it. The list MUST NOT include duplicated parameters. A unique parameter is defined by a combination of a [name](#parameterName) and [location](#parameterIn). The list can use the [Reference Object](#referenceObject) to link to parameters that are defined at the [OpenRPC Object's components/parameters](#componentsParameters).
-<a name="methodRequestBody"></a>requestBody | [Request Body Object](#requestBodyObject) \| [Reference Object](#referenceObject) | The request body applicable for this operation.  The `requestBody` is only supported in HTTP methods where the HTTP 1.1 specification [RFC7231](https://tools.ietf.org/html/rfc7231#section-4.3.1) has explicitly defined semantics for request bodies.  In other cases where the HTTP spec is vague, `requestBody` SHALL be ignored by consumers.
+<a name="methodParameters"></a>parameters | [[Parameter Object](#parameterObject) \| [Reference Object](#referenceObject)] | A list of parameters that are applicable for this operation. The list MUST NOT include duplicated parameters. A unique parameter is defined by a combination of a [name](#parameterName) and [location](#parameterIn). The list can use the [Reference Object](#referenceObject) to link to parameters that are defined at the [OpenRPC Object's components/parameters](#componentsParameters).
 <a name="methodResponses"></a>responses | [Responses Object](#responsesObject) | **REQUIRED**. The list of possible responses as they are returned from executing this operation.
-<a name="methodCallbacks"></a>callbacks | Map[`string`, [Callback Object](#callbackObject) \| [Reference Object](#referenceObject)] | A map of possible out-of band callbacks related to the parent operation. The key is a unique identifier for the Callback Object. Each value in the map is a [Callback Object](#callbackObject) that describes a request that may be initiated by the API provider and the expected responses. The key value used to identify the callback object is an expression, evaluated at runtime, that identifies a URL to use for the callback operation.
 <a name="methodDeprecated"></a>deprecated | `boolean` | Declares this operation to be deprecated. Consumers SHOULD refrain from usage of the declared operation. Default value is `false`.
 <a name="methodSecurity"></a>security | [[Security Requirement Object](#securityRequirementObject)] | A declaration of which security mechanisms can be used for this operation. The list of values includes alternative security requirement objects that can be used. Only one of the security requirement objects need to be satisfied to authorize a request. This definition overrides any declared top-level [`security`](#openrpcSecurity). To remove a top-level security declaration, an empty array can be used.
-<a name="methodServers"></a>servers | [[Server Object](#serverObject)] | An alternative `server` array to service this operation. If an alternative `server` object is specified at the Path Item Object or Root level, it will be overridden by this value.
+<a name="methodServers"></a>servers | [[Server Object](#serverObject)] | An alternative `server` array to service this operation. If an alternative `server` object is specified at the Root level, it will be overridden by this value.
 
 This object MAY be extended with [Specification Extensions](#specificationExtensions).
 
@@ -715,7 +682,6 @@ This object MAY be extended with [Specification Extensions](#specificationExtens
     "pet"
   ],
   "summary": "Updates a pet in the store with form data",
-  "operationId": "updatePetWithForm",
   "parameters": [
     {
       "name": "petId",
@@ -727,39 +693,41 @@ This object MAY be extended with [Specification Extensions](#specificationExtens
       }
     }
   ],
-  "requestBody": {
+  "request": {
     "content": {
-      "application/x-www-form-urlencoded": {
-        "schema": {
-          "type": "object",
-           "properties": {
-              "name": {
-                "description": "Updated name of the pet",
-                "type": "string"
-              },
-              "status": {
-                "description": "Updated status of the pet",
-                "type": "string"
-             }
-           },
-        "required": ["status"]
-        }
+      "schema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "Updated name of the pet",
+            "type": "string"
+          },
+          "status": {
+            "description": "Updated status of the pet",
+            "type": "string"
+           }
+         },
+         "required": [
+           "status"
+         ]
       }
     }
   },
   "responses": {
-    "200": {
+    "success": {
       "description": "Pet updated.",
       "content": {
-        "application/json": {},
-        "application/xml": {}
+        "schema": {
+          "$ref": "#/components/schemas/Pet"
+        }
       }
     },
-    "405": {
-      "description": "Method Not Allowed",
+    "failure": {
+      "description": "Reason the Pet could not be updated",
       "content": {
-        "application/json": {},
-        "application/xml": {}
+        "schema" : {
+          "type": "string",
+        }
       }
     }
   },
@@ -773,49 +741,6 @@ This object MAY be extended with [Specification Extensions](#specificationExtens
   ]
 }
 ```
-
-```yaml
-tags:
-- pet
-summary: Updates a pet in the store with form data
-operationId: updatePetWithForm
-parameters:
-- name: petId
-  in: path
-  description: ID of pet that needs to be updated
-  required: true
-  schema:
-    type: string
-requestBody:
-  content:
-    'application/x-www-form-urlencoded':
-      schema:
-       properties:
-          name:
-            description: Updated name of the pet
-            type: string
-          status:
-            description: Updated status of the pet
-            type: string
-       required:
-         - status
-responses:
-  '200':
-    description: Pet updated.
-    content:
-      'application/json': {}
-      'application/xml': {}
-  '405':
-    description: Method Not Allowed
-    content:
-      'application/json': {}
-      'application/xml': {}
-security:
-- petstore_auth:
-  - write:pets
-  - read:pets
-```
-
 
 #### <a name="externalDocumentationObject"></a>External Documentation Object
 
