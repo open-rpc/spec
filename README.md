@@ -634,51 +634,47 @@ The Methods MAY be empty, due to [ACL constraints](#securityFiltering).
 
 Field Pattern | Type | Description
 ---|:---:|---
-<a name="pathsPath"></a>/{path} | [Path Item Object](#pathItemObject) | A relative path to an individual endpoint. The field name MUST begin with a slash. The path is **appended** (no relative URL resolution) to the expanded URL from the [`Server Object`](#serverObject)'s `url` field in order to construct the full URL. [Path templating](#pathTemplating) is allowed. When matching URLs, concrete (non-templated) paths would be matched before their templated counterparts. Templated paths with the same hierarchy but different templated names MUST NOT exist as they are identical. In case of ambiguous matching, it's up to the tooling to decide which one to use.
+<a name="methodsMethod"></a>/{method} | [Method Item Object](#methodItemObject) | The literal name of the JSON RPC method. [Method templating](#methodTemplating) is allowed. When matching Methods, concrete (non-templated) method names would be matched before their templated counterparts. Templated methods with the same hierarchy but different templated names MUST NOT exist as they are identical. In case of ambiguous matching, it's up to the tooling to decide which one to use.
 
 This object MAY be extended with [Specification Extensions](#specificationExtensions).
 
-##### Path Templating Matching
+##### Method Templating Matching
 
-Assuming the following paths, the concrete definition, `/pets/mine`, will be matched first if used:
-
-```
-  /pets/{petId}
-  /pets/mine
-```
-
-The following paths are considered identical and invalid:
+Assuming the following methods, the concrete definition, `list_pets`, will be matched first if used:
 
 ```
-  /pets/{petId}
-  /pets/{name}
+  list_{modelname}
+  list_pets
+```
+
+The following methods are considered identical and invalid:
+
+```
+  get_{modelname}
+  get_{otherthingname}
 ```
 
 The following may lead to ambiguous resolution:
 
 ```
-  /{entity}/me
-  /books/{id}
+  {operation}_person
+  get_{modelname}
 ```
 
-##### Paths Object Example
+##### Methods Object Example
 
 ```json
 {
-  "/pets": {
-    "get": {
-      "description": "Returns all pets from the system that the user has access to",
-      "responses": {
-        "200": {
-          "description": "A list of pets.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/pet"
-                }
-              }
+  "list_pets": {
+    "description": "Returns all pets from the system that the user has access to",
+    "responses": {
+      "success": {
+        "description": "A list of pets.",
+        "content": {
+          "schema": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/pet"
             }
           }
         }
@@ -686,21 +682,6 @@ The following may lead to ambiguous resolution:
     }
   }
 }
-```
-
-```yaml
-/pets:
-  get:
-    description: Returns all pets from the system that the user has access to
-    responses:
-      '200':
-        description: A list of pets.
-        content:
-          application/json:
-            schema:
-              type: array
-              items:
-                $ref: '#/components/schemas/pet'
 ```
 
 #### <a name="pathItemObject"></a>Path Item Object
