@@ -99,15 +99,8 @@ An OpenRPC document compatible with OPENRPC 1.0.0 contains a required [`openrpc`
 
 ### Format
 
-An OpenRPC document that conforms to the OpenRPC Specification is itself a JSON object, which may be represented either in JSON or YAML format.
+An OpenRPC document that conforms to the OpenRPC Specification is itself a JSON object, which must be represented in JSON format.
 
-For example, if a field has an array value, the JSON array representation will be used:
-
-```json
-{
-   "field": [ 1, 2, 3 ]
-}
-```
 All field names in the specification are **case sensitive**.
 This includes all fields that are used as keys in a map, except where explicitly noted that keys are **case insensitive**.
 
