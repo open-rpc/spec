@@ -645,10 +645,10 @@ This object MAY be extended with [Specification Extensions](#specificationExtens
 ```json
 {
   "list_pets": {
-    tags: [
+    "tags": [
       "pet"
     ],
-    summary: "Lists the pets in the store"
+    "summary": "Lists the pets in the store"
   }
 }
 ```
