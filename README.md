@@ -171,10 +171,10 @@ This is the root document object of the [OpenRPC document](#openrpcDocument).
 
 Field Name | Type | Description
 ---|:---:|---
-<a name="openrpcVersion"></a>openrpc | `string` | **REQUIRED**. This string MUST be the [semantic version number](https://semver.org/spec/v2.0.0.html) of the [OpenRPC Specification version](#versions) that the OpenRPC document uses. The `openapi` field SHOULD be used by tooling specifications and clients to interpret the OpenRPC document. This is *not* related to the API [`info.version`](#infoVersion) string.
+<a name="openrpcVersion"></a>openrpc | `string` | **REQUIRED**. This string MUST be the [semantic version number](https://semver.org/spec/v2.0.0.html) of the [OpenRPC Specification version](#versions) that the OpenRPC document uses. The `openrpc` field SHOULD be used by tooling specifications and clients to interpret the OpenRPC document. This is *not* related to the API [`info.version`](#infoVersion) string.
 <a name="openrpcInfo"></a>info | [Info Object](#infoObject) | **REQUIRED**. Provides metadata about the API. The metadata MAY be used by tooling as required.
 <a name="openrpcServers"></a>servers | [[Server Object](#serverObject)] | An array of Server Objects, which provide connectivity information to a target server. If the `servers` property is not provided, or is an empty array, the default value would be a [Server Object](#serverObject) with a [url](#serverUrl) value of `/`.
-<a name="openrpcPaths"></a>paths | [Paths Object](#pathsObject) | **REQUIRED**. The available paths and operations for the API.
+<a name="openrpcMethods"></a>methods | [Methods Object](#methodsObject) | **REQUIRED**. The available methods and operations for the API.
 <a name="openrpcComponents"></a>components | [Components Object](#componentsObject) | An element to hold various schemas for the specification.
 <a name="openrpcSecurity"></a>security | [[Security Requirement Object](#securityRequirementObject)] | A declaration of which security mechanisms can be used across the API. The list of values includes alternative security requirement objects that can be used. Only one of the security requirement objects need to be satisfied to authorize a request. Individual operations can override this definition.
 <a name="openrpcTags"></a>tags | [[Tag Object](#tagObject)] | A list of tags used by the specification with additional metadata. The order of the tags can be used to reflect on their order by the parsing tools. Not all tags that are used by the [Operation Object](#operationObject) must be declared. The tags that are not declared MAY be organized randomly or based on the tools' logic. Each tag name in the list MUST be unique.
@@ -3381,4 +3381,4 @@ Two examples of this:
 Version          | Date       | Notes
 ---              | ---        | ---
 1.0.0            | 2019-01-01 | Fork and First release of the OpenRPC Specification
-3.0.2 (upstream) | 2018-10-08 | Patch release of the OpenAPI Specification 3.0.2
+3.0.2 (upstream) | 2018-10-08 | Patch release of the OpenRPC Specification 3.0.2
