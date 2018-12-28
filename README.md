@@ -57,15 +57,12 @@ The OpenRPC Specification does not require rewriting existing APIs. It does not 
 		- [Encoding Object](#encodingObject)
 		- [Responses Object](#responsesObject)
 		- [Response Object](#responseObject)
-		- [Callback Object](#callbackObject)
 		- [Example Object](#exampleObject)
-		- [Link Object](#linkObject)
 		- [Header Object](#headerObject)
 		- [Tag Object](#tagObject)
 		- [Reference Object](#referenceObject)
 		- [Schema Object](#schemaObject)
 		- [Discriminator Object](#discriminatorObject)
-		- [XML Object](#xmlObject)
 		- [Security Scheme Object](#securitySchemeObject)
 		- [OAuth Flows Object](#oauthFlowsObject)
 		- [OAuth Flow Object](#oauthFlowObject)
@@ -1481,98 +1478,86 @@ for specifications with external references.
 
 Computing a link from a request operation where the `$request.path.id` is used to pass a request parameter to the linked operation.
 
-```yaml
-paths:
-  /users/{id}:
-    parameters:
-    - name: id
-      in: path
-      required: true
-      description: the user identifier, as userId
-      schema:
-        type: string
-    get:
-      responses:
-        '200':
-          description: the user being returned
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  uuid: # the unique user id
-                    type: string
-                    format: uuid
-          links:
-            address:
-              # the target link operationId
-              operationId: getUserAddress
-              parameters:
-                # get the `id` field from the request path parameter named `id`
-                userId: $request.path.id
-  # the path item of the linked operation
-  /users/{userid}/address:
-    parameters:
-    - name: userid
-      in: path
-      required: true
-      description: the user identifier, as userId
-      schema:
-        type: string
-    # linked operation
-    get:
-      operationId: getUserAddress
-      responses:
-        '200':
-          description: the user's address
+```json
+{
+  "methods": {
+    "get_user": {
+      "parameters": [
+        {
+          "name": "id",
+          "required": true,
+          "description": "the user identifier, as userId",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "responses": {
+        "success": {
+          "description": "the user being returned",
+          "content": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "uuid": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "links": {
+              "address": {
+                "method": "get_user_address",
+                "parameters": {
+                  "userId": "$request.params.id"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "get_user_address": {
+      "parameters": [
+        {
+          "name": "userid",
+          "required": true,
+          "description": "the user identifier, as userId",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "responses": {
+        "success": {
+          "description": "the user's address"
+        }
+      }
+    }
+  }
+}
 ```
 
 When a runtime expression fails to evaluate, no parameter value is passed to the target operation.
 
 Values from the response body can be used to drive a linked operation.
 
-```yaml
-links:
-  address:
-    operationId: getUserAddressByUUID
-    parameters:
-      # get the `uuid` field from the `uuid` field in the response body
-      userUuid: $response.body#/uuid
+```json
+{
+  "links": {
+    "address": {
+      "method": "get_user_address_by_uuid",
+      "parameters": {
+        "userUuid": "$response.content.uuid"
+      }
+    }
+  }
+}
 ```
 
 Clients follow all links at their discretion.
 Neither permissions, nor the capability to make a successful call to that link, is guaranteed
 solely by the existence of a relationship.
-
-
-##### OperationRef Examples
-
-As references to `operationId` MAY NOT be possible (the `operationId` is an optional
-value), references MAY also be made through a relative `operationRef`:
-
-```yaml
-links:
-  UserRepositories:
-    # returns array of '#/components/schemas/repository'
-    operationRef: '#/paths/~12.0~1repositories~1{username}/get'
-    parameters:
-      username: $response.body#/username
-```
-
-or an absolute `operationRef`:
-
-```yaml
-links:
-  UserRepositories:
-    # returns array of '#/components/schemas/repository'
-    operationRef: 'https://na2.gigantic-server.com/#/paths/~12.0~1repositories~1{username}/get'
-    parameters:
-      username: $response.body#/username
-```
-
-Note that in the use of `operationRef`, the _escaped forward-slash_ is necessary when
-using JSON references.
-
 
 ##### <a name="runtimeExpression"></a>Runtime Expressions
 
