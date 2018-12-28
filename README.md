@@ -625,10 +625,10 @@ components:
 ```
 
 
-#### <a name="pathsObject"></a>Paths Object
+#### <a name="methodsObject"></a>Methods Object
 
-Holds the relative paths to the individual endpoints and their operations.
-The path is appended to the URL from the [`Server Object`](#serverObject) in order to construct the full URL.  The Paths MAY be empty, due to [ACL constraints](#securityFiltering).
+Holds the mapping of method name to method defininition. The method name is used as the `method` field of the JSON RPC body.
+The Methods MAY be empty, due to [ACL constraints](#securityFiltering).
 
 ##### Patterned Fields
 
