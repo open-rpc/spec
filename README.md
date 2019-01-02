@@ -944,222 +944,21 @@ This object MAY be extended with [Specification Extensions](#specificationExtens
 }
 ```
 
-##### Considerations for File Uploads
-
-In contrast with the 2.0 specification, `file` input/output content in OpenRPC is described with the same semantics as any other schema type. Specifically:
-
-```yaml
-# content transferred with base64 encoding
-schema:
-  type: string
-  format: base64
-```
-
-```yaml
-# content transferred in binary (octet-stream):
-schema:
-  type: string
-  format: binary
-```
-
-These examples apply to either input payloads of file uploads or response payloads.
-
-A `requestBody` for submitting a file in a `POST` operation may look like the following example:
-
-```yaml
-requestBody:
-  content:
-    application/octet-stream:
-      # any media type is accepted, functionally equivalent to `*/*`
-      schema:
-        # a binary file of any type
-        type: string
-        format: binary
-```
-
-In addition, specific media types MAY be specified:
-
-```yaml
-# multiple, specific media types may be specified:
-requestBody:
-  content:
-      # a binary file of type png or jpeg
-    'image/jpeg':
-      schema:
-        type: string
-        format: binary
-    'image/png':
-      schema:
-        type: string
-        format: binary
-```
-
-To upload multiple files, a `multipart` media type MUST be used:
-
-```yaml
-requestBody:
-  content:
-    multipart/form-data:
-      schema:
-        properties:
-          # The property name 'file' will be used for all files.
-          file:
-            type: array
-            items:
-              type: string
-              format: binary
-
-```
-
-##### Support for x-www-form-urlencoded Request Bodies
-
-To submit content using form url encoding via [RFC1866](https://tools.ietf.org/html/rfc1866), the following
-definition may be used:
-
-```yaml
-requestBody:
-  content:
-    application/x-www-form-urlencoded:
-      schema:
-        type: object
-        properties:
-          id:
-            type: string
-            format: uuid
-          address:
-            # complex types are stringified to support RFC 1866
-            type: object
-            properties: {}
-```
-
-In this example, the contents in the `requestBody` MUST be stringified per [RFC1866](https://tools.ietf.org/html/rfc1866/) when passed to the server.  In addition, the `address` field complex object will be stringified.
-
-When passing complex objects in the `application/x-www-form-urlencoded` content type, the default serialization strategy of such properties is described in the [`Encoding Object`](#encodingObject)'s [`style`](#encodingStyle) property as `form`.
-
-##### Special Considerations for `multipart` Content
-
-It is common to use `multipart/form-data` as a `Content-Type` when transferring request bodies to operations.  In contrast to 2.0, a `schema` is REQUIRED to define the input parameters to the operation when using `multipart` content.  This supports complex structures as well as supporting mechanisms for multiple file uploads.
-
-When passing in `multipart` types, boundaries MAY be used to separate sections of the content being transferred — thus, the following default `Content-Type`s are defined for `multipart`:
-
-* If the property is a primitive, or an array of primitive values, the default Content-Type is `text/plain`
-* If the property is complex, or an array of complex values, the default Content-Type is `application/json`
-* If the property is a `type: string` with `format: binary` or `format: base64` (aka a file object), the default Content-Type is `application/octet-stream`
-
-
-Examples:
-
-```yaml
-requestBody:
-  content:
-    multipart/form-data:
-      schema:
-        type: object
-        properties:
-          id:
-            type: string
-            format: uuid
-          address:
-            # default Content-Type for objects is `application/json`
-            type: object
-            properties: {}
-          profileImage:
-            # default Content-Type for string/binary is `application/octet-stream`
-            type: string
-            format: binary
-          children:
-            # default Content-Type for arrays is based on the `inner` type (text/plain here)
-            type: array
-            items:
-              type: string
-          addresses:
-            # default Content-Type for arrays is based on the `inner` type (object shown, so `application/json` in this example)
-            type: array
-            items:
-              type: '#/components/schemas/Address'
-```
-
-An `encoding` attribute is introduced to give you control over the serialization of parts of `multipart` request bodies.  This attribute is _only_ applicable to `multipart` and `application/x-www-form-urlencoded` request bodies.
-
-#### <a name="encodingObject"></a>Encoding Object
-
-A single encoding definition applied to a single schema property.
-
-##### Fixed Fields
-Field Name | Type | Description
----|:---:|---
-<a name="encodingContentType"></a>contentType | `string` | The Content-Type for encoding a specific property. Default value depends on the property type: for `string` with `format` being `binary` – `application/octet-stream`; for other primitive types – `text/plain`; for `object` - `application/json`; for `array` – the default is defined based on the inner type. The value can be a specific media type (e.g. `application/json`), a wildcard media type (e.g. `image/*`), or a comma-separated list of the two types.
-<a name="encodingHeaders"></a>headers | Map[`string`, [Header Object](#headerObject) \| [Reference Object](#referenceObject)] | A map allowing additional information to be provided as headers, for example `Content-Disposition`.  `Content-Type` is described separately and SHALL be ignored in this section. This property SHALL be ignored if the request body media type is not a `multipart`.
-<a name="encodingStyle"></a>style | `string` | Describes how a specific property value will be serialized depending on its type.  See [Parameter Object](#parameterObject) for details on the [`style`](#parameterStyle) property. The behavior follows the same values as `query` parameters, including default values. This property SHALL be ignored if the request body media type is not `application/x-www-form-urlencoded`.
-<a name="encodingExplode"></a>explode | `boolean` | When this is true, property values of type `array` or `object` generate separate parameters for each value of the array, or key-value-pair of the map.  For other types of properties this property has no effect. When [`style`](#encodingStyle) is `form`, the default value is `true`. For all other styles, the default value is `false`. This property SHALL be ignored if the request body media type is not `application/x-www-form-urlencoded`.
-<a name="encodingAllowReserved"></a>allowReserved | `boolean` | Determines whether the parameter value SHOULD allow reserved characters, as defined by [RFC3986](https://tools.ietf.org/html/rfc3986#section-2.2) `:/?#[]@!$&'()*+,;=` to be included without percent-encoding. The default value is `false`. This property SHALL be ignored if the request body media type is not `application/x-www-form-urlencoded`.
-
-This object MAY be extended with [Specification Extensions](#specificationExtensions).
-
-##### Encoding Object Example
-
-```yaml
-requestBody:
-  content:
-    multipart/mixed:
-      schema:
-        type: object
-        properties:
-          id:
-            # default is text/plain
-            type: string
-            format: uuid
-          address:
-            # default is application/json
-            type: object
-            properties: {}
-          historyMetadata:
-            # need to declare XML format!
-            description: metadata in XML format
-            type: object
-            properties: {}
-          profileImage:
-            # default is application/octet-stream, need to declare an image type only!
-            type: string
-            format: binary
-      encoding:
-        historyMetadata:
-          # require XML Content-Type in utf-8 encoding
-          contentType: application/xml; charset=utf-8
-        profileImage:
-          # only accept png/jpeg
-          contentType: image/png, image/jpeg
-          headers:
-            X-Rate-Limit-Limit:
-              description: The number of allowed requests in the current period
-              schema:
-                type: integer
-```
-
 #### <a name="responsesObject"></a>Responses Object
 
 A container for the expected responses of an operation.
-The container maps a HTTP response code to the expected response.
+The Container is split into `success` and `errors`. All of the default errors defined in [JSON RPC 2.0](https://www.jsonrpc.org/specification#response_object) will be assumed.
+JSON RPC 2.0 allows the use of application level error codes. These are to be defined in the errors object.
 
-The documentation is not necessarily expected to cover all possible HTTP response codes because they may not be known in advance.
-However, documentation is expected to cover a successful operation response and any known errors.
+The `Success Object` MAY be describe the possible responses that are not covered individually by the specification.
 
-The `default` MAY be used as a default response object for all HTTP codes
-that are not covered individually by the specification.
-
-The `Responses Object` MUST contain at least one response code, and it
-SHOULD be the response for a successful operation call.
+The `Errors Object` MUST contain at least one error code
 
 ##### Fixed Fields
 Field Name | Type | Description
 ---|:---:|---
-<a name="responsesDefault"></a>default | [Response Object](#responseObject) \| [Reference Object](#referenceObject) | The documentation of responses other than the ones declared for specific HTTP response codes. Use this field to cover undeclared responses. A [Reference Object](#referenceObject) can link to a response that the [OpenRPC Object's components/responses](#componentsResponses) section defines.
-
-##### Patterned Fields
-Field Pattern | Type | Description
----|:---:|---
-<a name="responsesCode"></a>[HTTP Status Code](#httpCodes) | [Response Object](#responseObject) \| [Reference Object](#referenceObject) | Any [HTTP status code](#httpCodes) can be used as the property name, but only one property per code, to describe the expected response for that HTTP status code.  A [Reference Object](#referenceObject) can link to a response that is defined in the [OpenRPC Object's components/responses](#componentsResponses) section. This field MUST be enclosed in quotation marks (for example, "200") for compatibility between JSON and YAML. To define a range of response codes, this field MAY contain the uppercase wildcard character `X`. For example, `2XX` represents all response codes between `[200-299]`. Only the following range definitions are allowed: `1XX`, `2XX`, `3XX`, `4XX`, and `5XX`. If a response is defined using an explicit code, the explicit code definition takes precedence over the range definition for that code.
-
+<a name="successObject"></a>success | [Response Object](#responseObject) \| [Reference Object](#referenceObject) | The documentation of responses other than the ones declared for specific RPC responses. Use this field to cover undeclared responses. A [Reference Object](#referenceObject) can link to a response that the [OpenRPC Object's components/responses](#componentsResponses) section defines.
+<a name="errorsObject"></a>errors | [Errors Object](#errorsObject) | The documentation of errors other than the ones declared for specific RPC responses. Use this field to cover undeclared errorrs that are within the application error code range specified by [JSON RPC 2.0](https://www.jsonrpc.org/specification#response_object).
 
 This object MAY be extended with [Specification Extensions](#specificationExtensions).
 
@@ -1169,196 +968,40 @@ A 200 response for a successful operation and a default response for others (imp
 
 ```json
 {
-  "200": {
+  "success": {
     "description": "a pet to be returned",
     "content": {
-      "application/json": {
-        "schema": {
-          "$ref": "#/components/schemas/Pet"
-        }
+      "schema": {
+        "$ref": "#/components/schemas/Pet"
       }
     }
   },
-  "default": {
-    "description": "Unexpected error",
-    "content": {
-      "application/json": {
-        "schema": {
-          "$ref": "#/components/schemas/ErrorModel"
-        }
-      }
+  "errors":
+    "-33000": {
+      "message": "Custom Error",
+      "meaning": "Example of using a custom application-level error code as defined by JSON RPC 2.0"
     }
   }
 }
 ```
 
-#### <a name="responseObject"></a>Response Object
-Describes a single response from an API Operation, including design-time, static
-`links` to operations based on the response.
-
-##### Fixed Fields
-Field Name | Type | Description
----|:---:|---
-<a name="responseDescription"></a>description | `string` | **REQUIRED**. A short description of the response. [CommonMark syntax](http://spec.commonmark.org/) MAY be used for rich text representation.
-<a name="responseHeaders"></a>headers | Map[`string`, [Header Object](#headerObject)  \| [Reference Object](#referenceObject)] |  Maps a header name to its definition. [RFC7230](https://tools.ietf.org/html/rfc7230#page-22) states header names are case insensitive. If a response header is defined with the name `"Content-Type"`, it SHALL be ignored.
-<a name="responseContent"></a>content | Map[`string`, [Media Type Object](#mediaTypeObject)] | A map containing descriptions of potential response payloads. The key is a media type or [media type range](https://tools.ietf.org/html/rfc7231#appendix-D) and the value describes it.  For responses that match multiple keys, only the most specific key is applicable. e.g. text/plain overrides text/*
-<a name="responseLinks"></a>links | Map[`string`, [Link Object](#linkObject) \| [Reference Object](#referenceObject)] | A map of operations links that can be followed from the response. The key of the map is a short name for the link, following the naming constraints of the names for [Component Objects](#componentsObject).
-
-This object MAY be extended with [Specification Extensions](#specificationExtensions).
-
-##### Response Object Examples
-
-Response of an array of a complex type:
-
-```json
-{
-  "description": "A complex object array response",
-  "content": {
-    "application/json": {
-      "schema": {
-        "type": "array",
-        "items": {
-          "$ref": "#/components/schemas/VeryComplexType"
-        }
-      }
-    }
-  }
-}
-```
-
-Response with a string type:
-
-```json
-{
-  "description": "A simple string response",
-  "content": {
-    "text/plain": {
-      "schema": {
-        "type": "string"
-      }
-    }
-  }
-
-}
-```
-
-Plain text response with headers:
-
-```json
-{
-  "description": "A simple string response",
-  "content": {
-    "text/plain": {
-      "schema": {
-        "type": "string"
-      }
-    }
-  },
-  "headers": {
-    "X-Rate-Limit-Limit": {
-      "description": "The number of allowed requests in the current period",
-      "schema": {
-        "type": "integer"
-      }
-    },
-    "X-Rate-Limit-Remaining": {
-      "description": "The number of remaining requests in the current period",
-      "schema": {
-        "type": "integer"
-      }
-    },
-    "X-Rate-Limit-Reset": {
-      "description": "The number of seconds left in the current period",
-      "schema": {
-        "type": "integer"
-      }
-    }
-  }
-}
-```
-
-Response with no return value:
-
-```json
-{
-  "description": "object created"
-}
-```
-
-#### <a name="callbackObject"></a>Callback Object
-
-A map of possible out-of band callbacks related to the parent operation.
-Each value in the map is a [Path Item Object](#methodItemObject) that describes a set of requests that may be initiated by the API provider and the expected responses.
-The key value used to identify the callback object is an expression, evaluated at runtime, that identifies a URL to use for the callback operation.
+#### <a name="errorsObject"></a>Errors Object
+A mapping of Application-level JSON RPC error codes to the expected error definition.
+The status code should be used as the property name
 
 ##### Patterned Fields
 Field Pattern | Type | Description
 ---|:---:|---
-<a name="callbackExpression"></a>{expression} | [Path Item Object](#methodItemObject) | A Path Item Object used to define a callback request and expected responses.  A [complete example](../examples/v3.0/callback-example.yaml) is available.
+<a name="errorCode"></a>[Application Defined Error Code](https://www.jsonrpc.org/specification#response_object) | [Error Object](#errorObject) | A Number that indicates the error type that occurred. This MUST be an integer. The error codes from and including -32768 to -32000 are reserved for pre-defined errors. These pre-defined errors SHOULD be assumed to be returned from any JSON RPC api.
 
-This object MAY be extended with [Specification Extensions](#specificationExtensions).
+#### <a name"errorObject"></a>ErrorObject
+Defines an application level error.
 
-##### Key Expression
-
-The key that identifies the [Path Item Object](#methodItemObject) is a [runtime expression](#runtimeExpression) that can be evaluated in the context of a runtime HTTP request/response to identify the URL to be used for the callback request.
-A simple example might be `$request.body#/url`.
-However, using a [runtime expression](#runtimeExpression) the complete HTTP message can be accessed.
-This includes accessing any part of a body that a JSON Pointer [RFC6901](https://tools.ietf.org/html/rfc6901) can reference.
-
-For example, given the following HTTP request:
-
-```http
-POST /subscribe/myevent?queryUrl=http://clientdomain.com/stillrunning HTTP/1.1
-Host: example.org
-Content-Type: application/json
-Content-Length: 187
-
-{
-  "failedUrl" : "http://clientdomain.com/failed",
-  "successUrls" : [
-    "http://clientdomain.com/fast",
-    "http://clientdomain.com/medium",
-    "http://clientdomain.com/slow"
-  ]
-}
-
-201 Created
-Location: http://example.org/subscription/1
-```
-
-The following examples show how the various expressions evaluate, assuming the callback operation has a path parameter named `eventType` and a query parameter named `queryUrl`.
-
-Expression | Value
----|:---
-$url | http://example.org/subscribe/myevent?queryUrl=http://clientdomain.com/stillrunning
-$method | POST
-$request.path.eventType | myevent
-$request.query.queryUrl | http://clientdomain.com/stillrunning
-$request.header.content-Type | application/json
-$request.body#/failedUrl | http://clientdomain.com/failed
-$request.body#/successUrls/2 | http://clientdomain.com/medium
-$response.header.Location | http://example.org/subscription/1
-
-
-##### Callback Object Example
-
-The following example shows a callback to the URL specified by the `id` and `email` property in the request body.
-
-```yaml
-myWebhook:
-  'http://notificationServer.com?transactionId={$request.body#/id}&email={$request.body#/email}':
-    post:
-      requestBody:
-        description: Callback payload
-        content:
-          'application/json':
-            schema:
-              $ref: '#/components/schemas/SomePayload'
-      responses:
-        '200':
-          description: webhook successfully processed and no retries will be performed
-```
-
+##### Fixed Fields
+Field Name | Type | Description
+---|:---:|---
+<a name="errorMessage"></a>Message | `string` | A String providing a short description of the error. The message SHOULD be limited to a concise single sentence.
+<a name="errorMeaning"></a>Meaning | `string` | A Primitive or Structured value that contains additional information about the error. This may be omitted. The value of this member is defined by the Server (e.g. detailed error information, nested errors etc.).
 
 #### <a name="exampleObject"></a>Example Object
 
@@ -1368,7 +1011,7 @@ Field Name | Type | Description
 <a name="exampleSummary"></a>summary | `string` | Short description for the example.
 <a name="exampleDescription"></a>description | `string` | Long description for the example. [CommonMark syntax](http://spec.commonmark.org/) MAY be used for rich text representation.
 <a name="exampleValue"></a>value | Any | Embedded literal example. The `value` field and `externalValue` field are mutually exclusive. To represent examples of media types that cannot naturally represented in JSON or YAML, use a string value to contain the example, escaping where necessary.
-<a name="exampleExternalValue"></a>externalValue | `string` | A URL that points to the literal example. This provides the capability to reference examples that cannot easily be included in JSON or YAML documents.  The `value` field and `externalValue` field are mutually exclusive.
+<a name="exampleExternalValue"></a>externalValue | `string` | A URL that points to the literal example. This provides the capability to reference examples that cannot easily be included in JSON documents.  The `value` field and `externalValue` field are mutually exclusive.
 
 This object MAY be extended with [Specification Extensions](#specificationExtensions).
 
@@ -1380,49 +1023,54 @@ validate compatibility automatically, and reject the example value(s) if incompa
 
 In a model:
 
-```yaml
-schemas:
-  properties:
-    name:
-      type: string
-      examples:
-        name:
-          $ref: http://example.org/petapi-examples/openapi.json#/components/examples/name-example
+```json
+{
+  "schemas": {
+    "properties": {
+      "name": {
+        "type": "string",
+        "examples": {
+          "name": {
+            "$ref": "http://example.org/petapi-examples/openapi.json#/components/examples/name-example"
+          }
+        }
+      }
+    }
+  }
+}
 ```
 
-In a request body:
+In a request:
 
-```yaml
-requestBody:
-  content:
-    'application/json':
-      schema:
-        $ref: '#/components/schemas/Address'
-      examples:
-        foo:
-          summary: A foo example
-          value: {"foo": "bar"}
-        bar:
-          summary: A bar example
-          value: {"bar": "baz"}
-    'application/xml':
-      examples:
-        xmlExample:
-          summary: This is an example in XML
-          externalValue: 'http://example.org/examples/address-example.xml'
-    'text/plain':
-      examples:
-        textExample:
-          summary: This is a text example
-          externalValue: 'http://foo.bar/examples/address-example.txt'
+```json
+{
+  "request": {
+    "content": {
+      "schema": {
+        "$ref": "#/components/schemas/Address"
+      },
+      "examples": {
+        "foo": {
+          "summary": "A foo example",
+          "value": {
+            "foo": "bar"
+          }
+        },
+        "bar": {
+          "summary": "A bar example",
+          "externalValue": "http://foo.bar/examples/address-example.txt"
+        }
+      }
+    }
+  }
+}
 ```
 
 In a parameter:
 
-```yaml
+```json
 parameters:
   - name: 'zipCode'
-    in: 'query'
     schema:
       type: 'string'
       format: 'zip-code'
@@ -1433,19 +1081,25 @@ parameters:
 
 In a response:
 
-```yaml
-responses:
-  '200':
-    description: your car appointment has been booked
-    content:
-      application/json:
-        schema:
-          $ref: '#/components/schemas/SuccessResponse'
-        examples:
-          confirmation-success:
-            $ref: '#/components/examples/confirmation-success'
+```json
+{
+  "responses": {
+    "success": {
+      "description": "your car appointment has been booked",
+      "content": {
+        "schema": {
+          "$ref": "#/components/schemas/SuccessResponse"
+        },
+        "examples": {
+          "confirmation-success": {
+            "$ref": "#/components/examples/confirmation-success"
+          }
+        }
+      }
+    }
+  }
+}
 ```
-
 
 #### <a name="linkObject"></a>Link Object
 
