@@ -30,7 +30,7 @@ The OpenRPC Specification does not require rewriting existing APIs. It does not 
 - [Definitions](#definitions)
 	- [OpenRPC Document](#openrpcDocument)
 	- [Path Templating](#pathTemplating)
-	- [Media Types](#mediaTypes)
+	- [Media Types](#contentTypes)
 	- [HTTP Status Codes](#httpCodes)
 - [Specification](#specification)
 	- [Versions](#versions)
@@ -47,13 +47,11 @@ The OpenRPC Specification does not require rewriting existing APIs. It does not 
 		- [Server Object](#serverObject)
 		- [Server Variable Object](#serverVariableObject)
 		- [Components Object](#componentsObject)
-		- [Paths Object](#pathsObject)
-		- [Path Item Object](#methodItemObject)
-		- [Operation Object](#operationObject)
+		- [Methods Object](#methodsObject)
+		- [Method Item Object](#methodItemObject)
 		- [External Documentation Object](#externalDocumentationObject)
 		- [Parameter Object](#parameterObject)
-		- [Request Body Object](#requestBodyObject)
-		- [Media Type Object](#mediaTypeObject)
+		- [Request Object](#requestObject)
 		- [Encoding Object](#encodingObject)
 		- [Responses Object](#responsesObject)
 		- [Response Object](#responseObject)
@@ -367,7 +365,7 @@ Field Name | Type | Description
 <a name="componentsResponses"></a> responses | Map[`string`, [Response Object](#responseObject) \| [Reference Object](#referenceObject)] | An object to hold reusable [Response Objects](#responseObject).
 <a name="componentsParameters"></a> parameters | Map[`string`, [Parameter Object](#parameterObject) \| [Reference Object](#referenceObject)] | An object to hold reusable [Parameter Objects](#parameterObject).
 <a name="componentsExamples"></a> examples | Map[`string`, [Example Object](#exampleObject) \| [Reference Object](#referenceObject)] | An object to hold reusable [Example Objects](#exampleObject).
-<a name="componentsRequestBodies"></a> requestBodies | Map[`string`, [Request Body Object](#requestBodyObject) \| [Reference Object](#referenceObject)] | An object to hold reusable [Request Body Objects](#requestBodyObject).
+<a name="componentsRequestBodies"></a> requestBodies | Map[`string`, [Request Object](#requestObject) \| [Reference Object](#referenceObject)] | An object to hold reusable [Request Objects](#requestObject).
 <a name="componentsHeaders"></a> headers | Map[`string`, [Header Object](#headerObject) \| [Reference Object](#referenceObject)] | An object to hold reusable [Header Objects](#headerObject).
 <a name="componentsSecuritySchemes"></a> securitySchemes| Map[`string`, [Security Scheme Object](#securitySchemeObject) \| [Reference Object](#referenceObject)] | An object to hold reusable [Security Scheme Objects](#securitySchemeObject).
 <a name="componentsLinks"></a> links | Map[`string`, [Link Object](#linkObject) \| [Reference Object](#referenceObject)] | An object to hold reusable [Link Objects](#linkObject).
@@ -673,7 +671,7 @@ When `example` or `examples` are provided in conjunction with the `schema` objec
 
 Field Name | Type | Description
 ---|:---:|---
-<a name="parameterContent"></a>content | Map[`string`, [Media Type Object](#mediaTypeObject)] | A map containing the representations for the parameter. The key is the media type and the value describes it.  The map MUST only contain one entry.
+<a name="parameterContent"></a>content | Map[`string`, [Content Type Object](#contentTypeObject)] | A map containing the representations for the parameter. The key is the media type and the value describes it.  The map MUST only contain one entry.
 
 ##### Style Values
 
@@ -812,7 +810,7 @@ A complex parameter using `content` to define serialization:
 }
 ```
 
-#### <a name="requestBodyObject"></a>Request Body Object
+#### <a name="requestObject"></a>Request Object
 
 Describes a single request body.
 
@@ -820,7 +818,7 @@ Describes a single request body.
 Field Name | Type | Description
 ---|:---:|---
 <a name="requestBodyDescription"></a>description | `string` | A brief description of the request body. This could contain examples of use.  [CommonMark syntax](http://spec.commonmark.org/) MAY be used for rich text representation.
-<a name="requestBodyContent"></a>content | Map[`string`, [Media Type Object](#mediaTypeObject)] | **REQUIRED**. The content of the request body. The key is a media type or [media type range](https://tools.ietf.org/html/rfc7231#appendix-D) and the value describes it.  For requests that match multiple keys, only the most specific key is applicable. e.g. text/plain overrides text/*
+<a name="requestBodyContent"></a>content | Map[`string`, [Content Type Object](#contentTypeObject)] | **REQUIRED**. The content of the request body. The key is a media type or [media type range](https://tools.ietf.org/html/rfc7231#appendix-D) and the value describes it.  For requests that match multiple keys, only the most specific key is applicable. e.g. text/plain overrides text/*
 <a name="requestBodyRequired"></a>required | `boolean` | Determines if the request body is required in the request. Defaults to `false`.
 
 
@@ -893,16 +891,15 @@ A body parameter that is an array of string values:
 }
 ```
 
-#### <a name="mediaTypeObject"></a>Media Type Object
-Each Media Type Object provides schema and examples for the media type identified by its key.
+#### <a name="contentTypeObject"></a>Content Type Object
+Each Content Type Object provides schema and examples for the parent entity
 
 ##### Fixed Fields
 Field Name | Type | Description
 ---|:---:|---
-<a name="mediaTypeSchema"></a>schema | [Schema Object](#schemaObject) \| [Reference Object](#referenceObject) | The schema defining the content of the request, response, or parameter.
-<a name="mediaTypeExample"></a>example | Any | Example of the media type.  The example object SHOULD be in the correct format as specified by the media type.  The `example` field is mutually exclusive of the `examples` field.  Furthermore, if referencing a `schema` which contains an example, the `example` value SHALL _override_ the example provided by the schema.
-<a name="mediaTypeExamples"></a>examples | Map[ `string`, [Example Object](#exampleObject) \| [Reference Object](#referenceObject)] | Examples of the media type.  Each example object SHOULD  match the media type and specified schema if present.  The `examples` field is mutually exclusive of the `example` field.  Furthermore, if referencing a `schema` which contains an example, the `examples` value SHALL _override_ the example provided by the schema.
-<a name="mediaTypeEncoding"></a>encoding | Map[`string`, [Encoding Object](#encodingObject)] | A map between a property name and its encoding information. The key, being the property name, MUST exist in the schema as a property. The encoding object SHALL only apply to `requestBody` objects when the media type is `multipart` or `application/x-www-form-urlencoded`.
+<a name="contentTypeSchema"></a>schema | [Schema Object](#schemaObject) \| [Reference Object](#referenceObject) | The schema defining the content of the request, response, or parameter.
+<a name="contentTypeExample"></a>example | Any | Example of the media type.  The example object SHOULD be in the correct format as specified by the media type.  The `example` field is mutually exclusive of the `examples` field.  Furthermore, if referencing a `schema` which contains an example, the `example` value SHALL _override_ the example provided by the schema.
+<a name="contentTypeExamples"></a>examples | Map[ `string`, [Example Object](#exampleObject) \| [Reference Object](#referenceObject)] | Examples of the media type.  Each example object SHOULD  match the media type and specified schema if present.  The `examples` field is mutually exclusive of the `example` field.  Furthermore, if referencing a `schema` which contains an example, the `examples` value SHALL _override_ the example provided by the schema.
 
 This object MAY be extended with [Specification Extensions](#specificationExtensions).
 
@@ -910,34 +907,31 @@ This object MAY be extended with [Specification Extensions](#specificationExtens
 
 ```json
 {
-  "application/json": {
-    "schema": {
-         "$ref": "#/components/schemas/Pet"
+  "schema": {
+    "$ref": "#/components/schemas/Pet"
+  },
+  "examples": {
+    "cat" : {
+      "summary": "An example of a cat",
+      "value": {
+        "name": "Fluffy",
+        "petType": "Cat",
+        "color": "White",
+        "gender": "male",
+        "breed": "Persian"
+      }
     },
-    "examples": {
-      "cat" : {
-        "summary": "An example of a cat",
-        "value":
-          {
-            "name": "Fluffy",
-            "petType": "Cat",
-            "color": "White",
-            "gender": "male",
-            "breed": "Persian"
-          }
+    "dog": {
+      "summary": "An example of a dog with a cat's name",
+      "value" :  {
+        "name": "Puma",
+        "petType": "Dog",
+        "color": "Black",
+        "gender": "Female",
+        "breed": "Mixed"
       },
-      "dog": {
-        "summary": "An example of a dog with a cat's name",
-        "value" :  {
-          "name": "Puma",
-          "petType": "Dog",
-          "color": "Black",
-          "gender": "Female",
-          "breed": "Mixed"
-        },
       "frog": {
-          "$ref": "#/components/examples/frog-example"
-        }
+        "$ref": "#/components/examples/frog-example"
       }
     }
   }
@@ -952,7 +946,7 @@ JSON RPC 2.0 allows the use of application level error codes. These are to be de
 
 The `Success Object` MAY be describe the possible responses that are not covered individually by the specification.
 
-The `Errors Object` MUST contain at least one error code
+The `Errors Object` MAY contain zero or more error codes.
 
 ##### Fixed Fields
 Field Name | Type | Description
@@ -1104,33 +1098,29 @@ In a response:
 #### <a name="linkObject"></a>Link Object
 
 The `Link object` represents a possible design-time link for a response.
-The presence of a link does not guarantee the caller's ability to successfully invoke it, rather it provides a known relationship and traversal mechanism between responses and other operations.
+The presence of a link does not guarantee the caller's ability to successfully invoke it, rather it provides a known relationship and traversal mechanism between responses and other methods.
 
 Unlike _dynamic_ links (i.e. links provided **in** the response payload), the OPENRPC linking mechanism does not require link information in the runtime response.
 
-For computing links, and providing instructions to execute them, a [runtime expression](#runtimeExpression) is used for accessing values in an operation and using them as parameters while invoking the linked operation.
+For computing links, and providing instructions to execute them, a [runtime expression](#runtimeExpression) is used for accessing values in an method and using them as parameters while invoking the linked method.
 
 ##### Fixed Fields
 
 Field Name  |  Type  | Description
 ---|:---:|---
-<a name="linkOperationRef"></a>operationRef | `string` | A relative or absolute reference to an OPENRPC operation. This field is mutually exclusive of the `operationId` field, and MUST point to an [Operation Object](#operationObject). Relative `operationRef` values MAY be used to locate an existing [Operation Object](#operationObject) in the OpenRPC definition.
-<a name="linkOperationId"></a>operationId  | `string` | The name of an _existing_, resolvable OPENRPC operation, as defined with a unique `operationId`.  This field is mutually exclusive of the `operationRef` field.
-<a name="linkParameters"></a>parameters   | Map[`string`, Any \| [{expression}](#runtimeExpression)] | A map representing parameters to pass to an operation as specified with `operationId` or identified via `operationRef`. The key is the parameter name to be used, whereas the value can be a constant or an expression to be evaluated and passed to the linked operation.  The parameter name can be qualified using the [parameter location](#parameterIn) `[{in}.]{name}` for operations that use the same parameter name in different locations (e.g. path.id).
-<a name="linkRequestBody"></a>requestBody | Any \| [{expression}](#runtimeExpression) | A literal value or [{expression}](#runtimeExpression) to use as a request body when calling the target operation.
+<a name="linkMethod"></a>method | `string` | The name of an _existing_, resolvable OPENRPC method, as defined with a unique `method`. This field MUST resolve to a unique [Method Object](#methodObject). As opposed to Open Api, Relative `method` values  ARE NOT permitted.
+<a name="linkParameters"></a>parameters   | Map[`string`, Any \| [{expression}](#runtimeExpression)] | A map representing parameters to pass to a method as specified with `method`. The key is the parameter name to be used, whereas the value can be a constant or an expression to be evaluated and passed to the linked method.
+<a name="linkRequest"></a>request | Any \| [{expression}](#runtimeExpression) | A literal value or [{expression}](#runtimeExpression) to use as a request body when calling the target method.
 <a name="linkDescription"></a>description  | `string` | A description of the link. [CommonMark syntax](http://spec.commonmark.org/) MAY be used for rich text representation.
 <a name="linkServer"></a>server       | [Server Object](#serverObject) | A server object to be used by the target operation.
 
 This object MAY be extended with [Specification Extensions](#specificationExtensions).
 
-A linked operation MUST be identified using either an `operationRef` or `operationId`.
-In the case of an `operationId`, it MUST be unique and resolved in the scope of the OPENRPC document.
-Because of the potential for name clashes, the `operationRef` syntax is preferred
-for specifications with external references.
+A linked method must be identified directly, and must exist in the list of methods defined by the [Methods Object](#methodsObject).
 
 ##### Examples
 
-Computing a link from a request operation where the `$request.path.id` is used to pass a request parameter to the linked operation.
+Computing a link from a request operation where the `$request.id` is used to pass a request parameter to the linked operation.
 
 ```json
 {
@@ -1163,7 +1153,7 @@ Computing a link from a request operation where the `$request.path.id` is used t
               "address": {
                 "method": "get_user_address",
                 "parameters": {
-                  "userId": "$request.params.id"
+                  "userId": "$request.id"
                 }
               }
             }
@@ -1194,15 +1184,15 @@ Computing a link from a request operation where the `$request.path.id` is used t
 
 When a runtime expression fails to evaluate, no parameter value is passed to the target operation.
 
-Values from the response body can be used to drive a linked operation.
+Values from the response can be used to drive a linked operation.
 
 ```json
 {
   "links": {
     "address": {
-      "method": "get_user_address_by_uuid",
+      "method": "get_user_address",
       "parameters": {
-        "userUuid": "$response.content.uuid"
+        "userid": "$response.uuid"
       }
     }
   }
@@ -1218,15 +1208,11 @@ solely by the existence of a relationship.
 Runtime expressions allow defining values based on information that will only be available within the HTTP message in an actual API call.
 This mechanism is used by [Link Objects](#linkObject) and [Callback Objects](#callbackObject).
 
-The runtime expression is defined by the following [ABNF](https://tools.ietf.org/html/rfc5234) syntax
+The runtime expression is based on the runtime expression defined by the following [ABNF](https://tools.ietf.org/html/rfc5234) syntax.
+Since JSON RPC does not make extensive use of status codes, query params or paths, many of the fields do not apply and have been omited.
 
 ```
-      expression = ( "$url" | "$method" | "$statusCode" | "$request." source | "$response." source )
-      source = ( header-reference | query-reference | path-reference | body-reference )
-      header-reference = "header." token
-      query-reference = "query." name
-      path-reference = "path." name
-      body-reference = "body" ["#" fragment]
+      expression = ( "$request." source | "$response." source )
       fragment = a JSON Pointer [RFC 6901](https://tools.ietf.org/html/rfc6901)
       name = *( char )
       char = as per RFC [7159](https://tools.ietf.org/html/rfc7159#section-7)
@@ -1241,42 +1227,17 @@ The table below provides examples of runtime expressions and examples of their u
 
 Source Location | example expression  | notes
 ---|:---|:---|
-HTTP Method            | `$method`         | The allowable values for the `$method` will be those for the HTTP operation.
-Requested media type | `$request.header.accept`        |
-Request parameter      | `$request.path.id`        | Request parameters MUST be declared in the `parameters` section of the parent operation or they cannot be evaluated. This includes request headers.
-Request body property   | `$request.body#/user/uuid`   | In operations which accept payloads, references may be made to portions of the `requestBody` or the entire body.
-Request URL            | `$url`            |
-Response value         | `$response.body#/status`       |  In operations which return payloads, references may be made to portions of the response body or the entire body.
-Response header        | `$response.header.Server` |  Single header values only are available
+Request parameter      | `$request.id`        | Request parameters MUST be declared in the `parameters` section of the parent operation or they cannot be evaluated.
+Deep Request parameter | `$request.user.uuid`   | In methods which accept nested object payloads, `.` may be used to denote traversal of an object.
+Response value         | `$response.uuid`       |  In methods which return payloads, references may be made to portions of the response body or the entire body.
 
 Runtime expressions preserve the type of the referenced value.
 Expressions can be embedded into string values by surrounding the expression with `{}` curly braces.
 
-#### <a name="headerObject"></a>Header Object
-
-The Header Object follows the structure of the [Parameter Object](#parameterObject) with the following changes:
-
-1. `name` MUST NOT be specified, it is given in the corresponding `headers` map.
-1. `in` MUST NOT be specified, it is implicitly in `header`.
-1. All traits that are affected by the location MUST be applicable to a location of `header` (for example, [`style`](#parameterStyle)).
-
-##### Header Object Example
-
-A simple header of type `integer`:
-
-```json
-{
-  "description": "The number of allowed requests in the current period",
-  "schema": {
-    "type": "integer"
-  }
-}
-```
-
 #### <a name="tagObject"></a>Tag Object
 
-Adds metadata to a single tag that is used by the [Operation Object](#operationObject).
-It is not mandatory to have a Tag Object per tag defined in the Operation Object instances.
+Adds metadata to a single tag that is used by the [Method Object](#methodObject).
+It is not mandatory to have a Tag Object per tag defined in the Method Object instances.
 
 ##### Fixed Fields
 Field Name | Type | Description
@@ -1386,34 +1347,13 @@ Other than the JSON Schema subset fields, the following fields MAY be used for f
 Field Name | Type | Description
 ---|:---:|---
 <a name="schemaNullable"></a>nullable | `boolean` | Allows sending a `null` value for the defined schema. Default value is `false`.
-<a name="schemaDiscriminator"></a>discriminator | [Discriminator Object](#discriminatorObject) | Adds support for polymorphism. The discriminator is an object name that is used to differentiate between other schemas which may satisfy the payload description. See [Composition and Inheritance](#schemaComposition) for more details.
 <a name="schemaReadOnly"></a>readOnly | `boolean` | Relevant only for Schema `"properties"` definitions. Declares the property as "read only". This means that it MAY be sent as part of a response but SHOULD NOT be sent as part of the request. If the property is marked as `readOnly` being `true` and is in the `required` list, the `required` will take effect on the response only. A property MUST NOT be marked as both `readOnly` and `writeOnly` being `true`. Default value is `false`.
 <a name="schemaWriteOnly"></a>writeOnly | `boolean` | Relevant only for Schema `"properties"` definitions. Declares the property as "write only". Therefore, it MAY be sent as part of a request but SHOULD NOT be sent as part of the response. If the property is marked as `writeOnly` being `true` and is in the `required` list, the `required` will take effect on the request only. A property MUST NOT be marked as both `readOnly` and `writeOnly` being `true`. Default value is `false`.
-<a name="schemaXml"></a>xml | [XML Object](#xmlObject) | This MAY be used only on properties schemas. It has no effect on root schemas. Adds additional metadata to describe the XML representation of this property.
 <a name="schemaExternalDocs"></a>externalDocs | [External Documentation Object](#externalDocumentationObject) | Additional external documentation for this schema.
 <a name="schemaExample"></a>example | Any | A free-form property to include an example of an instance for this schema. To represent examples that cannot be naturally represented in JSON or YAML, a string value can be used to contain the example with escaping where necessary.
 <a name="schemaDeprecated"></a> deprecated | `boolean` | Specifies that a schema is deprecated and SHOULD be transitioned out of usage. Default value is `false`.
 
 This object MAY be extended with [Specification Extensions](#specificationExtensions).
-
-###### <a name="schemaComposition"></a>Composition and Inheritance (Polymorphism)
-
-The OpenRPC Specification allows combining and extending model definitions using the `allOf` property of JSON Schema, in effect offering model composition.
-`allOf` takes an array of object definitions that are validated *independently* but together compose a single object.
-
-While composition offers model extensibility, it does not imply a hierarchy between the models.
-To support polymorphism, the OpenRPC Specification adds the `discriminator` field.
-When used, the `discriminator` will be the name of the property that decides which schema definition validates the structure of the model.
-As such, the `discriminator` field MUST be a required field.
-There are two ways to define the value of a discriminator for an inheriting instance.
-- Use the schema name.
-- Override the schema name by overriding the property with a new value. If a new value exists, this takes precedence over the schema name.
-As such, inline schema definitions, which do not have a given id, *cannot* be used in polymorphism.
-
-###### XML Modeling
-
-The [xml](#schemaXml) property allows extra definitions when translating the JSON definition to XML.
-The [XML Object](#xmlObject) contains additional information about the available options.
 
 ##### Schema Object Examples
 
@@ -1544,217 +1484,6 @@ For a string to model mapping:
 }
 ```
 
-###### Models with Polymorphism Support
-
-```json
-{
-  "components": {
-    "schemas": {
-      "Pet": {
-        "type": "object",
-        "discriminator": {
-          "propertyName": "petType"
-        },
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "petType": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "petType"
-        ]
-      },
-      "Cat": {
-        "description": "A representation of a cat. Note that `Cat` will be used as the discriminator value.",
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/Pet"
-          },
-          {
-            "type": "object",
-            "properties": {
-              "huntingSkill": {
-                "type": "string",
-                "description": "The measured skill for hunting",
-                "default": "lazy",
-                "enum": [
-                  "clueless",
-                  "lazy",
-                  "adventurous",
-                  "aggressive"
-                ]
-              }
-            },
-            "required": [
-              "huntingSkill"
-            ]
-          }
-        ]
-      },
-      "Dog": {
-        "description": "A representation of a dog. Note that `Dog` will be used as the discriminator value.",
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/Pet"
-          },
-          {
-            "type": "object",
-            "properties": {
-              "packSize": {
-                "type": "integer",
-                "format": "int32",
-                "description": "the size of the pack the dog is from",
-                "default": 0,
-                "minimum": 0
-              }
-            },
-            "required": [
-              "packSize"
-            ]
-          }
-        ]
-      }
-    }
-  }
-}
-```
-
-#### <a name="discriminatorObject"></a>Discriminator Object
-
-When request bodies or response payloads may be one of a number of different schemas, a `discriminator` object can be used to aid in serialization, deserialization, and validation.  The discriminator is a specific object in a schema which is used to inform the consumer of the specification of an alternative schema based on the value associated with it.
-
-When using the discriminator, _inline_ schemas will not be considered.
-
-##### Fixed Fields
-Field Name | Type | Description
----|:---:|---
-<a name="propertyName"></a>propertyName | `string` | **REQUIRED**. The name of the property in the payload that will hold the discriminator value.
-<a name="discriminatorMapping"></a> mapping | Map[`string`, `string`] | An object to hold mappings between payload values and schema names or references.
-
-The discriminator object is legal only when using one of the composite keywords `oneOf`, `anyOf`, `allOf`.
-
-In OPENRPC 3.0, a response payload MAY be described to be exactly one of any number of types:
-
-```yaml
-MyResponseType:
-  oneOf:
-  - $ref: '#/components/schemas/Cat'
-  - $ref: '#/components/schemas/Dog'
-  - $ref: '#/components/schemas/Lizard'
-```
-
-which means the payload _MUST_, by validation, match exactly one of the schemas described by `Cat`, `Dog`, or `Lizard`.  In this case, a discriminator MAY act as a "hint" to shortcut validation and selection of the matching schema which may be a costly operation, depending on the complexity of the schema. We can then describe exactly which field tells us which schema to use:
-
-
-```yaml
-MyResponseType:
-  oneOf:
-  - $ref: '#/components/schemas/Cat'
-  - $ref: '#/components/schemas/Dog'
-  - $ref: '#/components/schemas/Lizard'
-  discriminator:
-    propertyName: petType
-```
-
-The expectation now is that a property with name `petType` _MUST_ be present in the response payload, and the value will correspond to the name of a schema defined in the OPENRPC document.  Thus the response payload:
-
-```json
-{
-  "id": 12345,
-  "petType": "Cat"
-}
-```
-
-Will indicate that the `Cat` schema be used in conjunction with this payload.
-
-In scenarios where the value of the discriminator field does not match the schema name or implicit mapping is not possible, an optional `mapping` definition MAY be used:
-
-```yaml
-MyResponseType:
-  oneOf:
-  - $ref: '#/components/schemas/Cat'
-  - $ref: '#/components/schemas/Dog'
-  - $ref: '#/components/schemas/Lizard'
-  - $ref: 'https://gigantic-server.com/schemas/Monster/schema.json'
-  discriminator:
-    propertyName: petType
-    mapping:
-      dog: '#/components/schemas/Dog'
-      monster: 'https://gigantic-server.com/schemas/Monster/schema.json'
-```
-
-Here the discriminator _value_ of `dog` will map to the schema `#/components/schemas/Dog`, rather than the default (implicit) value of `Dog`.  If the discriminator _value_ does not match an implicit or explicit mapping, no schema can be determined and validation SHOULD fail. Mapping keys MUST be string values, but tooling MAY convert response values to strings for comparison.
-
-When used in conjunction with the `anyOf` construct, the use of the discriminator can avoid ambiguity where multiple schemas may satisfy a single payload.
-
-In both the `oneOf` and `anyOf` use cases, all possible schemas MUST be listed explicitly.  To avoid redundancy, the discriminator MAY be added to a parent schema definition, and all schemas comprising the parent schema in an `allOf` construct may be used as an alternate schema.
-
-For example:
-
-```yaml
-components:
-  schemas:
-    Pet:
-      type: object
-      required:
-      - petType
-      properties:
-        petType:
-          type: string
-      discriminator:
-        propertyName: petType
-        mapping:
-          dog: Dog
-    Cat:
-      allOf:
-      - $ref: '#/components/schemas/Pet'
-      - type: object
-        # all other properties specific to a `Cat`
-        properties:
-          name:
-            type: string
-    Dog:
-      allOf:
-      - $ref: '#/components/schemas/Pet'
-      - type: object
-        # all other properties specific to a `Dog`
-        properties:
-          bark:
-            type: string
-    Lizard:
-      allOf:
-      - $ref: '#/components/schemas/Pet'
-      - type: object
-        # all other properties specific to a `Lizard`
-        properties:
-          lovesRocks:
-            type: boolean
-```
-
-a payload like this:
-
-```json
-{
-  "petType": "Cat",
-  "name": "misty"
-}
-```
-
-will indicate that the `Cat` schema be used.  Likewise this schema:
-
-```json
-{
-  "petType": "dog",
-  "bark": "soft"
-}
-```
-
-will map to `Dog` because of the definition in the `mappings` element.
-
 #### <a name="securitySchemeObject"></a>Security Scheme Object
 
 Defines a security scheme that can be used by the operations.
@@ -1877,7 +1606,7 @@ This object MAY be extended with [Specification Extensions](#specificationExtens
 
 #### <a name="securityRequirementObject"></a>Security Requirement Object
 
-Lists the required security schemes to execute this operation.
+Lists the required security schemes to execute this method.
 The name used for each property MUST correspond to a security scheme declared in the [Security Schemes](#componentsSecuritySchemes) under the [Components Object](#componentsObject).
 
 Security Requirement Objects that contain multiple schemes require that all schemes MUST be satisfied for a request to be authorized.
@@ -1933,8 +1662,7 @@ While not part of the specification itself, certain libraries MAY choose to allo
 
 Two examples of this:
 
-1. The [Paths Object](#pathsObject) MAY be empty. It may be counterintuitive, but this may tell the viewer that they got to the right place, but can't access any documentation. They'd still have access to the [Info Object](#infoObject) which may contain additional information regarding authentication.
-2. The [Path Item Object](#methodItemObject) MAY be empty. In this case, the viewer will be aware that the path exists, but will not be able to see any of its operations or parameters. This is different than hiding the path itself from the [Paths Object](#pathsObject), so the user will not be aware of its existence. This allows the documentation provider to finely control what the viewer can see.
+1. The [Methods Object](#methodsObject) MAY be empty. It may be counterintuitive, but this may tell the viewer that they got to the right place, but can't access any documentation. They'd still have access to the [Info Object](#infoObject) which may contain additional information regarding authentication.
 
 ## <a name="revisionHistory"></a>Appendix A: Revision History
 
