@@ -540,7 +540,6 @@ This object MAY be extended with [Specification Extensions](#specificationExtens
   "parameters": [
     {
       "name": "petId",
-      "in": "path",
       "description": "ID of pet that needs to be updated",
       "required": true,
       "schema": {
@@ -574,14 +573,6 @@ This object MAY be extended with [Specification Extensions](#specificationExtens
       "content": {
         "schema": {
           "$ref": "#/components/schemas/Pet"
-        }
-      }
-    },
-    "failure": {
-      "description": "Reason the Pet could not be updated",
-      "content": {
-        "schema" : {
-          "type": "string",
         }
       }
     }
@@ -636,28 +627,23 @@ There are four possible parameter locations specified by the `in` field:
 ##### Fixed Fields
 Field Name | Type | Description
 ---|:---:|---
-<a name="parameterName"></a>name | `string` | **REQUIRED**. The name of the parameter. Parameter names are *case sensitive*. <ul><li>If [`in`](#parameterIn) is `"path"`, the `name` field MUST correspond to the associated path segment from the [path](#pathsPath) field in the [Paths Object](#pathsObject). See [Path Templating](#pathTemplating) for further information.<li>If [`in`](#parameterIn) is `"header"` and the `name` field is `"Accept"`, `"Content-Type"` or `"Authorization"`, the parameter definition SHALL be ignored.<li>For all other cases, the `name` corresponds to the parameter name used by the [`in`](#parameterIn) property.</ul>
-<a name="parameterIn"></a>in | `string` | **REQUIRED**. The location of the parameter. Possible values are "query", "header", "path" or "cookie".
+<a name="parameterName"></a>name | `string` | **REQUIRED**. The name of the parameter. Parameter names are *case sensitive*.
 <a name="parameterDescription"></a>description | `string` | A brief description of the parameter. This could contain examples of use.  [CommonMark syntax](http://spec.commonmark.org/) MAY be used for rich text representation.
-<a name="parameterRequired"></a>required | `boolean` | Determines whether this parameter is mandatory. If the [parameter location](#parameterIn) is "path", this property is **REQUIRED** and its value MUST be `true`. Otherwise, the property MAY be included and its default value is `false`.
+<a name="parameterRequired"></a>required | `boolean` | Determines whether this parameter is mandatory. The property MAY be included and its default value is `false`.
 <a name="parameterDeprecated"></a> deprecated | `boolean` | Specifies that a parameter is deprecated and SHOULD be transitioned out of usage. Default value is `false`.
-<a name="parameterAllowEmptyValue"></a> allowEmptyValue | `boolean` | Sets the ability to pass empty-valued parameters. This is valid only for `query` parameters and allows sending a parameter with an empty value. Default value is `false`. If [`style`](#parameterStyle) is used, and if behavior is `n/a` (cannot be serialized), the value of `allowEmptyValue` SHALL be ignored. Use of this property is NOT RECOMMENDED, as it is likely to be removed in a later revision.
 
 The rules for serialization of the parameter are specified in one of two ways.
 For simpler scenarios, a [`schema`](#parameterSchema) and [`style`](#parameterStyle) can describe the structure and syntax of the parameter.
 
 Field Name | Type | Description
 ---|:---:|---
-<a name="parameterStyle"></a>style | `string` | Describes how the parameter value will be serialized depending on the type of the parameter value. Default values (based on value of `in`): for `query` - `form`; for `path` - `simple`; for `header` - `simple`; for `cookie` - `form`.
-<a name="parameterExplode"></a>explode | `boolean` | When this is true, parameter values of type `array` or `object` generate separate parameters for each value of the array or key-value pair of the map.  For other types of parameters this property has no effect. When [`style`](#parameterStyle) is `form`, the default value is `true`. For all other styles, the default value is `false`.
-<a name="parameterAllowReserved"></a>allowReserved | `boolean` | Determines whether the parameter value SHOULD allow reserved characters, as defined by [RFC3986](https://tools.ietf.org/html/rfc3986#section-2.2) `:/?#[]@!$&'()*+,;=` to be included without percent-encoding. This property only applies to parameters with an `in` value of `query`. The default value is `false`.
+<a name="parameterExplode"></a>explode | `boolean` | When this is true, parameter values of type `array` or `object` generate separate parameters for each value of the array or key-value pair of the map. For other types of parameters this property has no effect.
 <a name="parameterSchema"></a>schema | [Schema Object](#schemaObject) \| [Reference Object](#referenceObject) | The schema defining the type used for the parameter.
-<a name="parameterExample"></a>example | Any | Example of the media type.  The example SHOULD match the specified schema and encoding properties if present.  The `example` field is mutually exclusive of the `examples` field.  Furthermore, if referencing a `schema` which contains an example, the `example` value SHALL _override_ the example provided by the schema. To represent examples of media types that cannot naturally be represented in JSON or YAML, a string value can contain the example with escaping where necessary.
-<a name="parameterExamples"></a>examples | Map[ `string`, [Example Object](#exampleObject) \| [Reference Object](#referenceObject)] | Examples of the media type.  Each example SHOULD contain a value in the correct format as specified in the parameter encoding.  The `examples` field is mutually exclusive of the `example` field.  Furthermore, if referencing a `schema` which contains an example, the `examples` value SHALL _override_ the example provided by the schema.
+<a name="parameterExample"></a>example | Any | Example of the parameter. The example MUST match the specified schema. If referencing a `schema` which contains an example, the `example` value SHALL _override_ the example provided by the schema. To represent examples of media types that cannot naturally be represented in JSON, a string value can contain the example with escaping where necessary.
 
-For more complex scenarios, the [`content`](#parameterContent) property can define the media type and schema of the parameter.
+For more complex scenarios, the [`content`](#parameterContent) property can define the schema of the parameter.
 A parameter MUST contain either a `schema` property, or a `content` property, but not both.
-When `example` or `examples` are provided in conjunction with the `schema` object, the example MUST follow the prescribed serialization strategy for the parameter.
+When `example` is provided in conjunction with the `schema` object, the example MUST follow the prescribed serialization strategy for the parameter.
 
 
 Field Name | Type | Description
