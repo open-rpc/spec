@@ -614,15 +614,7 @@ This object MAY be extended with [Specification Extensions](#specificationExtens
 
 Describes a single operation parameter.
 
-A unique parameter is defined by a combination of a [name](#parameterName) and [location](#parameterIn).
-
-##### Parameter Locations
-There are four possible parameter locations specified by the `in` field:
-* path - Used together with [Path Templating](#pathTemplating), where the parameter value is actually part of the operation's URL. This does not include the host or base path of the API. For example, in `/items/{itemId}`, the path parameter is `itemId`.
-* query - Parameters that are appended to the URL. For example, in `/items?id=###`, the query parameter is `id`.
-* header - Custom headers that are expected as part of the request. Note that [RFC7230](https://tools.ietf.org/html/rfc7230#page-22) states header names are case insensitive.
-* cookie - Used to pass a specific cookie value to the API.
-
+A unique parameter is defined it [name](#parameterName). All parameter names must therefor be unique for an individual method.
 
 ##### Fixed Fields
 Field Name | Type | Description
@@ -650,56 +642,13 @@ Field Name | Type | Description
 ---|:---:|---
 <a name="parameterContent"></a>content | Map[`string`, [Content Type Object](#contentTypeObject)] | A map containing the representations for the parameter. The key is the media type and the value describes it.  The map MUST only contain one entry.
 
-##### Style Values
-
-In order to support common ways of serializing simple parameters, a set of `style` values are defined.
-
-`style` | [`type`](#dataTypes) |  `in` | Comments
------------ | ------ | -------- | --------
-matrix |  `primitive`, `array`, `object` |  `path` | Path-style parameters defined by [RFC6570](https://tools.ietf.org/html/rfc6570#section-3.2.7)
-label | `primitive`, `array`, `object` |  `path` | Label style parameters defined by [RFC6570](https://tools.ietf.org/html/rfc6570#section-3.2.5)
-form |  `primitive`, `array`, `object` |  `query`, `cookie` | Form style parameters defined by [RFC6570](https://tools.ietf.org/html/rfc6570#section-3.2.8). This option replaces `collectionFormat` with a `csv` (when `explode` is false) or `multi` (when `explode` is true) value from OpenRPC 2.0.
-simple | `array` | `path`, `header` | Simple style parameters defined by [RFC6570](https://tools.ietf.org/html/rfc6570#section-3.2.2).  This option replaces `collectionFormat` with a `csv` value from OpenRPC 2.0.
-spaceDelimited | `array` | `query` | Space separated array values. This option replaces `collectionFormat` equal to `ssv` from OpenRPC 2.0.
-pipeDelimited | `array` | `query` | Pipe separated array values. This option replaces `collectionFormat` equal to `pipes` from OpenRPC 2.0.
-deepObject | `object` | `query` | Provides a simple way of rendering nested objects using form parameters.
-
-
-##### Style Examples
-
-Assume a parameter named `color` has one of the following values:
-
-```
-   string -> "blue"
-   array -> ["blue","black","brown"]
-   object -> { "R": 100, "G": 200, "B": 150 }
-```
-The following table shows examples of rendering differences for each value.
-
-[`style`](#dataTypeFormat) | `explode` | `empty` | `string` | `array` | `object`
------------ | ------ | -------- | -------- | --------|-------
-matrix | false | ;color | ;color=blue | ;color=blue,black,brown | ;color=R,100,G,200,B,150
-matrix | true | ;color | ;color=blue | ;color=blue;color=black;color=brown | ;R=100;G=200;B=150
-label | false | .  | .blue |  .blue.black.brown | .R.100.G.200.B.150
-label | true | . | .blue |  .blue.black.brown | .R=100.G=200.B=150
-form | false | color= | color=blue | color=blue,black,brown | color=R,100,G,200,B,150
-form | true | color= | color=blue | color=blue&color=black&color=brown | R=100&G=200&B=150
-simple | false | n/a | blue | blue,black,brown | R,100,G,200,B,150
-simple | true | n/a | blue | blue,black,brown | R=100,G=200,B=150
-spaceDelimited | false | n/a | n/a | blue%20black%20brown | R%20100%20G%20200%20B%20150
-pipeDelimited | false | n/a | n/a | blue\|black\|brown | R\|100\|G\|200|G\|150
-deepObject | true | n/a | n/a | n/a | color[R]=100&color[G]=200&color[B]=150
-
-This object MAY be extended with [Specification Extensions](#specificationExtensions).
-
 ##### Parameter Object Examples
 
-A header parameter with an array of 64 bit integer numbers:
+A parameter with an array of 64 bit integer numbers:
 
 ```json
 {
   "name": "token",
-  "in": "header",
   "description": "token to be passed as a header",
   "required": true,
   "schema": {
@@ -708,16 +657,14 @@ A header parameter with an array of 64 bit integer numbers:
       "type": "integer",
       "format": "int64"
     }
-  },
-  "style": "simple"
+  }
 }
 ```
 
-A path parameter of a string value:
+A parameter of a string value:
 ```json
 {
   "name": "username",
-  "in": "path",
   "description": "username to fetch",
   "required": true,
   "schema": {
@@ -726,11 +673,10 @@ A path parameter of a string value:
 }
 ```
 
-An optional query parameter of a string value, allowing multiple values by repeating the query parameter:
+An optional parameter of an array of string values
 ```json
 {
   "name": "id",
-  "in": "query",
   "description": "ID of the object to fetch",
   "required": false,
   "schema": {
@@ -738,24 +684,20 @@ An optional query parameter of a string value, allowing multiple values by repea
     "items": {
       "type": "string"
     }
-  },
-  "style": "form",
-  "explode": true
+  }
 }
 ```
 
-A free-form query parameter, allowing undefined parameters of a specific type:
+A parameter, allowing undefined parameters of a specific type:
 ```json
 {
-  "in": "query",
   "name": "freeForm",
   "schema": {
     "type": "object",
     "additionalProperties": {
       "type": "integer"
-    },
-  },
-  "style": "form"
+    }
+  }
 }
 ```
 
@@ -766,20 +708,18 @@ A complex parameter using `content` to define serialization:
   "in": "query",
   "name": "coordinates",
   "content": {
-    "application/json": {
-      "schema": {
-        "type": "object",
-        "required": [
-          "lat",
-          "long"
-        ],
-        "properties": {
-          "lat": {
-            "type": "number"
-          },
-          "long": {
-            "type": "number"
-          }
+    "schema": {
+      "type": "object",
+      "required": [
+        "lat",
+        "long"
+      ],
+      "properties": {
+        "lat": {
+          "type": "number"
+        },
+        "long": {
+          "type": "number"
         }
       }
     }
