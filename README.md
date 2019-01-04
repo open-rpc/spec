@@ -56,7 +56,6 @@ The OpenRPC Specification does not require rewriting existing APIs. It does not 
 		- [Responses Object](#responsesObject)
 		- [Response Object](#responseObject)
 		- [Example Object](#exampleObject)
-		- [Header Object](#headerObject)
 		- [Tag Object](#tagObject)
 		- [Reference Object](#referenceObject)
 		- [Schema Object](#schemaObject)
