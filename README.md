@@ -29,9 +29,6 @@ The OpenRPC Specification does not require rewriting existing APIs. It does not 
 
 - [Definitions](#definitions)
 	- [OpenRPC Document](#openrpcDocument)
-	- [Path Templating](#pathTemplating)
-	- [Media Types](#contentTypes)
-	- [HTTP Status Codes](#httpCodes)
 - [Specification](#specification)
 	- [Versions](#versions)
 	- [Format](#format)
@@ -73,9 +70,6 @@ The OpenRPC Specification does not require rewriting existing APIs. It does not 
 
 ##### <a name="openrpcDocument"></a>OpenRPC Document
 A document (or set of documents) that defines or describes an API. An OpenRPC definition uses and conforms to the OpenRPC Specification.
-
-##### <a name="pathTemplating"></a>Path Templating
-Path templating refers to the usage of curly braces ({}) to mark a section of a URL path as replaceable using path parameters.
 
 ## Specification
 
