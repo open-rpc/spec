@@ -624,8 +624,7 @@ Field Name | Type | Description
 <a name="parameterRequired"></a>required | `boolean` | Determines whether this parameter is mandatory. The property MAY be included and its default value is `false`.
 <a name="parameterDeprecated"></a> deprecated | `boolean` | Specifies that a parameter is deprecated and SHOULD be transitioned out of usage. Default value is `false`.
 
-The rules for serialization of the parameter are specified in one of two ways.
-For simpler scenarios, a [`schema`](#parameterSchema) and [`style`](#parameterStyle) can describe the structure and syntax of the parameter.
+The rules for serialization of the parameter are specified using the schema peroperty.
 
 Field Name | Type | Description
 ---|:---:|---
@@ -633,14 +632,7 @@ Field Name | Type | Description
 <a name="parameterSchema"></a>schema | [Schema Object](#schemaObject) \| [Reference Object](#referenceObject) | The schema defining the type used for the parameter.
 <a name="parameterExample"></a>example | Any | Example of the parameter. The example MUST match the specified schema. If referencing a `schema` which contains an example, the `example` value SHALL _override_ the example provided by the schema. To represent examples of media types that cannot naturally be represented in JSON, a string value can contain the example with escaping where necessary.
 
-For more complex scenarios, the [`content`](#parameterContent) property can define the schema of the parameter.
-A parameter MUST contain either a `schema` property, or a `content` property, but not both.
 When `example` is provided in conjunction with the `schema` object, the example MUST follow the prescribed serialization strategy for the parameter.
-
-
-Field Name | Type | Description
----|:---:|---
-<a name="parameterContent"></a>content | Map[`string`, [Content Type Object](#contentTypeObject)] | A map containing the representations for the parameter. The key is the media type and the value describes it.  The map MUST only contain one entry.
 
 ##### Parameter Object Examples
 
@@ -701,26 +693,23 @@ A parameter, allowing undefined parameters of a specific type:
 }
 ```
 
-A complex parameter using `content` to define serialization:
+A complex parameter
 
 ```json
 {
-  "in": "query",
   "name": "coordinates",
-  "content": {
-    "schema": {
-      "type": "object",
-      "required": [
-        "lat",
-        "long"
-      ],
-      "properties": {
-        "lat": {
-          "type": "number"
-        },
-        "long": {
-          "type": "number"
-        }
+  "schema": {
+    "type": "object",
+    "required": [
+      "lat",
+      "long"
+    ],
+    "properties": {
+      "lat": {
+        "type": "number"
+      },
+      "long": {
+        "type": "number"
       }
     }
   }
