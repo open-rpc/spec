@@ -887,7 +887,7 @@ A 200 response for a successful operation and a default response for others (imp
 
 #### <a name="errorsObject"></a>Errors Object
 A mapping of Application-level JSON RPC error codes to the expected error definition.
-The status code should be used as the property name
+The error code should be used as the property name
 
 ##### Patterned Fields
 Field Pattern | Type | Description
