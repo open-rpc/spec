@@ -1,9 +1,2 @@
-.idea
-*.iml
-*.ipr
-*.iws
-target
-atlassian-ide-plugin.xml
-node_modules/
-Gemfile.lock
-.DS_Store
+./build
+./**/build
