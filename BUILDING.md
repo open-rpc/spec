@@ -63,10 +63,8 @@ Any dockerfiles used by the docker-compose may be placed at the discretion of th
 ## Build Pipeline
 Starting from clean master branch with latest HEAD
 
-### building all targets
-`docker-compose up -f ./docker-compose.build.yml` should create builds for each of the targeted platforms, and place the build artifacts in a folder structure outlined above.
+### Building all targets
+`docker-compose -f ./docker-compose.build.yml up` should create builds for each of the targeted platforms, and place the build artifacts in a folder structure outlined above.
 
-### building specific target
-`docker-compose up -f ./docker-compose.build.yml [windows | linux | mac]`
-
-Thats it.
+### Building specific target
+`docker-compose -f ./docker-compose.build.yml up [windows | linux | mac]`
