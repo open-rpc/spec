@@ -1576,4 +1576,3 @@ Two examples of this:
 Version          | Date       | Notes
 ---              | ---        | ---
 1.0.0            | 2019-01-01 | Fork and First release of the OpenRPC Specification
-3.0.2 (upstream) | 2018-10-08 | Patch release of the OpenRPC Specification 3.0.2
