@@ -1,4 +1,4 @@
-# Jade Project Building
+# Project Building
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [BCP 14](https://tools.ietf.org/html/bcp14) [RFC2119](https://tools.ietf.org/html/rfc2119) [RFC8174](https://tools.ietf.org/html/rfc8174) when, and only when, they appear in all capitals, as shown here.
 
@@ -8,7 +8,7 @@ When using the name 'version' we mean the versioning scheme described in [VERSIO
 
 ## Introduction
 
-This document is to describe the functionality a jade project MUST provide in terms of creating build artifacts. It also describes the structure in which jade project's MUST write build artifacts in.
+This document is to describe the functionality a project MUST provide in terms of creating build artifacts. It also describes the structure in which project's MUST write build artifacts in.
 
 We propose:
  - a folder name convention for build artifacts
@@ -43,7 +43,7 @@ Below is an example:
 .
 └── build
     └── windows
-        └── jade-signer.{ext}
+        └── my-build.exe
 ```
 
 ## Build Platform Targets
@@ -58,7 +58,7 @@ The result of this is that every project MUST produce a build for each target pl
  - `docker-compose up -f ./docker-compose.build.yml`
 
 The docker-compose.build.yml file MUST be placed in the project's root directory.
-Any dockerfiles used by the docker-compose may be placed at the discretion of the developer of the jade project.
+Any dockerfiles used by the docker-compose may be placed at the discretion of the developer of the project.
 
 ## Build Pipeline
 Starting from clean master branch with latest HEAD

@@ -1,4 +1,4 @@
-# Jade Project Releasing
+# Project Releasing
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [BCP 14](https://tools.ietf.org/html/bcp14) [RFC2119](https://tools.ietf.org/html/rfc2119) [RFC8174](https://tools.ietf.org/html/rfc8174) when, and only when, they appear in all capitals, as shown here.
 
@@ -14,7 +14,7 @@ We propose:
  - a set of release targets that are allowable
  - a pipeline for handling the release folder's artifacts
 
-It is NOT the purpose of this document to describe how a project might create a build, NOR is it describing a strcture in which jade projects MUST write build artifacts to. It is describing the structure of the releases themselves, however.
+It is NOT the purpose of this document to describe how a project might create a build, NOR is it describing a strcture in which projects MUST write build artifacts to. It is describing the structure of the releases themselves, however.
 
 ## Release Targets
 1. github
