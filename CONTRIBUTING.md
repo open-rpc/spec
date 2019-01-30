@@ -25,6 +25,10 @@ Bug fixes, patches and new features are welcome. Please find or open an issue ab
 
 There are many ways to fix a problem and it is important to find the best approach before writing a ton of code.
 
+##### Documentation Changes
+
+For small documentation changes and fixes, these can be done quickly following this video guide on [how to contribute to Open Source in 1 minute on Github](https://www.youtube.com/watch?v=kRYk1-yKwWs).
+
 ### Cloning (or forking) the repository
 
 First off, you are going to need your own copy of the repository. You can find help on how to fork a repo [here](https://help.github.com/articles/fork-a-repo/).
