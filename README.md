@@ -849,10 +849,6 @@ Field Name | Type | Description
 Holds a set of reusable objects for different aspects of the OPENRPC.
 All objects defined within the components object will have no effect on the API unless they are explicitly referenced from properties outside the components object.
 
-<a name="componentsContentDescriptors"></a> contentDescriptors | Map[`string`, [Content Descriptor Object](#contentDescriptorObject)] | An object to hold reusable [Content Descriptor Objects](#contentDescriptorObject).
-<a name="componentsExamples"></a> examples | Map[`string`, [Example Object](#exampleObject)] | An object to hold reusable [Example Objects](#exampleObject).
-<a name="componentsLinks"></a> links | Map[`string`, [Link Object](#linkObject)] | An object to hold reusable [Link Objects](#linkObject).
-
 Field Name | Type | Description
 ---|:---|---
 <a name="componentsContentDescriptors"></a>contentDescriptors | Map[`string`, [Content Descriptor Object](#contentDescriptorObject)] | An object to hold reusable [Content Descriptor Objects](#contentDescriptorObject).
