@@ -10,32 +10,14 @@ There are many ways to drive development but with open source specifically, star
 
 - [Readme Driven Development](http://tom.preston-werner.com/2010/08/23/readme-driven-development.html) by Tom Preson-Werner
 
-## Getting Started
-
-To get started, [fork](https://help.github.com/articles/fork-a-repo/) or [duplicate](https://help.github.com/articles/duplicating-a-repository/) the repository. Then edit this file and delete everything above this line.
-
----
-
 ### Conventions and Specifications 
 
-Using conventions and specifications make it easier to:
-- build and use composable tools
+Using conventions, documentation and specifications make it easier to:
+- communicate the problem you are solving
 - ease onboarding
-- promote contribution and engagement
+- build and use composable tools
+- promote open source contribution and engagement
 - promote issue and feature discussion on github itself
-
-### Contributing
-
-How to contribute, build and release are outlined in [CONTRIBUTING.md](CONTRIBUTING.md), [BUILDING](BUILDING.md) and [RELEASING](RELEASING.md) respectively.
-
-### Requirements
-
-#### Docker:
-
-Docker is used as a building block. Here are the resources needed to get started and install docker:
-
-- [Install Docker Desktop for Mac](https://docs.docker.com/docker-for-mac/install/)
-- [Install Docker Desktop for Windows](https://docs.docker.com/docker-for-windows/install/)
 
 #### Resources
 
@@ -45,4 +27,23 @@ Docker is used as a building block. Here are the resources needed to get started
 - [Literate programming](https://en.wikipedia.org/wiki/Literate_programming)
 - [Hammock Driven Development](https://www.youtube.com/watch?v=f84n5oFoZBc)
 - [Inversion and The Power of Avoiding Stupidity](https://fs.blog/2013/10/inversion/)
+
+## Getting Started
+
+To get started, [fork](https://help.github.com/articles/fork-a-repo/) or [duplicate](https://help.github.com/articles/duplicating-a-repository/) the repository. Then edit this file and delete everything above this line.
+
+---
+
+### Contributing
+
+How to contribute, build and release are outlined in [CONTRIBUTING.md](CONTRIBUTING.md), [BUILDING](BUILDING.md) and [RELEASING](RELEASING.md) respectively.
+
+### Requirements
+
+#### Docker:
+
+Docker is used as a building block in [BUILDING](BUILDING.md) and [RELEASING](RELEASING.md). Here are the resources needed to get started and install docker:
+
+- [Install Docker Desktop for Mac](https://docs.docker.com/docker-for-mac/install/)
+- [Install Docker Desktop for Windows](https://docs.docker.com/docker-for-windows/install/)
 
