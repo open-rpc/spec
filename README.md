@@ -1,6 +1,6 @@
 # Pristine
 
-Pristine is an open source repository in its original condition. It's goal is to be a starting point for open source repositories wanting to follow Documentation Driven Development. It is also a place for existing projects to find resources to augment current documentation.
+Pristine is an open source repository in its original condition. Its goal is to be a starting point for open source repositories wanting to follow Documentation Driven Development. It is also a place for existing projects to find resources to augment current documentation.
 
 ## Documentation Driven Development
 
