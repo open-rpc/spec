@@ -41,7 +41,7 @@ First off, find help on how to fork a repo [here](https://help.github.com/articl
 
 1. Review & Test changes
 
-If it's code: test it. If it's documentation: preview the rendered Markdown.
+If the code changed, then test it. If documentation changed, then preview the rendered Markdown.
 
 2. Commiting
 
