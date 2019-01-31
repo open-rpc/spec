@@ -35,7 +35,7 @@ For small documentation changes and fixes, these can be done quickly following t
 
 ### Forking the repository
 
-First off, find help on how to fork a repo [here](https://help.github.com/articles/fork-a-repo/).
+[How to fork a repository](https://help.github.com/articles/fork-a-repo/).
 
 ### Submitting changes
 
