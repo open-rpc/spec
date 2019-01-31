@@ -2,6 +2,10 @@
 
 > This document is inspired by [elasticsearch/CONTRIBUTING.md](https://github.com/elastic/elasticsearch/blob/master/CONTRIBUTING.md)
 
+Adding a `CONTRIBUTING.md` to a github repository enables a link to that file in the pull request or create an issue page. This shows potential contributors how to make a meaningful impact on the project. Contribution guidelines save time and hassle caused by improper pull requests and issues. You can learn more about the features that are enabled by github when this file is present [here](https://help.github.com/articles/setting-guidelines-for-repository-contributors/)
+
+## How to contribute
+
 There are many ways to contribute, from writing tutorials or blog posts, improving the documentation, [submitting github issues](https://help.github.com/articles/creating-an-issue/), bug reports, feature requests and writing code.
 
 ## License
@@ -31,13 +35,13 @@ For small documentation changes and fixes, these can be done quickly following t
 
 ### Cloning (or forking) the repository
 
-First off, you are going to need your own copy of the repository. You can find help on how to fork a repo [here](https://help.github.com/articles/fork-a-repo/).
+First off, find help on how to fork a repo [here](https://help.github.com/articles/fork-a-repo/).
 
-### Submitting your changes
+### Submitting changes
 
-1. Review & Test your changes
+1. Review & Test changes
 
-If it's code: make sure you test it. If it's documentation: make sure you view it in a Markdown viewer or the like.
+If it's code: test it. If it's documentation: make sure to view it in a Markdown viewer or the like.
 
 2. Commiting
 
@@ -51,7 +55,7 @@ Make sure you've signed the repository's Contributor License Agreement. We are n
  
 4. Submit a pull request
 
-Push your local changes to you forked repository and make a pull request. Follow the [Convention Commits](CONVENTIONAL_COMMITS.md) guidelines for naming Github pull requests and what to put in the body.
+Push local changes to you forked repository and make a pull request. Follow the [Convention Commits](CONVENTIONAL_COMMITS.md) guidelines for naming Github pull requests and what to put in the body.
 
 
 ## Building
