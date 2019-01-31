@@ -17,7 +17,7 @@ We propose:
 It is NOT the purpose of this document to describe how a project might create a build, NOR is it describing a strcture in which projects MUST write build artifacts to. It is describing the structure of the releases themselves, however.
 
 ## Release Targets
-1. github
+1. Github
 2. (tentative) docker
 
 ## Release Pipeline
@@ -32,7 +32,7 @@ in summary, we will simply:
 
 ### Sign the releases.
  - MUST be a pgp signature
- - MUST be the same pgp key as is registered with github
+ - MUST be the same pgp key as is registered with Github
  - MUST be a detached signature
  - All files in the build folder MUST have an associated signature file
 
@@ -58,7 +58,7 @@ simple as `git push`.
 For each of the desired release targets, prepare and push the release.
 
 #### Github Release
-Using [github release tool](https://github.com/c4milo/github-release), push a release with the following fields:
+Using [Github release tool](https://github.com/c4milo/github-release), push a release with the following fields:
 
 
 | Field name       | Content                                                        |

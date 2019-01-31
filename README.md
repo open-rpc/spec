@@ -17,7 +17,7 @@ Using conventions, documentation and specifications make it easier to:
 - ease onboarding
 - build and use composable tools
 - promote open source contribution and engagement
-- promote issue and feature discussion on github itself
+- promote issue and feature discussion on Github itself
 
 #### Resources
 
@@ -36,13 +36,13 @@ To get started, [fork](https://help.github.com/articles/fork-a-repo/) or [duplic
 
 ### Contributing
 
-How to contribute, build and release are outlined in [CONTRIBUTING.md](CONTRIBUTING.md), [BUILDING](BUILDING.md) and [RELEASING](RELEASING.md) respectively.
+How to contribute, build and release are outlined in [CONTRIBUTING.md](CONTRIBUTING.md), [BUILDING.md](BUILDING.md) and [RELEASING.md](RELEASING.md) respectively.
 
 ### Requirements
 
 #### Docker:
 
-Docker is used as a building block in [BUILDING](BUILDING.md) and [RELEASING](RELEASING.md). Here are the resources needed to get started and install docker:
+Docker is used as a building block in [BUILDING.md](BUILDING.md) and [RELEASING.md](RELEASING.md). Here are the resources needed to get started and install docker:
 
 - [Install Docker Desktop for Mac](https://docs.docker.com/docker-for-mac/install/)
 - [Install Docker Desktop for Windows](https://docs.docker.com/docker-for-windows/install/)
