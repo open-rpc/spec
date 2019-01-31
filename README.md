@@ -21,6 +21,8 @@ Using conventions, documentation and specifications make it easier to:
 
 #### Resources
 
+- [opensource.guide](https://opensource.guide/)
+- [Github community profiles for public repositories](https://help.github.com/articles/about-community-profiles-for-public-repositories/)
 - [Readme Driven Development](http://tom.preston-werner.com/2010/08/23/readme-driven-development.html)
 - [pengwynn/flint](https://github.com/pengwynn/flint)
 - [Working Backwards](https://www.allthingsdistributed.com/2006/11/working_backwards.html)
