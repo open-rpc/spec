@@ -4,7 +4,7 @@ Pristine is an open source repository in its original condition. Its goal is to 
 
 ## Documentation Driven Development
 
-There are many ways to drive development but with open source specifically, starting at the README gives a middle ground between technical specifications and non-technical. This promotes open source contribution and engagement.
+There are many ways to drive open source development, starting at the README gives a middle ground between technical specifications and non-technical. This promotes open source contribution and engagement.
 
 > By the same principle a beautifully crafted library with no documentation is also damn near worthless. If your software solves the wrong problem or nobody can figure out how to use it, there’s something very bad going on.
 
