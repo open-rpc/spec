@@ -33,7 +33,7 @@ There are many ways to fix a problem and it is important to find the best approa
 
 For small documentation changes and fixes, these can be done quickly following this video guide on [how to contribute to Open Source in 1 minute on Github](https://www.youtube.com/watch?v=kRYk1-yKwWs).
 
-### Cloning (or forking) the repository
+### Forking the repository
 
 First off, find help on how to fork a repo [here](https://help.github.com/articles/fork-a-repo/).
 
