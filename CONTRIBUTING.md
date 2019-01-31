@@ -55,7 +55,7 @@ Make sure you've signed the repository's Contributor License Agreement. We are n
  
 4. Submit a pull request
 
-Push local changes to you forked repository and make a pull request. Follow the [Convention Commits](CONVENTIONAL_COMMITS.md) guidelines for naming Github pull requests and what to put in the body.
+Push local changes to your forked repository and make a pull request. Follow the [Convention Commits](CONVENTIONAL_COMMITS.md) guidelines for naming Github pull requests and what to put in the body.
 
 
 ## Building
