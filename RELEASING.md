@@ -8,13 +8,13 @@ When using the name 'version' we mean the versioning scheme described in [VERSIO
 
 ## Introduction
 
-This document is to describe the release pipeline, which is taking the result of the artifacts created in the [building step](BUILDING.md) and publish a release to the various release targets for the project.
+This document is to describe the release pipeline, which is taking the result of the artifacts created according to [BUILDING.md](BUILDING.md) and publish a release to the various release targets for the project.
 
 We propose:
  - a set of release targets that are allowable
  - a pipeline for handling the release folder's artifacts
 
-It is NOT the purpose of this document to describe how a project might create a build, NOR is it describing a strcture in which projects MUST write build artifacts to. It is describing the structure of the releases themselves, however.
+It is NOT the purpose of this document to describe how a project might create a build, NOR is it describing a strcture in which projects MUST write build artifacts to. It is describing the structure of the releases themselves.
 
 ## Release Targets
 1. Github

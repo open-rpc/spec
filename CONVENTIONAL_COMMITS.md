@@ -1,6 +1,6 @@
 # Conventional Commits 1.0.0-beta.2
 
-> This spec is a direct copied here from [http://conventionalcommits.org](http://conventionalcommits.org). It lives here as a reference documentation for new contributors.
+> This spec is a direct copy from [http://conventionalcommits.org](http://conventionalcommits.org). It lives here as a reference document for new contributors.
 
 ## Summary
 

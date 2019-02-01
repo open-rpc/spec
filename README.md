@@ -1,10 +1,10 @@
 # Pristine
 
-Pristine is an open source repository in its original condition. Its goal is to be a starting point for open source repositories wanting to follow Documentation Driven Development. It is also a place for existing projects to find resources to augment current documentation.
+Pristine is an open source repository in its original condition. Its goal is to be a starting point for new open source projects following a Documentation Driven Development pattern, as well as a resource from which to augment existing documentation.
 
 ## Documentation Driven Development
 
-There are many ways to drive open source development, starting at the README gives a middle ground between technical specifications and non-technical. This promotes open source contribution and engagement.
+There are many ways to drive open source development. Organizing solutions to this challenge around the README gives a middle ground between technical and non-technical specifications.
 
 > By the same principle a beautifully crafted library with no documentation is also damn near worthless. If your software solves the wrong problem or nobody can figure out how to use it, there’s something very bad going on.
 
