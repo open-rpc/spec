@@ -33,7 +33,7 @@ in summary, we will simply:
 ### Sign the releases.
  - MUST be a pgp signature
  - MUST be the same pgp key as is registered with Github
- - MUST be a detached signature
+ - MUST be a detached ascii-armored (.asc) signature 
  - All files in the build folder MUST have an associated signature file
 
 ### Generate Changelog
