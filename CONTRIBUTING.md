@@ -40,31 +40,22 @@ For small documentation changes and fixes, these can be done quickly following t
 ### Submitting changes
 
 1. Review & Test changes
-
-If the code changed, then test it. If documentation changed, then preview the rendered Markdown.
-
+    * If the code changed, then test it. If documentation changed, then preview the rendered Markdown.
 2. Commiting
-
-Follow the [Convention Commits](CONVENTIONAL_COMMITS.md) guidelines to create a commit message
-
- 
+    * Follow the [Convention Commits](CONVENTIONAL_COMMITS.md) guidelines to create a commit message
 3. Sign the CLA
- 
-Make sure you've signed the repository's Contributor License Agreement. We are not asking you to assign copyright to us, but to give us the right to distribute your code without restriction. We ask this of all contributors in order to assure our users of the origin and continuing existence of the code. You only need to sign the CLA once.
- 
- 
+    * Make sure you've signed the repository's Contributor License Agreement. We are not asking you to assign copyright to us, but to give us the right to distribute your code without restriction. We ask this of all contributors in order to assure our users of the origin and continuing existence of the code. You only need to sign the CLA once.
 4. Submit a pull request
-
-Push local changes to your forked repository and make a pull request. Follow the [Convention Commits](CONVENTIONAL_COMMITS.md) guidelines for naming Github pull requests and what to put in the body.
+    * Push local changes to your forked repository and make a pull request. Follow the [Convention Commits](CONVENTIONAL_COMMITS.md) guidelines for naming Github pull requests and what to put in the body.
 
 
 ## Building
 
-Follow the build process is outlined in [the BUILDING spec](BUILDING.md) to create a build.
+Follow the build process is outlined in [BUILDING.md](BUILDING.md) to create a build.
 
 
 ## Releasing
 
-Follow the release process is outlined in [the RELEASING spec](RELEASING.md) to create a release.
+Follow the release process is outlined in [RELEASING.md](RELEASING.md) to create a release.
 
 

@@ -12,7 +12,7 @@ It also describes standardized tooling around manipulating the version
 ## Semver
 A project MUST use Semantic Versioning [semver](https://semver.org). Build metadata MAY NOT be used in a project. Build metadata SHOULD be ignored.
 
-A Basic summary of Semantic Versioning taken from: [semver.org(https://semver.org)
+A Basic summary of Semantic Versioning taken from: [semver.org](https://semver.org)
 
 ### Summary:
 
@@ -22,7 +22,3 @@ MAJOR version when you make incompatible API changes,
 MINOR version when you add functionality in a backwards-compatible manner, and
 PATCH version when you make backwards-compatible bug fixes.
 Additional labels for pre-release and build metadata are available as extensions to the MAJOR.MINOR.PATCH format.
-
-## Standardized tooling
-
-each project should implement `bin/bump-version.sh {newVer}`
