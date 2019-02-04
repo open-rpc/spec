@@ -10,7 +10,7 @@ When using the name 'version' we mean the versioning scheme described in [VERSIO
 
 This document is to describe the functionality a project MUST provide in terms of creating build artifacts. It also describes the structure in which project's MUST write build artifacts in.
 
-a project MUST provide:
+A project MUST provide:
 
  - a folder name convention for build artifacts
  - a folder structure for the above-mentioned build artifacts folder
