@@ -20,7 +20,7 @@ a project MUST provide:
 
 The purpose of having a uniform way of producing a build is that we may ALL produce builds for any of the projects, making the onramp for new developers less steep, while still maintaining an exceptionally high level of quality.
 
-The projects should follow the 'architecture as code' principal - and should require a very minimal set of dependencies. 
+The projects should follow the 'architecture as code' principle - and should require a very minimal set of dependencies. 
 
 It is the responsibilty of the build tooling to write artifacts to the appropriate location as outlined in this specification.
 
