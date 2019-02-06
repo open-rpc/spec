@@ -4,6 +4,7 @@ Sponsored by ![Ethereum Classic Labs](https://github.com/open-rpc/design/blob/ma
 
 # OpenRPC Specification
 
+
 #### Version 1.0.0
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [BCP 14](https://tools.ietf.org/html/bcp14) [RFC2119](https://tools.ietf.org/html/rfc2119) [RFC8174](https://tools.ietf.org/html/rfc8174) when, and only when, they appear in all capitals, as shown here.
@@ -16,6 +17,7 @@ This document is licensed under [The Apache License, Version 2.0](https://www.ap
 <!-- TOC depthFrom:1 depthTo:3 withLinks:1 updateOnSave:1 orderedList:0 -->
 
 - [Introduction](#introduction)
+- [Contributing](#contributing)
 - [Definitions](#definitions)
 	- [OpenRPC Document](#openrpcDocument)
 - [Specification](#specification)
@@ -60,6 +62,10 @@ Use cases for machine-readable RPC API definition documents include, but are not
  OpenRPC documents describe a JSON-RPC API's services and are represented in YAML or JSON formats. These documents may either be produced and served statically or be generated dynamically from an application.
 
 The OpenRPC Specification does not require rewriting existing APIs. It does not require binding any software to a service — the service being described may not even be owned by the creator of its description. It does, however, require the capabilities of the service be described in the structure of the OpenRPC Specification. Not all services can be described by OpenRPC — this specification is not intended to cover REST APIs - It is exclusively for api's which adhere to the JSON-RPC 2.0 spec. The OpenRPC Specification does not mandate a specific development process such as design-first or code-first. It does facilitate either technique by establishing clear interactions with a JSON-RPC api.
+
+## Contributing
+
+How to contribute, build and release are outlined in [CONTRIBUTING.md](CONTRIBUTING.md), [BUILDING.md](BUILDING.md) and [RELEASING.md](RELEASING.md) respectively. Commits in this repository follow the [CONVENTIONAL_COMMITS.md](CONVENTIONAL_COMMITS.md) specification.
 
 ## Definitions
 ##### <a name="openrpcDocument"></a>OpenRPC Document
