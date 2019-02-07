@@ -62,7 +62,7 @@ Use cases for machine-readable RPC API definition documents include, but are not
  - servers
  - automation of test cases.
 
-OpenRPC documents describe a JSON-RPC API's services and are represented in YAML or JSON formats. These documents may either be produced and served statically or be generated dynamically from an application.
+OpenRPC documents describe a JSON-RPC APIs services and are represented in JSON format. These documents may either be produced and served statically or be generated dynamically from an application.
 
 The OpenRPC Specification does not require rewriting existing APIs. It does not require binding any software to a service — the service being described may not even be owned by the creator of its description. It does, however, require the capabilities of the service be described in the structure of the OpenRPC Specification. Not all services can be described by OpenRPC — this specification is not intended to cover REST APIs - It is exclusively for api's which adhere to the JSON-RPC 2.0 spec. The OpenRPC Specification does not mandate a specific development process such as design-first or code-first. It does facilitate either technique by establishing clear interactions with a JSON-RPC api.
 
