@@ -350,7 +350,7 @@ Method Object Example:
 ```
 
 ##### <a name="contentDescriptorObject"></a>Content Descriptor Object
-TODO DESCRIPTION
+Content Descriptors are objects that do just as they suggest - describe content. They are reusable ways of describing either parameters or results. They MUST have a schema.
 
 Field Name | Type | Description
 ---|:---:|---
@@ -362,7 +362,7 @@ Field Name | Type | Description
 
 This object MAY be extended with [Specification Extensions](#specificationExtensions).
 
-When `example` is provided in conjunction with the `schema` object, the example MUST follow the prescribed serialization strategy for the parameter.
+When `examples` is provided in conjunction with the `schema` object, the examples MUST follow the prescribed serialization strategy for the parameter.
 
 Content Descriptor Object Examples:
 
