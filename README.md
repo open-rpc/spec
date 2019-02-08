@@ -1,8 +1,10 @@
 <p align="center">
   <img src="https://github.com/open-rpc/design/blob/master/png/open-rpc-logo-320x320.png?raw=true" />
+  	
 </p>
-
-Sponsored by ![Ethereum Classic Labs](https://github.com/open-rpc/design/blob/master/png/etc-labs-logo-32x32.png?raw=true "ETCLabs Logo") [Ethereum Classic Labs](https://etclabs.org).
+<p align="center">
+<a href="https://etclabs.org">Sponsored by <img alt="Ethereum Classic Lab" src="https://github.com/open-rpc/design/blob/master/png/etc-labs-logo-32x32.png" /> Ethereum Classic Labs</a>.
+</p>
 
 # OpenRPC Specification
 
