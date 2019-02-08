@@ -79,11 +79,11 @@ A document (or set of documents) that defines or describes an API. An OpenRPC de
 
 The OpenRPC Specification is versioned using [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html) (semver) and follows the semver specification.
 
-The `major`.`minor` portion of the semver (for example `1.0.x`) SHALL designate the OPENRPC feature set. Typically, *`.patch`* versions address errors in this document, not the feature set. Tooling which supports OPENRPC 1.0.0 SHOULD be compatible with all OPENRPC 1.0.\* versions. The patch version SHOULD NOT be considered by tooling, making no distinction between `1.0.0` and `1.0.1` for example.
+The `major`.`minor` portion of the semver (for example `1.0.x`) SHALL designate the OpenRPC feature set. Typically, *`.patch`* versions address errors in this document, not the feature set. Tooling which supports OpenRPC 1.0.0 SHOULD be compatible with all OpenRPC 1.0.\* versions. The patch version SHOULD NOT be considered by tooling, making no distinction between `1.0.0` and `1.0.1` for example.
 
 Subsequent minor version releases of the OpenRPC Specification (incrementing the `minor` version number) SHOULD NOT interfere with tooling developed to a lower minor version and same major version.  Thus a hypothetical `1.1.0` specification SHOULD be usable with tooling designed for `1.0.0`.
 
-An OpenRPC document compatible with OPENRPC 1.0.0 contains a required [`openrpc`](#openrpcVersion) field which designates the semantic version of the OPENRPC that it uses.
+An OpenRPC document compatible with OpenRPC 1.0.0 contains a required [`openrpc`](#openrpcVersion) field which designates the semantic version of the OpenRPC that it uses.
 
 ### Format
 
@@ -110,18 +110,18 @@ It is RECOMMENDED that the root OpenRPC document be named: `openrpc.json`.
 
 ***FIXXXX MEEEEEEEEEEE***
 
-Primitive data types in the OPENRPC are based on the types supported by the [JSON Schema Specification Wright Draft 00](https://tools.ietf.org/html/draft-wright-json-schema-00#section-4.2).
+Primitive data types in the OpenRPC are based on the types supported by the [JSON Schema Specification Wright Draft 00](https://tools.ietf.org/html/draft-wright-json-schema-00#section-4.2).
 Note that `integer` as a type is also supported and is defined as a JSON number without a fraction or exponent part.
 `null` is not supported as a type (see [`nullable`](#schemaNullable) for an alternative solution).
 Models are defined using the [Schema Object](#schemaObject), which is an extended subset of JSON Schema Specification Wright Draft 00.
 
 <a name="dataTypeFormat"></a>Primitives have an optional modifier property: `format`.
-OPENRPC uses several known formats to define in fine detail the data type being used.
+OpenRPC uses several known formats to define in fine detail the data type being used.
 However, to support documentation needs, the `format` property is an open `string`-valued property, and can have any value.
 Formats such as `"email"`, `"uuid"`, and so on, MAY be used even though undefined by this specification.
 Types that are not accompanied by a `format` property follow the type definition in the JSON Schema. Tools that do not recognize a specific `format` MAY default back to the `type` alone, as if the `format` is not specified.
 
-The formats defined by the OPENRPC are:
+The formats defined by the OpenRPC are:
 
 [`type`](#dataTypes) | [`format`](#dataTypeFormat) | Comments
 ------ | -------- | --------
@@ -524,7 +524,7 @@ The following properties are taken from the JSON Schema definition but their def
 - properties - Property definitions MUST be a [Schema Object](#schemaObject) and not a standard JSON Schema (inline or referenced).
 - additionalProperties - Value can be boolean or object. Inline or referenced schema MUST be of a [Schema Object](#schemaObject) and not a standard JSON Schema. Consistent with JSON Schema, `additionalProperties` defaults to `true`.
 - description - [CommonMark syntax](http://spec.commonmark.org/) MAY be used for rich text representation.
-- format - See [Data Type Formats](#dataTypeFormat) for further details. While relying on JSON Schema's defined formats, the OPENRPC offers a few additional predefined formats.
+- format - See [Data Type Formats](#dataTypeFormat) for further details. While relying on JSON Schema's defined formats, the OpenRPC offers a few additional predefined formats.
 - default - The default value represents what would be assumed by the consumer of the input as the value of the schema if one is not provided. Unlike JSON Schema, the value MUST conform to the defined type for the Schema Object defined at the same level. For example, if `type` is `string`, then `default` can be `"foo"` but cannot be `1`.
 
 Alternatively, any time a Schema Object can be used, a [Reference Object](#referenceObject) can be used in its place. This allows referencing definitions instead of defining them inline.
@@ -718,13 +718,13 @@ Example Object Examples:
 The `Link object` represents a possible design-time link for a response.
 The presence of a link does not guarantee the caller's ability to successfully invoke it, rather it provides a known relationship and traversal mechanism between responses and other methods.
 
-Unlike _dynamic_ links (i.e. links provided **in** the response payload), the OPENRPC linking mechanism does not require link information in the runtime response.
+Unlike _dynamic_ links (i.e. links provided **in** the response payload), the OpenRPC linking mechanism does not require link information in the runtime response.
 
 For computing links, and providing instructions to execute them, a [runtime expression](#runtimeExpression) is used for accessing values in an method and using them as parameters while invoking the linked method.
 
 Field Name  |  Type  | Description
 ---|:---:|---
-<a name="linkMethod"></a>method | `string` | The name of an _existing_, resolvable OPENRPC method, as defined with a unique `method`. This field MUST resolve to a unique [Method Object](#methodObject). As opposed to Open Api, Relative `method` values  ARE NOT permitted.
+<a name="linkMethod"></a>method | `string` | The name of an _existing_, resolvable OpenRPC method, as defined with a unique `method`. This field MUST resolve to a unique [Method Object](#methodObject). As opposed to Open Api, Relative `method` values  ARE NOT permitted.
 <a name="linkParameters"></a>parameters   | Map[`string`, Any \| [{expression}](#runtimeExpression)] | A map representing parameters to pass to a method as specified with `method`. The key is the parameter name to be used, whereas the value can be a constant or an expression to be evaluated and passed to the linked method.
 <a name="linkRequest"></a>request | Any \| [{expression}](#runtimeExpression) | A literal value or [{expression}](#runtimeExpression) to use as a request body when calling the target method.
 <a name="linkDescription"></a>description  | `string` | A description of the link. [CommonMark syntax](http://spec.commonmark.org/) MAY be used for rich text representation.
@@ -855,7 +855,7 @@ Field Name | Type | Description
 
 #### <a name="componentsObject"></a>Components Object
 
-Holds a set of reusable objects for different aspects of the OPENRPC.
+Holds a set of reusable objects for different aspects of the OpenRPC.
 All objects defined within the components object will have no effect on the API unless they are explicitly referenced from properties outside the components object.
 
 Field Name | Type | Description
