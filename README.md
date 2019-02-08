@@ -98,8 +98,6 @@ Patterned fields MUST have unique names within the containing object.
 
 Due to the nature of JSON RPC APIs using JSON formats, strictly use JSON only [as described here](https://tools.ietf.org/html/rfc7159).
 
-- Tags MUST be limited to those allowed by the [JSON Schema ruleset](http://www.yaml.org/spec/1.2/spec.html#id2803231).
-
 ### <a name="documentStructure"></a>Document Structure
 
 An OpenRPC document MAY be made up of a single document or be divided into multiple, connected parts at the discretion of the user. In the latter case, `$ref` fields MUST be used in the specification to reference those parts as follows from the [JSON Schema](http://json-schema.org) definitions.
