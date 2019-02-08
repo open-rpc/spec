@@ -28,7 +28,6 @@ This document is licensed under [The Apache License, Version 2.0](https://www.ap
 	- [Document Structure](#documentStructure)
 	- [Data Types](#dataTypes)
 	- [Rich Text Formatting](#richText)
-	- [Relative References In URLs](#relativeReferences)
 	- [OpenRPC Schema Object](#openrpcSchemaObject)
 		- [Info Object](#infoObject)
 		    - [Contact Object](#contactObject)
@@ -98,28 +97,19 @@ Patterned fields MUST have unique names within the containing object.
 
 Due to the nature of JSON RPC APIs using JSON formats, strictly use JSON only [as described here](https://tools.ietf.org/html/rfc7159).
 
-- Tags MUST be limited to those allowed by the [JSON Schema ruleset](http://www.yaml.org/spec/1.2/spec.html#id2803231).
-
 ### <a name="documentStructure"></a>Document Structure
 
-An OpenRPC document MAY be made up of a single document or be divided into multiple, connected parts at the discretion of the user. In the latter case, `$ref` fields MUST be used in the specification to reference those parts as follows from the [JSON Schema](http://json-schema.org) definitions.
+An OpenRPC document MAY be made up of a single document or be divided into multiple, connected parts at the discretion of the user. In the latter case, `$ref` fields MUST be used in the specification to reference those parts as follows from the [JSON Schema](https://json-schema.org/latest/json-schema-core.html#rfc.section.8.3) definitions.
 
 It is RECOMMENDED that the root OpenRPC document be named: `openrpc.json`.
 
 ### <a name="dataTypes"></a>Data Types
 
-The Data types MUST be in the set defined by the [JSON Schema Specification 7](https://json-schema.org/draft-07/json-schema-release-notes.html)
+The Data types MUST be in the set defined by the [JSON Schema Specification 7](https://json-schema.org/latest/json-schema-core.html)
 
 ### <a name="richText"></a>Rich Text Formatting
 Throughout the specification `description` fields are noted as supporting CommonMark markdown formatting.
 Where OpenRPC tooling renders rich text it MUST support, at a minimum, markdown syntax as described by [CommonMark 0.27](http://spec.commonmark.org/0.27/). Tooling MAY choose to ignore some CommonMark features to address security concerns.
-
-### <a name="relativeReferences"></a>Relative References in URLs
-
-Unless specified otherwise, all properties that are URLs MAY be relative references as defined by [RFC3986](https://tools.ietf.org/html/rfc3986#section-4.2).
-Relative references are resolved using the URLs defined in the [`Server Object`](#serverObject) as a Base URI.
-
-Relative references used in `$ref` are processed as per [JSON Reference](https://tools.ietf.org/html/draft-pbryan-zyp-json-ref-03), using the URL of the current document as the base URI. See also the [Reference Object](#referenceObject).
 
 ### <a name="openrpcSchemaObject">OpenRPC Schema Object
 This is the root document object of the [OpenRPC document](#openrpcDocument).
@@ -129,7 +119,7 @@ Field Name | Type | Description
 <a name="openrpcVersion"></a>openrpc | `string` | **REQUIRED**. This string MUST be the [semantic version number](https://semver.org/spec/v2.0.0.html) of the [OpenRPC Specification version](#versions) that the OpenRPC document uses. The `openrpc` field SHOULD be used by tooling specifications and clients to interpret the OpenRPC document. This is *not* related to the API [`info.version`](#infoVersion) string.
 <a name="openrpcInfo"></a>info | [Info Object](#infoObject) | **REQUIRED**. Provides metadata about the API. The metadata MAY be used by tooling as required.
 <a name="openrpcServers"></a>servers | [[Server Object](#serverObject)] | An array of Server Objects, which provide connectivity information to a target server. If the `servers` property is not provided, or is an empty array, the default value would be a [Server Object](#serverObject) with a [url](#serverUrl) value of `/`.
-<a name="openrpcMethods"></a>methods | [[Method Object](#methodObject) | [Reference Object](#referenceObject)] | **REQUIRED**. The available methods and operations for the API. While it is required, the array may be empty (to handle security filtering, for example).
+<a name="openrpcMethods"></a>methods | [[Method Object](#methodObject) \| [Reference Object](#referenceObject)] | **REQUIRED**. The available methods and operations for the API. While it is required, the array may be empty (to handle security filtering, for example).
 <a name="openrpcComponents"></a>components | [Components Object](#componentsObject) | An element to hold various schemas for the specification.
 <a name="openrpcTags"></a>tags | [[Tag Object](#tagObject)] | A list of tags used by the specification with additional metadata. The order of the tags can be used to reflect on their order by the parsing tools. Not all tags that are used by the [Operation Object](#operationObject) must be declared. The tags that are not declared MAY be organized randomly or based on the tools' logic. Each tag name in the list MUST be unique.
 <a name="openrpcExternalDocs"></a>externalDocs | [External Documentation Object](#externalDocumentationObject) | Additional external documentation.
