@@ -108,35 +108,7 @@ It is RECOMMENDED that the root OpenRPC document be named: `openrpc.json`.
 
 ### <a name="dataTypes"></a>Data Types
 
-***FIXXXX MEEEEEEEEEEE***
-
-Primitive data types in the OpenRPC are based on the types supported by the [JSON Schema Specification Wright Draft 00](https://tools.ietf.org/html/draft-wright-json-schema-00#section-4.2).
-Note that `integer` as a type is also supported and is defined as a JSON number without a fraction or exponent part.
-`null` is not supported as a type (see [`nullable`](#schemaNullable) for an alternative solution).
-Models are defined using the [Schema Object](#schemaObject), which is an extended subset of JSON Schema Specification Wright Draft 00.
-
-<a name="dataTypeFormat"></a>Primitives have an optional modifier property: `format`.
-OpenRPC uses several known formats to define in fine detail the data type being used.
-However, to support documentation needs, the `format` property is an open `string`-valued property, and can have any value.
-Formats such as `"email"`, `"uuid"`, and so on, MAY be used even though undefined by this specification.
-Types that are not accompanied by a `format` property follow the type definition in the JSON Schema. Tools that do not recognize a specific `format` MAY default back to the `type` alone, as if the `format` is not specified.
-
-The formats defined by the OpenRPC are:
-
-[`type`](#dataTypes) | [`format`](#dataTypeFormat) | Comments
------- | -------- | --------
-`integer` | `int32` | signed 32 bits
-`integer` | `int64` | signed 64 bits (a.k.a long)
-`number` | `float` | |
-`number` | `double` | |
-`string` | | |
-`string` | `byte` | base64 encoded characters
-`string` | `binary` | any sequence of octets
-`boolean` | | |
-`string` | `date` | As defined by `full-date` - [RFC3339](https://xml2rfc.ietf.org/public/rfc/html/rfc3339.html#anchor14)
-`string` | `date-time` | As defined by `date-time` - [RFC3339](https://xml2rfc.ietf.org/public/rfc/html/rfc3339.html#anchor14)
-`string` | `password` | A hint to UIs to obscure input.
-
+The Data types MUST be in the set defined by the [JSON Schema Specification 7](https://json-schema.org/draft-07/json-schema-release-notes.html)
 
 ### <a name="richText"></a>Rich Text Formatting
 Throughout the specification `description` fields are noted as supporting CommonMark markdown formatting.
