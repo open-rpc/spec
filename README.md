@@ -315,7 +315,7 @@ Method Object Example:
   ],
   "summary": "Updates a pet in the store with form data",
   "description": "#Big Ol long Doc Filled WIth Markdown!",
-  "parameters": [
+  "params": [
     {
       "name": "petId",
       "description": "ID of pet that needs to be updated",
