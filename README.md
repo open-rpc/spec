@@ -714,7 +714,7 @@ Values from the response can be used to drive a linked operation.
     "address": {
       "method": "get_user_address",
       "params": {
-        "userId": "$response.uuid"
+        "userId": "$results.uuid"
       }
     }
   }
