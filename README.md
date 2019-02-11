@@ -749,7 +749,7 @@ Examples:
 
 Source Location | example expression  | notes
 ---|:---|:---|
-Request parameter      | `$params.id`        | Request parameters MUST be declared in the `parameters` section of the parent operation or they cannot be evaluated.
+Request parameter      | `$params.id`        | Request parameters MUST be declared in the `params` section of the parent operation or they cannot be evaluated.
 Deep Request parameter | `$params.user.uuid`   | In methods which accept nested object payloads, `.` may be used to denote traversal of an object.
 Response value         | `$results.uuid`       |  In methods which return payloads, references may be made to portions of the response body or the entire body.
 
