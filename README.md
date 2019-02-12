@@ -303,7 +303,7 @@ Field Name | Type | Description
 <a name="methodParameters"></a>params | [[Content Descriptor](#contentDescriptorObject) \| [Reference Object](#referenceObject)] | A list of parameters that are applicable for this operation. The list MUST NOT include duplicated parameters and therefore require [name](#parameterName) to be unique. The list can use the [Reference Object](#referenceObject) to link to parameters that are defined by the [Content Descriptor Object](#contentDescriptorObject).
 <a name="methodResult"></a>result | [[Content Descriptor](#contentDescriptorObject) \| [Reference Object](#referenceObject)] | **REQUIRED**. The description of the result returned by the method. It MUST be a Content Descriptor.
 <a name="methodDeprecated"></a>deprecated | `boolean` | Declares this operation to be deprecated. Consumers SHOULD refrain from usage of the declared operation. Default value is `false`.
-<a name="methodServers"></a>servers | [[Server Object](#serverObject)] | An alternative `server` array to service this operation. If an alternative `server` object is specified at the Root level, it will be overridden by this value.
+<a name="methodServers"></a>servers | [[Server Object](#serverObject)] | An alternative `servers` array to service this operation. If an alternative `servers` array is specified at the Root level, it will be overridden by this value.
 <a name="methodErrors"></a>errors | [[Error Object](#errorObject) \| [Reference Object](#referenceObject)] | A list of custom application defined errors that MAY be returned. The Errors MUST have unique error codes.
 <a name="methodLinks"></a>links | [[Link Object](#linkObject) \| [Reference Object](#referenceObject)] | A list of possible links from this api call.
 
