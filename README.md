@@ -301,7 +301,7 @@ Field Name | Type | Description
 <a name="methodDescription"></a>description | `string` | A verbose explanation of the method behavior. [CommonMark syntax](http://spec.commonmark.org/) MAY be used for rich text representation.
 <a name="methodExternalDocs"></a>externalDocs | [External Documentation Object](#externalDocumentationObject) | Additional external documentation for this method.
 <a name="methodParameters"></a>params | [[Content Descriptor](#contentDescriptorObject) \| [Reference Object](#referenceObject)] | A list of parameters that are applicable for this operation. The list MUST NOT include duplicated parameters and therefore require [name](#parameterName) to be unique. The list can use the [Reference Object](#referenceObject) to link to parameters that are defined by the [Content Descriptor Object](#contentDescriptorObject).
-<a name="methodResults"></a>results | [[Content Descriptor](#contentDescriptorObject) \| [Reference Object](#referenceObject)] | **REQUIRED**. The description of the results returned by the method. It MUST be a Content Descriptor.
+<a name="methodResult"></a>result | [[Content Descriptor](#contentDescriptorObject) \| [Reference Object](#referenceObject)] | **REQUIRED**. The description of the result returned by the method. It MUST be a Content Descriptor.
 <a name="methodDeprecated"></a>deprecated | `boolean` | Declares this operation to be deprecated. Consumers SHOULD refrain from usage of the declared operation. Default value is `false`.
 <a name="methodServers"></a>servers | [[Server Object](#serverObject)] | An alternative `server` array to service this operation. If an alternative `server` object is specified at the Root level, it will be overridden by this value.
 <a name="methodErrors"></a>errors | [[Error Object](#errorObject) \| [Reference Object](#referenceObject)] | A list of custom application defined errors that MAY be returned. The Errors MUST have unique error codes.
@@ -342,7 +342,7 @@ Method Object Example:
       }
     }
   ],
-  "results": {
+  "result": {
     "description": "Pet updated.",
     "content": {
       "schema": {
@@ -354,7 +354,7 @@ Method Object Example:
 ```
 
 ##### <a name="contentDescriptorObject"></a>Content Descriptor Object
-Content Descriptors are objects that do just as they suggest - describe content. They are reusable ways of describing either parameters or results. They MUST have a schema.
+Content Descriptors are objects that do just as they suggest - describe content. They are reusable ways of describing either parameters or result. They MUST have a schema.
 
 Field Name | Type | Description
 ---|:---:|---
@@ -667,7 +667,7 @@ Computing a link from a request operation where the `$params.id` is used to pass
           }
         }
       ],
-      "results": {
+      "result": {
         "description": "the user being returned",
         "schema": {
           "type": "object",
@@ -700,7 +700,7 @@ Computing a link from a request operation where the `$params.id` is used to pass
           }
         }
       ],
-      "results": {
+      "result": {
         "description": "the user's address"
       }
     }
@@ -718,7 +718,7 @@ Values from the response can be used to drive a linked operation.
     "address": {
       "method": "get_user_address",
       "params": {
-        "userId": "$results.uuid"
+        "userId": "$result.uuid"
       }
     }
   }
@@ -755,7 +755,7 @@ Source Location | example expression  | notes
 ---|:---|:---|
 Request parameter      | `$params.id`        | Request parameters MUST be declared in the `params` section of the parent operation or they cannot be evaluated.
 Deep Request parameter | `$params.user.uuid`   | In methods which accept nested object payloads, `.` may be used to denote traversal of an object.
-Response value         | `$results.uuid`       |  In methods which return payloads, references may be made to portions of the response body or the entire body.
+Response value         | `$result.uuid`       |  In methods which return payloads, references may be made to portions of the response body or the entire body.
 
 Runtime expressions preserve the type of the referenced value.
 Expressions can be embedded into string values by surrounding the expression with `{}` curly braces.
