@@ -363,7 +363,7 @@ Field Name | Type | Description
 <a name="contentDescriptorDescription"></a>description | `string` | A verbose explanation of the method behavior. [CommonMark syntax](http://spec.commonmark.org/) MAY be used for rich text representation.
 <a name="contentDescriptorRequired"></a>required | `boolean` | Determines if the content is a required field.
 <a name="contentDescriptorSchema"></a>schema | [Schema Object](#schemaObject) | Schema that describes the content.
-<a name="contentDescriptorExamples"></a>examples | [Example Object](#exampleObject) | Example of the parameter. The example MUST match the specified schema. If referencing a `schema` which contains an example, the `example` value SHALL _override_ the example provided by the schema. To represent examples of media types that cannot naturally be represented in JSON, a string value can contain the example with escaping where necessary.
+<a name="contentDescriptorExamples"></a>examples | [[Example Object](#exampleObject)] | Examples of the parameter. The examples MUST match the specified schema. If referencing a `schema` which contains (an) example(s), the `examples` value SHALL _override_ the examples provided by the schema. To represent examples of media types that cannot naturally be represented in JSON, a string value can contain the example with escaping where necessary.
 <a name="contentDescriptorDeprecated"></a>deprecated | `boolean` | Specifies that the content is deprecated and SHOULD be transitioned out of usage. Default value is `false`.
 
 This object MAY be extended with [Specification Extensions](#specificationExtensions).
@@ -519,7 +519,7 @@ For a string to model mapping:
 }
 ```
 
-4. Model with Example
+4. Model with Examples
 
 ```json
 {
@@ -536,10 +536,12 @@ For a string to model mapping:
   "required": [
     "name"
   ],
-  "example": {
-    "name": "Puma",
-    "id": 1
-  }
+  "examples": [
+    {
+      "name": "Puma",
+      "id": 1
+    }
+  ]
 }
 ```
 
