@@ -121,9 +121,9 @@ Field Name | Type | Description
 <a name="openrpcVersion"></a>openrpc | `string` | **REQUIRED**. This string MUST be the [semantic version number](https://semver.org/spec/v2.0.0.html) of the [OpenRPC Specification version](#versions) that the OpenRPC document uses. The `openrpc` field SHOULD be used by tooling specifications and clients to interpret the OpenRPC document. This is *not* related to the API [`info.version`](#infoVersion) string.
 <a name="openrpcInfo"></a>info | [Info Object](#infoObject) | **REQUIRED**. Provides metadata about the API. The metadata MAY be used by tooling as required.
 <a name="openrpcServers"></a>servers | [[Server Object](#serverObject)] | An array of Server Objects, which provide connectivity information to a target server. If the `servers` property is not provided, or is an empty array, the default value would be a [Server Object](#serverObject) with a [url](#serverUrl) value of `/`.
-<a name="openrpcMethods"></a>methods | [[Method Object](#methodObject) \| [Reference Object](#referenceObject)] | **REQUIRED**. The available methods and operations for the API. While it is required, the array may be empty (to handle security filtering, for example).
+<a name="openrpcMethods"></a>methods | [[Method Object](#methodObject) \| [Reference Object](#referenceObject)] | **REQUIRED**. The available methods for the API. While it is required, the array may be empty (to handle security filtering, for example).
 <a name="openrpcComponents"></a>components | [Components Object](#componentsObject) | An element to hold various schemas for the specification.
-<a name="openrpcTags"></a>tags | [[Tag Object](#tagObject)] | A list of tags used by the specification with additional metadata. The order of the tags can be used to reflect on their order by the parsing tools. Not all tags that are used by the [Operation Object](#operationObject) must be declared. The tags that are not declared MAY be organized randomly or based on the tools' logic. Each tag name in the list MUST be unique.
+<a name="openrpcTags"></a>tags | [[Tag Object](#tagObject)] | A list of tags used by the specification with additional metadata. The order of the tags can be used to reflect on their order by the parsing tools. Not all tags that are used by the [Method Object](#methodObject) must be declared. The tags that are not declared MAY be organized randomly or based on the tools' logic. Each tag name in the list MUST be unique.
 <a name="openrpcExternalDocs"></a>externalDocs | [External Documentation Object](#externalDocumentationObject) | Additional external documentation.
 
 This object MAY be extended with [Specification Extensions](#specificationExtensions).
@@ -292,20 +292,21 @@ This object MAY be extended with [Specification Extensions](#specificationExtens
 
 #### <a name="methodObject"></a>Method Object
 
-Describes the operation for the given method name. The method name is used as the `method` field of the JSON RPC body. It therefor MUST be unique.
+Describes the interface for the given method name. The method name is used as the `method` field of the JSON RPC body. It therefor MUST be unique.
 
 Field Name | Type | Description
 ---|:---:|---
-<a name="methodTags"></a>tags | [`string`] | A list of tags for API documentation control. Tags can be used for logical grouping of operations by resources or any other qualifier.
+<a name="methodName"></a>name | [`string`] | The cannonical name for the method. The name MUST be unique within the methods array.
+<a name="methodTags"></a>tags | [`string`] | A list of tags for API documentation control. Tags can be used for logical grouping of methods by resources or any other qualifier.
 <a name="methodSummary"></a>summary | `string` | A short summary of what the method does.
 <a name="methodDescription"></a>description | `string` | A verbose explanation of the method behavior. [CommonMark syntax](http://spec.commonmark.org/) MAY be used for rich text representation.
 <a name="methodExternalDocs"></a>externalDocs | [External Documentation Object](#externalDocumentationObject) | Additional external documentation for this method.
-<a name="methodParameters"></a>params | [[Content Descriptor](#contentDescriptorObject) \| [Reference Object](#referenceObject)] | A list of parameters that are applicable for this operation. The list MUST NOT include duplicated parameters and therefore require [name](#parameterName) to be unique. The list can use the [Reference Object](#referenceObject) to link to parameters that are defined by the [Content Descriptor Object](#contentDescriptorObject).
-<a name="methodResult"></a>result | [[Content Descriptor](#contentDescriptorObject) \| [Reference Object](#referenceObject)] | **REQUIRED**. The description of the result returned by the method. It MUST be a Content Descriptor.
-<a name="methodDeprecated"></a>deprecated | `boolean` | Declares this operation to be deprecated. Consumers SHOULD refrain from usage of the declared operation. Default value is `false`.
-<a name="methodServers"></a>servers | [[Server Object](#serverObject)] | An alternative `servers` array to service this operation. If an alternative `servers` array is specified at the Root level, it will be overridden by this value.
+<a name="methodParameters"></a>params | [[Content Descriptor](#contentDescriptorObject) \| [Reference Object](#referenceObject)] | A list of parameters that are applicable for this method. The list MUST NOT include duplicated parameters and therefore require [name](#contentDescriptorName) to be unique. The list can use the [Reference Object](#referenceObject) to link to parameters that are defined by the [Content Descriptor Object](#contentDescriptorObject).
+<a name="methodResult"></a>result | [Content Descriptor](#contentDescriptorObject) \| [Reference Object](#referenceObject) | **REQUIRED**. The description of the result returned by the method. It MUST be a Content Descriptor.
+<a name="methodDeprecated"></a>deprecated | `boolean` | Declares this method to be deprecated. Consumers SHOULD refrain from usage of the declared method. Default value is `false`.
+<a name="methodServers"></a>servers | [[Server Object](#serverObject)] | An alternative `servers` array to service this method. If an alternative `servers` array is specified at the Root level, it will be overridden by this value.
 <a name="methodErrors"></a>errors | [[Error Object](#errorObject) \| [Reference Object](#referenceObject)] | A list of custom application defined errors that MAY be returned. The Errors MUST have unique error codes.
-<a name="methodLinks"></a>links | [[Link Object](#linkObject) \| [Reference Object](#referenceObject)] | A list of possible links from this api call.
+<a name="methodLinks"></a>links | [[Link Object](#linkObject) \| [Reference Object](#referenceObject)] | A list of possible links from this method call.
 
 This object MAY be extended with [Specification Extensions](#specificationExtensions).
 
@@ -315,6 +316,7 @@ Method Object Example:
   "tags": [
     "pet"
   ],
+  "name": "update_pet",
   "summary": "Updates a pet in the store with form data",
   "description": "#Big Ol long Doc Filled WIth Markdown!",
   "params": [
@@ -344,10 +346,8 @@ Method Object Example:
   ],
   "result": {
     "description": "Pet updated.",
-    "content": {
-      "schema": {
-        "$ref": "#/components/schemas/Pet"
-      }
+    "schema": {
+      "$ref": "#/components/schemas/Pet"
     }
   }
 }
@@ -358,11 +358,13 @@ Content Descriptors are objects that do just as they suggest - describe content.
 
 Field Name | Type | Description
 ---|:---:|---
-<a name="name"></a>name | `string` | name of the content that is being described.
-<a name="required"></a>required | `boolean` | Determines if the content is a required field.
-<a name="schema"></a>schema | [Schema Object](#schemaObject) | Schema that describes the content.
-<a name="examples"></a>examples | [Example Object](#exampleObject) | Example of the parameter. The example MUST match the specified schema. If referencing a `schema` which contains an example, the `example` value SHALL _override_ the example provided by the schema. To represent examples of media types that cannot naturally be represented in JSON, a string value can contain the example with escaping where necessary.
-<a name="deprecated"></a>deprecated | `boolean` | Specifies that the content is deprecated and SHOULD be transitioned out of usage. Default value is `false`.
+<a name="contentDescriptorName"></a>name | `string` | name of the content that is being described.
+<a name="contentDescriptorsummary"></a>summary | `string` | A short summary of what the method does.
+<a name="contentDescriptorDescription"></a>description | `string` | A verbose explanation of the method behavior. [CommonMark syntax](http://spec.commonmark.org/) MAY be used for rich text representation.
+<a name="contentDescriptorRequired"></a>required | `boolean` | Determines if the content is a required field.
+<a name="contentDescriptorSchema"></a>schema | [Schema Object](#schemaObject) | Schema that describes the content.
+<a name="contentDescriptorExamples"></a>examples | [Example Object](#exampleObject) | Example of the parameter. The example MUST match the specified schema. If referencing a `schema` which contains an example, the `example` value SHALL _override_ the example provided by the schema. To represent examples of media types that cannot naturally be represented in JSON, a string value can contain the example with escaping where necessary.
+<a name="contentDescriptorDeprecated"></a>deprecated | `boolean` | Specifies that the content is deprecated and SHOULD be transitioned out of usage. Default value is `false`.
 
 This object MAY be extended with [Specification Extensions](#specificationExtensions).
 
@@ -609,19 +611,18 @@ Example Object Examples:
 ```json
 {
   "contentDescriptors": {
-    "properties": {
-      "name": {
-        "type": "string",
-        "examples": [
-          { "$ref": "http://example.org/petapi-examples/openapi.json#/components/examples/name-example" },
-          {
-            "name": "Chinese",
-            "summary": "using non-english characters",
-            "description": "an example of how the rpc api can handle non english characters",
-            "value": "你好世界"
-          }
-        ]
-      }
+    "nameExample": {
+      "name": "exampleString"
+      "type": "string",
+      "examples": [
+        { "$ref": "http://example.org/petapi-examples/openapi.json#/components/examples/name-example" },
+        {
+          "name": "Chinese",
+          "summary": "using non-english characters",
+          "description": "an example of how the rpc api can handle non english characters",
+          "value": "你好世界"
+        }
+      ]
     }
   }
 }
@@ -629,10 +630,10 @@ Example Object Examples:
 
 ##### <a name="linkObject"></a>Link Object
 
-The `Link object` represents a possible design-time link for a response.
-The presence of a link does not guarantee the caller's ability to successfully invoke it, rather it provides a known relationship and traversal mechanism between responses and other methods.
+The `Link object` represents a possible design-time link for a result.
+The presence of a link does not guarantee the caller's ability to successfully invoke it, rather it provides a known relationship and traversal mechanism between results and other methods.
 
-Unlike _dynamic_ links (i.e. links provided **in** the response payload), the OpenRPC linking mechanism does not require link information in the runtime response.
+Unlike _dynamic_ links (i.e. links provided **in** the result payload), the OpenRPC linking mechanism does not require link information in the runtime result.
 
 For computing links, and providing instructions to execute them, a [runtime expression](#runtimeExpression) is used for accessing values in an method and using them as parameters while invoking the linked method.
 
@@ -640,9 +641,8 @@ Field Name  |  Type  | Description
 ---|:---:|---
 <a name="linkMethod"></a>method | `string` | The name of an _existing_, resolvable OpenRPC method, as defined with a unique `method`. This field MUST resolve to a unique [Method Object](#methodObject). As opposed to Open Api, Relative `method` values  ARE NOT permitted.
 <a name="linkParameters"></a>params   | Map[`string`, Any \| [{expression}](#runtimeExpression)] | A map representing parameters to pass to a method as specified with `method`. The key is the parameter name to be used, whereas the value can be a constant or an expression to be evaluated and passed to the linked method.
-<a name="linkRequest"></a>request | Any \| [{expression}](#runtimeExpression) | A literal value or [{expression}](#runtimeExpression) to use as a request body when calling the target method.
 <a name="linkDescription"></a>description  | `string` | A description of the link. [CommonMark syntax](http://spec.commonmark.org/) MAY be used for rich text representation.
-<a name="linkServer"></a>server       | [Server Object](#serverObject) | A server object to be used by the target operation.
+<a name="linkServer"></a>server       | [Server Object](#serverObject) | A server object to be used by the target method.
 
 This object MAY be extended with [Specification Extensions](#specificationExtensions).
 
@@ -650,7 +650,7 @@ A linked method must be identified directly, and must exist in the list of metho
 
 Examples:
 
-Computing a link from a request operation where the `$params.id` is used to pass a request parameter to the linked operation.
+Computing a link from a request operation where the `$params.id` is used to pass a request parameter to the linked method.
 
 ```json
 {
@@ -679,14 +679,14 @@ Computing a link from a request operation where the `$params.id` is used to pass
           }
         }
       },
-      "links": {
-        "address": {
+      "links": [
+        {
           "method": "get_user_address",
           "params": {
             "userId": "$params.id"
           }
         }
-      }
+      ]
     },
     {
       "name": "get_user_address",
@@ -708,20 +708,20 @@ Computing a link from a request operation where the `$params.id` is used to pass
 }
 ```
 
-When a runtime expression fails to evaluate, no parameter value is passed to the target operation.
+When a runtime expression fails to evaluate, no parameter value is passed to the target method.
 
-Values from the response can be used to drive a linked operation.
+Values from the result can be used to drive a linked method.
 
 ```json
 {
-  "links": {
-    "address": {
+  "links": [
+    {
       "method": "get_user_address",
       "params": {
         "userId": "$result.uuid"
       }
     }
-  }
+  ]
 }
 ```
 
@@ -738,7 +738,7 @@ The runtime expression is based on the runtime expression defined by the followi
 Since JSON RPC does not make extensive use of status codes, query params or paths, many of the fields do not apply and have been omited.
 
 ```
-      expression = ( "$request." source | "$response." source )
+      expression = ( "$params." source | "$result." source )
       fragment = a JSON Pointer [RFC 6901](https://tools.ietf.org/html/rfc6901)
       name = *( char )
       char = as per RFC [7159](https://tools.ietf.org/html/rfc7159#section-7)
@@ -753,9 +753,9 @@ Examples:
 
 Source Location | example expression  | notes
 ---|:---|:---|
-Request parameter      | `$params.id`        | Request parameters MUST be declared in the `params` section of the parent operation or they cannot be evaluated.
-Deep Request parameter | `$params.user.uuid`   | In methods which accept nested object payloads, `.` may be used to denote traversal of an object.
-Response value         | `$result.uuid`       |  In methods which return payloads, references may be made to portions of the response body or the entire body.
+Parameters      | `$params.id`        | Parameters MUST be declared in the `params` section of the parent method or they cannot be evaluated.
+Deep Parameters | `$params.user.uuid`   | In methods which accept nested object payloads, `.` may be used to denote traversal of an object.
+Result         | `$result.uuid`       |  In methods which return payloads, references may be made to portions of result or the entire result.
 
 Runtime expressions preserve the type of the referenced value.
 Expressions can be embedded into string values by surrounding the expression with `{}` curly braces.
@@ -767,7 +767,7 @@ Field Name | Type | Description
 ---|:---:|---
 <a name="errorCode"></a>[Application Defined Error Code](https://www.jsonrpc.org/specification#response_object) | `number` | A Number that indicates the error type that occurred. This MUST be an integer. The error codes from and including -32768 to -32000 are reserved for pre-defined errors. These pre-defined errors SHOULD be assumed to be returned from any JSON RPC api.
 <a name="errorMessage"></a>Message | `string` | A String providing a short description of the error. The message SHOULD be limited to a concise single sentence.
-<a name="errorMeaning"></a>Meaning | `string` | A Primitive or Structured value that contains additional information about the error. This may be omitted. The value of this member is defined by the Server (e.g. detailed error information, nested errors etc.).
+<a name="errorData"></a>Data | `any` | A Primitive or Structured value that contains additional information about the error. This may be omitted. The value of this member is defined by the Server (e.g. detailed error information, nested errors etc.).
 
 #### <a name="componentsObject"></a>Components Object
 
@@ -841,7 +841,6 @@ Components Object Example:
   "contentDescriptors": {
     "skipParam": {
       "name": "skip",
-      "in": "query",
       "description": "number of items to skip",
       "required": true,
       "schema": {
@@ -851,7 +850,6 @@ Components Object Example:
     },
     "limitParam": {
       "name": "limit",
-      "in": "query",
       "description": "max records to return",
       "required": true,
       "schema" : {
