@@ -296,12 +296,18 @@ Describes the operation for the given method name. The method name is used as th
 
 Field Name | Type | Description
 ---|:---:|---
+<a name="methodName"></a>name | [`string`] | The cannonical name for the method. The name MUST be unique within the methods array. This field is directly passed to the JSON-RPC API as the method name.
 <a name="methodTags"></a>tags | [`string`] | A list of tags for API documentation control. Tags can be used for logical grouping of operations by resources or any other qualifier.
 <a name="methodSummary"></a>summary | `string` | A short summary of what the method does.
 <a name="methodDescription"></a>description | `string` | A verbose explanation of the method behavior. [CommonMark syntax](http://spec.commonmark.org/) MAY be used for rich text representation.
 <a name="methodExternalDocs"></a>externalDocs | [External Documentation Object](#externalDocumentationObject) | Additional external documentation for this method.
+<<<<<<< Updated upstream
 <a name="methodParameters"></a>params | [[Content Descriptor](#contentDescriptorObject) \| [Reference Object](#referenceObject)] | A list of parameters that are applicable for this operation. The list MUST NOT include duplicated parameters and therefore require [name](#parameterName) to be unique. The list can use the [Reference Object](#referenceObject) to link to parameters that are defined by the [Content Descriptor Object](#contentDescriptorObject).
 <a name="methodResult"></a>result | [[Content Descriptor](#contentDescriptorObject) \| [Reference Object](#referenceObject)] | **REQUIRED**. The description of the result returned by the method. It MUST be a Content Descriptor.
+=======
+<a name="methodParameters"></a>params | [[Content Descriptor](#contentDescriptorObject) \| [Reference Object](#referenceObject)] | A list of parameters that are applicable for this operation. The list MUST NOT include duplicated parameters and therefore require [name](#parameterName) to be unique. If the [Method Param Structure](#methodParamStructure) is set to `by-name`, each content descriptor in the array represents the params positionally. The list can use the [Reference Object](#referenceObject) to link to parameters that are defined by the [Content Descriptor Object](#contentDescriptorObject).
+<a name="methodResult"></a>result | [Content Descriptor](#contentDescriptorObject) \| [Reference Object](#referenceObject) | **REQUIRED**. The description of the result returned by the method. It MUST be a Content Descriptor.
+>>>>>>> Stashed changes
 <a name="methodDeprecated"></a>deprecated | `boolean` | Declares this operation to be deprecated. Consumers SHOULD refrain from usage of the declared operation. Default value is `false`.
 <a name="methodServers"></a>servers | [[Server Object](#serverObject)] | An alternative `servers` array to service this operation. If an alternative `servers` array is specified at the Root level, it will be overridden by this value.
 <a name="methodErrors"></a>errors | [[Error Object](#errorObject) \| [Reference Object](#referenceObject)] | A list of custom application defined errors that MAY be returned. The Errors MUST have unique error codes.
@@ -344,10 +350,8 @@ Method Object Example:
   ],
   "result": {
     "description": "Pet updated.",
-    "content": {
-      "schema": {
-        "$ref": "#/components/schemas/Pet"
-      }
+    "schema": {
+      "$ref": "#/components/schemas/Pet"
     }
   }
 }
@@ -358,11 +362,13 @@ Content Descriptors are objects that do just as they suggest - describe content.
 
 Field Name | Type | Description
 ---|:---:|---
-<a name="name"></a>name | `string` | name of the content that is being described.
-<a name="required"></a>required | `boolean` | Determines if the content is a required field.
-<a name="schema"></a>schema | [Schema Object](#schemaObject) | Schema that describes the content.
-<a name="examples"></a>examples | [Example Object](#exampleObject) | Example of the parameter. The example MUST match the specified schema. If referencing a `schema` which contains an example, the `example` value SHALL _override_ the example provided by the schema. To represent examples of media types that cannot naturally be represented in JSON, a string value can contain the example with escaping where necessary.
-<a name="deprecated"></a>deprecated | `boolean` | Specifies that the content is deprecated and SHOULD be transitioned out of usage. Default value is `false`.
+<a name="contentDescriptorName"></a>name | `string` | name of the content that is being described.
+<a name="contentDescriptorsummary"></a>summary | `string` | A short summary of what the method does.
+<a name="contentDescriptorDescription"></a>description | `string` | A verbose explanation of the method behavior. [CommonMark syntax](http://spec.commonmark.org/) MAY be used for rich text representation.
+<a name="contentDescriptorRequired"></a>required | `boolean` | Determines if the content is a required field.
+<a name="contentDescriptorSchema"></a>schema | [Schema Object](#schemaObject) | Schema that describes the content.
+<a name="contentDescriptorExamples"></a>examples | [Example Object](#exampleObject) | Example of the parameter. The example MUST match the specified schema. If referencing a `schema` which contains an example, the `example` value SHALL _override_ the example provided by the schema. To represent examples of media types that cannot naturally be represented in JSON, a string value can contain the example with escaping where necessary.
+<a name="contentDescriptorDeprecated"></a>deprecated | `boolean` | Specifies that the content is deprecated and SHOULD be transitioned out of usage. Default value is `false`.
 
 This object MAY be extended with [Specification Extensions](#specificationExtensions).
 
