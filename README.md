@@ -630,10 +630,10 @@ Example Object Examples:
 
 ##### <a name="linkObject"></a>Link Object
 
-The `Link object` represents a possible design-time link for a response.
-The presence of a link does not guarantee the caller's ability to successfully invoke it, rather it provides a known relationship and traversal mechanism between responses and other methods.
+The `Link object` represents a possible design-time link for a result.
+The presence of a link does not guarantee the caller's ability to successfully invoke it, rather it provides a known relationship and traversal mechanism between results and other methods.
 
-Unlike _dynamic_ links (i.e. links provided **in** the response payload), the OpenRPC linking mechanism does not require link information in the runtime response.
+Unlike _dynamic_ links (i.e. links provided **in** the result payload), the OpenRPC linking mechanism does not require link information in the runtime result.
 
 For computing links, and providing instructions to execute them, a [runtime expression](#runtimeExpression) is used for accessing values in an method and using them as parameters while invoking the linked method.
 
@@ -739,7 +739,7 @@ The runtime expression is based on the runtime expression defined by the followi
 Since JSON RPC does not make extensive use of status codes, query params or paths, many of the fields do not apply and have been omited.
 
 ```
-      expression = ( "$request." source | "$response." source )
+      expression = ( "$params." source | "$result." source )
       fragment = a JSON Pointer [RFC 6901](https://tools.ietf.org/html/rfc6901)
       name = *( char )
       char = as per RFC [7159](https://tools.ietf.org/html/rfc7159#section-7)
@@ -754,9 +754,9 @@ Examples:
 
 Source Location | example expression  | notes
 ---|:---|:---|
-Request parameter      | `$params.id`        | Request parameters MUST be declared in the `params` section of the parent method or they cannot be evaluated.
-Deep Request parameter | `$params.user.uuid`   | In methods which accept nested object payloads, `.` may be used to denote traversal of an object.
-Response value         | `$result.uuid`       |  In methods which return payloads, references may be made to portions of the response body or the entire body.
+Parameters      | `$params.id`        | Parameters MUST be declared in the `params` section of the parent method or they cannot be evaluated.
+Deep Parameters | `$params.user.uuid`   | In methods which accept nested object payloads, `.` may be used to denote traversal of an object.
+Result         | `$result.uuid`       |  In methods which return payloads, references may be made to portions of result or the entire result.
 
 Runtime expressions preserve the type of the referenced value.
 Expressions can be embedded into string values by surrounding the expression with `{}` curly braces.
