@@ -641,7 +641,6 @@ Field Name  |  Type  | Description
 ---|:---:|---
 <a name="linkMethod"></a>method | `string` | The name of an _existing_, resolvable OpenRPC method, as defined with a unique `method`. This field MUST resolve to a unique [Method Object](#methodObject). As opposed to Open Api, Relative `method` values  ARE NOT permitted.
 <a name="linkParameters"></a>params   | Map[`string`, Any \| [{expression}](#runtimeExpression)] | A map representing parameters to pass to a method as specified with `method`. The key is the parameter name to be used, whereas the value can be a constant or an expression to be evaluated and passed to the linked method.
-<a name="linkRequest"></a>request | Any \| [{expression}](#runtimeExpression) | A literal value or [{expression}](#runtimeExpression) to use as a request body when calling the target method.
 <a name="linkDescription"></a>description  | `string` | A description of the link. [CommonMark syntax](http://spec.commonmark.org/) MAY be used for rich text representation.
 <a name="linkServer"></a>server       | [Server Object](#serverObject) | A server object to be used by the target method.
 
