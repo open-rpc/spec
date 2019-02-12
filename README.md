@@ -765,9 +765,9 @@ Defines an application level error.
 
 Field Name | Type | Description
 ---|:---:|---
-<a name="errorCode"></a>[Application Defined Error Code](https://www.jsonrpc.org/specification#response_object) | `number` | A Number that indicates the error type that occurred. This MUST be an integer. The error codes from and including -32768 to -32000 are reserved for pre-defined errors. These pre-defined errors SHOULD be assumed to be returned from any JSON RPC api.
-<a name="errorMessage"></a>Message | `string` | A String providing a short description of the error. The message SHOULD be limited to a concise single sentence.
-<a name="errorData"></a>Data | `any` | A Primitive or Structured value that contains additional information about the error. This may be omitted. The value of this member is defined by the Server (e.g. detailed error information, nested errors etc.).
+<a name="errorCode"></a>code | [Application Defined Error Code](https://www.jsonrpc.org/specification#response_object) | A Number that indicates the error type that occurred. This MUST be an integer. The error codes from and including -32768 to -32000 are reserved for pre-defined errors. These pre-defined errors SHOULD be assumed to be returned from any JSON RPC api.
+<a name="errorMessage"></a>message | `string` | A String providing a short description of the error. The message SHOULD be limited to a concise single sentence.
+<a name="errorData"></a>data | `any` | A Primitive or Structured value that contains additional information about the error. This may be omitted. The value of this member is defined by the Server (e.g. detailed error information, nested errors etc.).
 
 #### <a name="componentsObject"></a>Components Object
 
