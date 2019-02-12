@@ -301,8 +301,8 @@ Field Name | Type | Description
 <a name="methodSummary"></a>summary | `string` | A short summary of what the method does.
 <a name="methodDescription"></a>description | `string` | A verbose explanation of the method behavior. [CommonMark syntax](http://spec.commonmark.org/) MAY be used for rich text representation.
 <a name="methodExternalDocs"></a>externalDocs | [External Documentation Object](#externalDocumentationObject) | Additional external documentation for this method.
-<a name="methodParameters"></a>params | [[Content Descriptor](#contentDescriptorObject) \| [Reference Object](#referenceObject)] | A list of parameters that are applicable for this method. The list MUST NOT include duplicated parameters and therefore require [name](#parameterName) to be unique. The list can use the [Reference Object](#referenceObject) to link to parameters that are defined by the [Content Descriptor Object](#contentDescriptorObject).
-<a name="methodResult"></a>result | [[Content Descriptor](#contentDescriptorObject) \| [Reference Object](#referenceObject)] | **REQUIRED**. The description of the result returned by the method. It MUST be a Content Descriptor.
+<a name="methodParameters"></a>params | [[Content Descriptor](#contentDescriptorObject) \| [Reference Object](#referenceObject)] | A list of parameters that are applicable for this method. The list MUST NOT include duplicated parameters and therefore require [name](#contentDescriptorName) to be unique. The list can use the [Reference Object](#referenceObject) to link to parameters that are defined by the [Content Descriptor Object](#contentDescriptorObject).
+<a name="methodResult"></a>result | [Content Descriptor](#contentDescriptorObject) \| [Reference Object](#referenceObject) | **REQUIRED**. The description of the result returned by the method. It MUST be a Content Descriptor.
 <a name="methodDeprecated"></a>deprecated | `boolean` | Declares this method to be deprecated. Consumers SHOULD refrain from usage of the declared method. Default value is `false`.
 <a name="methodServers"></a>servers | [[Server Object](#serverObject)] | An alternative `servers` array to service this method. If an alternative `servers` array is specified at the Root level, it will be overridden by this value.
 <a name="methodErrors"></a>errors | [[Error Object](#errorObject) \| [Reference Object](#referenceObject)] | A list of custom application defined errors that MAY be returned. The Errors MUST have unique error codes.
@@ -316,6 +316,7 @@ Method Object Example:
   "tags": [
     "pet"
   ],
+  "name": "update_pet",
   "summary": "Updates a pet in the store with form data",
   "description": "#Big Ol long Doc Filled WIth Markdown!",
   "params": [
@@ -610,19 +611,18 @@ Example Object Examples:
 ```json
 {
   "contentDescriptors": {
-    "properties": {
-      "name": {
-        "type": "string",
-        "examples": [
-          { "$ref": "http://example.org/petapi-examples/openapi.json#/components/examples/name-example" },
-          {
-            "name": "Chinese",
-            "summary": "using non-english characters",
-            "description": "an example of how the rpc api can handle non english characters",
-            "value": "你好世界"
-          }
-        ]
-      }
+    "nameExample": {
+      "name": "exampleString"
+      "type": "string",
+      "examples": [
+        { "$ref": "http://example.org/petapi-examples/openapi.json#/components/examples/name-example" },
+        {
+          "name": "Chinese",
+          "summary": "using non-english characters",
+          "description": "an example of how the rpc api can handle non english characters",
+          "value": "你好世界"
+        }
+      ]
     }
   }
 }
@@ -680,14 +680,14 @@ Computing a link from a request operation where the `$params.id` is used to pass
           }
         }
       },
-      "links": {
-        "address": {
+      "links": [
+        {
           "method": "get_user_address",
           "params": {
             "userId": "$params.id"
           }
         }
-      }
+      ]
     },
     {
       "name": "get_user_address",
@@ -715,14 +715,14 @@ Values from the result can be used to drive a linked method.
 
 ```json
 {
-  "links": {
-    "address": {
+  "links": [
+    {
       "method": "get_user_address",
       "params": {
         "userId": "$result.uuid"
       }
     }
-  }
+  ]
 }
 ```
 
@@ -842,7 +842,6 @@ Components Object Example:
   "contentDescriptors": {
     "skipParam": {
       "name": "skip",
-      "in": "query",
       "description": "number of items to skip",
       "required": true,
       "schema": {
@@ -852,7 +851,6 @@ Components Object Example:
     },
     "limitParam": {
       "name": "limit",
-      "in": "query",
       "description": "max records to return",
       "required": true,
       "schema" : {
