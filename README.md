@@ -300,7 +300,7 @@ Field Name | Type | Description
 <a name="methodSummary"></a>summary | `string` | A short summary of what the method does.
 <a name="methodDescription"></a>description | `string` | A verbose explanation of the method behavior. [CommonMark syntax](http://spec.commonmark.org/) MAY be used for rich text representation.
 <a name="methodExternalDocs"></a>externalDocs | [External Documentation Object](#externalDocumentationObject) | Additional external documentation for this method.
-<a name="methodParameters"></a>parameters | [[Content Descriptor](#contentDescriptorObject) \| [Reference Object](#referenceObject)] | A list of parameters that are applicable for this operation. The list MUST NOT include duplicated parameters and therefore require [name](#parameterName) to be unique. The list can use the [Reference Object](#referenceObject) to link to parameters that are defined at the [OpenRPC Object's components/parameters](#componentsParameters).
+<a name="methodParameters"></a>params | [[Content Descriptor](#contentDescriptorObject) \| [Reference Object](#referenceObject)] | A list of parameters that are applicable for this operation. The list MUST NOT include duplicated parameters and therefore require [name](#parameterName) to be unique. The list can use the [Reference Object](#referenceObject) to link to parameters that are defined by the [Content Descriptor Object](#contentDescriptorObject).
 <a name="methodResults"></a>results | [[Content Descriptor](#contentDescriptorObject) \| [Reference Object](#referenceObject)] | **REQUIRED**. The description of the results returned by the method. It MUST be a Content Descriptor.
 <a name="methodDeprecated"></a>deprecated | `boolean` | Declares this operation to be deprecated. Consumers SHOULD refrain from usage of the declared operation. Default value is `false`.
 <a name="methodServers"></a>servers | [[Server Object](#serverObject)] | An alternative `server` array to service this operation. If an alternative `server` object is specified at the Root level, it will be overridden by this value.
@@ -315,7 +315,7 @@ Method Object Example:
   ],
   "summary": "Updates a pet in the store with form data",
   "description": "#Big Ol long Doc Filled WIth Markdown!",
-  "parameters": [
+  "params": [
     {
       "name": "petId",
       "description": "ID of pet that needs to be updated",
@@ -637,7 +637,7 @@ For computing links, and providing instructions to execute them, a [runtime expr
 Field Name  |  Type  | Description
 ---|:---:|---
 <a name="linkMethod"></a>method | `string` | The name of an _existing_, resolvable OpenRPC method, as defined with a unique `method`. This field MUST resolve to a unique [Method Object](#methodObject). As opposed to Open Api, Relative `method` values  ARE NOT permitted.
-<a name="linkParameters"></a>parameters   | Map[`string`, Any \| [{expression}](#runtimeExpression)] | A map representing parameters to pass to a method as specified with `method`. The key is the parameter name to be used, whereas the value can be a constant or an expression to be evaluated and passed to the linked method.
+<a name="linkParameters"></a>params   | Map[`string`, Any \| [{expression}](#runtimeExpression)] | A map representing parameters to pass to a method as specified with `method`. The key is the parameter name to be used, whereas the value can be a constant or an expression to be evaluated and passed to the linked method.
 <a name="linkRequest"></a>request | Any \| [{expression}](#runtimeExpression) | A literal value or [{expression}](#runtimeExpression) to use as a request body when calling the target method.
 <a name="linkDescription"></a>description  | `string` | A description of the link. [CommonMark syntax](http://spec.commonmark.org/) MAY be used for rich text representation.
 <a name="linkServer"></a>server       | [Server Object](#serverObject) | A server object to be used by the target operation.
@@ -648,13 +648,13 @@ A linked method must be identified directly, and must exist in the list of metho
 
 Examples:
 
-Computing a link from a request operation where the `$parameters.id` is used to pass a request parameter to the linked operation.
+Computing a link from a request operation where the `$params.id` is used to pass a request parameter to the linked operation.
 
 ```json
 {
   "methods": {
     "get_user": {
-      "parameters": [
+      "params": [
         {
           "name": "id",
           "required": true,
@@ -679,16 +679,16 @@ Computing a link from a request operation where the `$parameters.id` is used to 
       "links": {
         "address": {
           "method": "get_user_address",
-          "parameters": {
-            "userId": "$parameters.id"
+          "params": {
+            "userId": "$params.id"
           }
         }
       }
     },
     "get_user_address": {
-      "parameters": [
+      "params": [
         {
-          "name": "userid",
+          "name": "userId",
           "required": true,
           "description": "the user identifier, as userId",
           "schema": {
@@ -713,8 +713,8 @@ Values from the response can be used to drive a linked operation.
   "links": {
     "address": {
       "method": "get_user_address",
-      "parameters": {
-        "userid": "$response.uuid"
+      "params": {
+        "userId": "$results.uuid"
       }
     }
   }
@@ -728,7 +728,7 @@ solely by the existence of a relationship.
 ###### <a name="runtimeExpression"></a>Runtime Expressions
 
 Runtime expressions allow defining values based on information that will only be available within the HTTP message in an actual API call.
-This mechanism is used by [Link Objects](#linkObject) and [Callback Objects](#callbackObject).
+This mechanism is used by [Link Objects](#linkObject).
 
 The runtime expression is based on the runtime expression defined by the following [ABNF](https://tools.ietf.org/html/rfc5234) syntax.
 Since JSON RPC does not make extensive use of status codes, query params or paths, many of the fields do not apply and have been omited.
@@ -749,9 +749,9 @@ Examples:
 
 Source Location | example expression  | notes
 ---|:---|:---|
-Request parameter      | `$request.id`        | Request parameters MUST be declared in the `parameters` section of the parent operation or they cannot be evaluated.
-Deep Request parameter | `$request.user.uuid`   | In methods which accept nested object payloads, `.` may be used to denote traversal of an object.
-Response value         | `$response.uuid`       |  In methods which return payloads, references may be made to portions of the response body or the entire body.
+Request parameter      | `$params.id`        | Request parameters MUST be declared in the `params` section of the parent operation or they cannot be evaluated.
+Deep Request parameter | `$params.user.uuid`   | In methods which accept nested object payloads, `.` may be used to denote traversal of an object.
+Response value         | `$results.uuid`       |  In methods which return payloads, references may be made to portions of the response body or the entire body.
 
 Runtime expressions preserve the type of the referenced value.
 Expressions can be embedded into string values by surrounding the expression with `{}` curly braces.
