@@ -307,6 +307,7 @@ Field Name | Type | Description
 <a name="methodServers"></a>servers | [[Server Object](#serverObject)] | An alternative `servers` array to service this method. If an alternative `servers` array is specified at the Root level, it will be overridden by this value.
 <a name="methodErrors"></a>errors | [[Error Object](#errorObject) \| [Reference Object](#referenceObject)] | A list of custom application defined errors that MAY be returned. The Errors MUST have unique error codes.
 <a name="methodLinks"></a>links | [[Link Object](#linkObject) \| [Reference Object](#referenceObject)] | A list of possible links from this method call.
+<a name="methodParamStructure"></a>paramStructure | `"by-name"` | `"by-position"` | Format the server expects the params. Defaults to `"by-positon"`.
 
 This object MAY be extended with [Specification Extensions](#specificationExtensions).
 
@@ -317,6 +318,7 @@ Method Object Example:
     "pet"
   ],
   "name": "update_pet",
+  "paramStructure": "by-name",
   "summary": "Updates a pet in the store with form data",
   "description": "#Big Ol long Doc Filled WIth Markdown!",
   "params": [
