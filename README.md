@@ -121,9 +121,9 @@ Field Name | Type | Description
 <a name="openrpcVersion"></a>openrpc | `string` | **REQUIRED**. This string MUST be the [semantic version number](https://semver.org/spec/v2.0.0.html) of the [OpenRPC Specification version](#versions) that the OpenRPC document uses. The `openrpc` field SHOULD be used by tooling specifications and clients to interpret the OpenRPC document. This is *not* related to the API [`info.version`](#infoVersion) string.
 <a name="openrpcInfo"></a>info | [Info Object](#infoObject) | **REQUIRED**. Provides metadata about the API. The metadata MAY be used by tooling as required.
 <a name="openrpcServers"></a>servers | [[Server Object](#serverObject)] | An array of Server Objects, which provide connectivity information to a target server. If the `servers` property is not provided, or is an empty array, the default value would be a [Server Object](#serverObject) with a [url](#serverUrl) value of `/`.
-<a name="openrpcMethods"></a>methods | [[Method Object](#methodObject) \| [Reference Object](#referenceObject)] | **REQUIRED**. The available methods and operations for the API. While it is required, the array may be empty (to handle security filtering, for example).
+<a name="openrpcMethods"></a>methods | [[Method Object](#methodObject) \| [Reference Object](#referenceObject)] | **REQUIRED**. The available methods for the API. While it is required, the array may be empty (to handle security filtering, for example).
 <a name="openrpcComponents"></a>components | [Components Object](#componentsObject) | An element to hold various schemas for the specification.
-<a name="openrpcTags"></a>tags | [[Tag Object](#tagObject)] | A list of tags used by the specification with additional metadata. The order of the tags can be used to reflect on their order by the parsing tools. Not all tags that are used by the [Operation Object](#operationObject) must be declared. The tags that are not declared MAY be organized randomly or based on the tools' logic. Each tag name in the list MUST be unique.
+<a name="openrpcTags"></a>tags | [[Tag Object](#tagObject)] | A list of tags used by the specification with additional metadata. The order of the tags can be used to reflect on their order by the parsing tools. Not all tags that are used by the [Method Object](#methodObject) must be declared. The tags that are not declared MAY be organized randomly or based on the tools' logic. Each tag name in the list MUST be unique.
 <a name="openrpcExternalDocs"></a>externalDocs | [External Documentation Object](#externalDocumentationObject) | Additional external documentation.
 
 This object MAY be extended with [Specification Extensions](#specificationExtensions).
@@ -292,26 +292,21 @@ This object MAY be extended with [Specification Extensions](#specificationExtens
 
 #### <a name="methodObject"></a>Method Object
 
-Describes the operation for the given method name. The method name is used as the `method` field of the JSON RPC body. It therefor MUST be unique.
+Describes the interface for the given method name. The method name is used as the `method` field of the JSON RPC body. It therefor MUST be unique.
 
 Field Name | Type | Description
 ---|:---:|---
-<a name="methodName"></a>name | [`string`] | The cannonical name for the method. The name MUST be unique within the methods array. This field is directly passed to the JSON-RPC API as the method name.
-<a name="methodTags"></a>tags | [`string`] | A list of tags for API documentation control. Tags can be used for logical grouping of operations by resources or any other qualifier.
+<a name="methodName"></a>name | [`string`] | The cannonical name for the method. The name MUST be unique within the methods array.
+<a name="methodTags"></a>tags | [`string`] | A list of tags for API documentation control. Tags can be used for logical grouping of methods by resources or any other qualifier.
 <a name="methodSummary"></a>summary | `string` | A short summary of what the method does.
 <a name="methodDescription"></a>description | `string` | A verbose explanation of the method behavior. [CommonMark syntax](http://spec.commonmark.org/) MAY be used for rich text representation.
 <a name="methodExternalDocs"></a>externalDocs | [External Documentation Object](#externalDocumentationObject) | Additional external documentation for this method.
-<<<<<<< Updated upstream
-<a name="methodParameters"></a>params | [[Content Descriptor](#contentDescriptorObject) \| [Reference Object](#referenceObject)] | A list of parameters that are applicable for this operation. The list MUST NOT include duplicated parameters and therefore require [name](#parameterName) to be unique. The list can use the [Reference Object](#referenceObject) to link to parameters that are defined by the [Content Descriptor Object](#contentDescriptorObject).
+<a name="methodParameters"></a>params | [[Content Descriptor](#contentDescriptorObject) \| [Reference Object](#referenceObject)] | A list of parameters that are applicable for this method. The list MUST NOT include duplicated parameters and therefore require [name](#parameterName) to be unique. The list can use the [Reference Object](#referenceObject) to link to parameters that are defined by the [Content Descriptor Object](#contentDescriptorObject).
 <a name="methodResult"></a>result | [[Content Descriptor](#contentDescriptorObject) \| [Reference Object](#referenceObject)] | **REQUIRED**. The description of the result returned by the method. It MUST be a Content Descriptor.
-=======
-<a name="methodParameters"></a>params | [[Content Descriptor](#contentDescriptorObject) \| [Reference Object](#referenceObject)] | A list of parameters that are applicable for this operation. The list MUST NOT include duplicated parameters and therefore require [name](#parameterName) to be unique. If the [Method Param Structure](#methodParamStructure) is set to `by-name`, each content descriptor in the array represents the params positionally. The list can use the [Reference Object](#referenceObject) to link to parameters that are defined by the [Content Descriptor Object](#contentDescriptorObject).
-<a name="methodResult"></a>result | [Content Descriptor](#contentDescriptorObject) \| [Reference Object](#referenceObject) | **REQUIRED**. The description of the result returned by the method. It MUST be a Content Descriptor.
->>>>>>> Stashed changes
-<a name="methodDeprecated"></a>deprecated | `boolean` | Declares this operation to be deprecated. Consumers SHOULD refrain from usage of the declared operation. Default value is `false`.
-<a name="methodServers"></a>servers | [[Server Object](#serverObject)] | An alternative `servers` array to service this operation. If an alternative `servers` array is specified at the Root level, it will be overridden by this value.
+<a name="methodDeprecated"></a>deprecated | `boolean` | Declares this method to be deprecated. Consumers SHOULD refrain from usage of the declared method. Default value is `false`.
+<a name="methodServers"></a>servers | [[Server Object](#serverObject)] | An alternative `servers` array to service this method. If an alternative `servers` array is specified at the Root level, it will be overridden by this value.
 <a name="methodErrors"></a>errors | [[Error Object](#errorObject) \| [Reference Object](#referenceObject)] | A list of custom application defined errors that MAY be returned. The Errors MUST have unique error codes.
-<a name="methodLinks"></a>links | [[Link Object](#linkObject) \| [Reference Object](#referenceObject)] | A list of possible links from this api call.
+<a name="methodLinks"></a>links | [[Link Object](#linkObject) \| [Reference Object](#referenceObject)] | A list of possible links from this method call.
 
 This object MAY be extended with [Specification Extensions](#specificationExtensions).
 
@@ -648,7 +643,7 @@ Field Name  |  Type  | Description
 <a name="linkParameters"></a>params   | Map[`string`, Any \| [{expression}](#runtimeExpression)] | A map representing parameters to pass to a method as specified with `method`. The key is the parameter name to be used, whereas the value can be a constant or an expression to be evaluated and passed to the linked method.
 <a name="linkRequest"></a>request | Any \| [{expression}](#runtimeExpression) | A literal value or [{expression}](#runtimeExpression) to use as a request body when calling the target method.
 <a name="linkDescription"></a>description  | `string` | A description of the link. [CommonMark syntax](http://spec.commonmark.org/) MAY be used for rich text representation.
-<a name="linkServer"></a>server       | [Server Object](#serverObject) | A server object to be used by the target operation.
+<a name="linkServer"></a>server       | [Server Object](#serverObject) | A server object to be used by the target method.
 
 This object MAY be extended with [Specification Extensions](#specificationExtensions).
 
@@ -656,7 +651,7 @@ A linked method must be identified directly, and must exist in the list of metho
 
 Examples:
 
-Computing a link from a request operation where the `$params.id` is used to pass a request parameter to the linked operation.
+Computing a link from a request operation where the `$params.id` is used to pass a request parameter to the linked method.
 
 ```json
 {
@@ -714,9 +709,9 @@ Computing a link from a request operation where the `$params.id` is used to pass
 }
 ```
 
-When a runtime expression fails to evaluate, no parameter value is passed to the target operation.
+When a runtime expression fails to evaluate, no parameter value is passed to the target method.
 
-Values from the response can be used to drive a linked operation.
+Values from the result can be used to drive a linked method.
 
 ```json
 {
@@ -759,7 +754,7 @@ Examples:
 
 Source Location | example expression  | notes
 ---|:---|:---|
-Request parameter      | `$params.id`        | Request parameters MUST be declared in the `params` section of the parent operation or they cannot be evaluated.
+Request parameter      | `$params.id`        | Request parameters MUST be declared in the `params` section of the parent method or they cannot be evaluated.
 Deep Request parameter | `$params.user.uuid`   | In methods which accept nested object payloads, `.` may be used to denote traversal of an object.
 Response value         | `$result.uuid`       |  In methods which return payloads, references may be made to portions of the response body or the entire body.
 
