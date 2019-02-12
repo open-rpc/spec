@@ -1,6 +1,6 @@
 <p align="center">
   <img src="https://github.com/open-rpc/design/blob/master/png/open-rpc-logo-320x320.png?raw=true" />
-  	
+
 </p>
 <p align="center">
 <a href="https://etclabs.org">Sponsored by <img alt="Ethereum Classic Lab" src="https://github.com/open-rpc/design/blob/master/png/etc-labs-logo-32x32.png" /> Ethereum Classic Labs</a>.
@@ -304,6 +304,7 @@ Field Name | Type | Description
 <a name="methodResults"></a>results | [[Content Descriptor](#contentDescriptorObject) \| [Reference Object](#referenceObject)] | **REQUIRED**. The description of the results returned by the method. It MUST be a Content Descriptor.
 <a name="methodDeprecated"></a>deprecated | `boolean` | Declares this operation to be deprecated. Consumers SHOULD refrain from usage of the declared operation. Default value is `false`.
 <a name="methodServers"></a>servers | [[Server Object](#serverObject)] | An alternative `server` array to service this operation. If an alternative `server` object is specified at the Root level, it will be overridden by this value.
+<a name="methodErrors"></a>errors | [[Error Object](#errorObject) \| [Reference Object](#referenceObject)] | A list of custom application defined errors that MAY be returned.
 
 This object MAY be extended with [Specification Extensions](#specificationExtensions).
 
