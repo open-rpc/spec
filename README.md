@@ -704,7 +704,7 @@ Computing a link from a request operation where the `$params.id` is used to pass
         "description": "the user's address"
       }
     }
-  }
+  ]
 }
 ```
 
