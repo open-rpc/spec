@@ -653,8 +653,9 @@ Computing a link from a request operation where the `$params.id` is used to pass
 
 ```json
 {
-  "methods": {
-    "get_user": {
+  "methods": [
+    {
+      "name": "get_user",
       "params": [
         {
           "name": "id",
@@ -686,7 +687,8 @@ Computing a link from a request operation where the `$params.id` is used to pass
         }
       }
     },
-    "get_user_address": {
+    {
+      "name": "get_user_address",
       "params": [
         {
           "name": "userId",
