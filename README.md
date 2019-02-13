@@ -896,8 +896,6 @@ Tag Object Example:
 
 #### <a name="externalDocumentationObject"></a>External Documentation Object
 
-***Prolly doesnt belong at this depth level of the spec***
-
 Allows referencing an external resource for extended documentation.
 
 Field Name | Type | Description
