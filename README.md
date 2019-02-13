@@ -622,7 +622,7 @@ Example Object Examples:
 {
   "contentDescriptors": {
     "nameExample": {
-      "name": "exampleString"
+      "name": "exampleString",
       "type": "string",
       "examples": [
         { "$ref": "http://example.org/petapi-examples/openapi.json#/components/examples/name-example" },
