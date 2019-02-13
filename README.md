@@ -99,21 +99,21 @@ Patterned fields MUST have unique names within the containing object.
 
 Due to the nature of JSON RPC APIs using JSON formats, strictly use JSON only [as described here](https://tools.ietf.org/html/rfc7159).
 
-### <a name="documentStructure"></a>Document Structure
+### Document Structure
 
 An OpenRPC document MAY be made up of a single document or be divided into multiple, connected parts at the discretion of the user. In the latter case, `$ref` fields MUST be used in the specification to reference those parts as follows from the [JSON Schema](https://json-schema.org/latest/json-schema-core.html#rfc.section.8.3) definitions.
 
 It is RECOMMENDED that the root OpenRPC document be named: `openrpc.json`.
 
-### <a name="dataTypes"></a>Data Types
+### Data Types
 
 The Data types MUST be in the set defined by the [JSON Schema Specification 7](https://json-schema.org/latest/json-schema-core.html)
 
-### <a name="richText"></a>Rich Text Formatting
+### Rich Text Formatting
 Throughout the specification `description` fields are noted as supporting CommonMark markdown formatting.
 Where OpenRPC tooling renders rich text it MUST support, at a minimum, markdown syntax as described by [CommonMark 0.27](http://spec.commonmark.org/0.27/). Tooling MAY choose to ignore some CommonMark features to address security concerns.
 
-### <a name="openrpcSchemaObject">OpenRPC Schema Object
+### OpenRPC Schema Object
 This is the root document object of the [OpenRPC document](#openrpcDocument).
 
 Field Name | Type | Description
@@ -128,7 +128,7 @@ Field Name | Type | Description
 
 This object MAY be extended with [Specification Extensions](#specificationExtensions).
 
-#### <a name="infoObject"></a>Info Object
+#### Info Object
 The object provides metadata about the API.
 The metadata MAY be used by the clients if needed, and MAY be presented in editing or documentation generation tools for convenience.
 
@@ -164,7 +164,7 @@ Info Object Example:
 }
 ```
 
-##### <a name="contactObject"></a>Contact Object
+##### Contact Object
 
 Contact information for the exposed API.
 
@@ -185,7 +185,7 @@ Contact Object Example:
 }
 ```
 
-##### <a name="licenseObject"></a>License Object
+##### License Object
 
 License information for the exposed API.
 
@@ -205,7 +205,7 @@ License Object Example:
 ```
 
 
-#### <a name="serverObject"></a>Server Object
+#### Server Object
 
 An object representing a Server.
 
@@ -284,7 +284,7 @@ The following shows how variables can be used for a server configuration:
 }
 ```
 
-##### <a name="serverVariableObject"></a>Server Variable Object
+##### Server Variable Object
 
 An object representing a Server Variable for server URL template substitution.
 
@@ -296,7 +296,7 @@ Field Name | Type | Description
 
 This object MAY be extended with [Specification Extensions](#specificationExtensions).
 
-#### <a name="methodObject"></a>Method Object
+#### Method Object
 
 Describes the interface for the given method name. The method name is used as the `method` field of the JSON RPC body. It therefor MUST be unique.
 
@@ -361,7 +361,7 @@ Method Object Example:
 }
 ```
 
-##### <a name="contentDescriptorObject"></a>Content Descriptor Object
+##### Content Descriptor Object
 Content Descriptors are objects that do just as they suggest - describe content. They are reusable ways of describing either parameters or result. They MUST have a schema.
 
 Field Name | Type | Description
@@ -460,7 +460,7 @@ Content Descriptor Object Examples:
 ```
 
 
-###### <a name="schemaObject"></a>Schema Object
+###### Schema Object
 
 The Schema Object allows the definition of input and output data types.
 The Schema Objects MUST follow the specifications outline in the [JSON Schema Specification 7](https://json-schema.org/draft-07/json-schema-release-notes.html)
@@ -600,7 +600,7 @@ For a string to model mapping:
 ```
 
 
-###### <a name="exampleObject"></a>Example Object
+###### Example Object
 
 Field Name | Type | Description
 ---|:---:|---
@@ -638,7 +638,7 @@ Example Object Examples:
 }
 ```
 
-##### <a name="linkObject"></a>Link Object
+##### Link Object
 
 The `Link object` represents a possible design-time link for a result.
 The presence of a link does not guarantee the caller's ability to successfully invoke it, rather it provides a known relationship and traversal mechanism between results and other methods.
@@ -739,7 +739,7 @@ Clients follow all links at their discretion.
 Neither permissions, nor the capability to make a successful call to that link, is guaranteed
 solely by the existence of a relationship.
 
-###### <a name="runtimeExpression"></a>Runtime Expressions
+###### Runtime Expressions
 
 Runtime expressions allow defining values based on information that will only be available within the HTTP message in an actual API call.
 This mechanism is used by [Link Objects](#linkObject).
@@ -770,7 +770,7 @@ Result         | `$result.uuid`       |  In methods which return payloads, refer
 Runtime expressions preserve the type of the referenced value.
 Expressions can be embedded into string values by surrounding the expression with `{}` curly braces.
 
-##### <a name="errorObject"></a>Error Object
+##### Error Object
 Defines an application level error.
 
 Field Name | Type | Description
@@ -779,7 +779,7 @@ Field Name | Type | Description
 <a name="errorMessage"></a>message | `string` | A String providing a short description of the error. The message SHOULD be limited to a concise single sentence.
 <a name="errorData"></a>data | `any` | A Primitive or Structured value that contains additional information about the error. This may be omitted. The value of this member is defined by the Server (e.g. detailed error information, nested errors etc.).
 
-#### <a name="componentsObject"></a>Components Object
+#### Components Object
 
 Holds a set of reusable objects for different aspects of the OpenRPC.
 All objects defined within the components object will have no effect on the API unless they are explicitly referenced from properties outside the components object.
@@ -878,7 +878,7 @@ Components Object Example:
 }
 ```
 
-#### <a name="tagObject"></a>Tag Object
+#### Tag Object
 
 Adds metadata to a single tag that is used by the [Method Object](#methodObject).
 It is not mandatory to have a Tag Object per tag defined in the Method Object instances.
@@ -900,7 +900,7 @@ Tag Object Example:
 }
 ```
 
-#### <a name="externalDocumentationObject"></a>External Documentation Object
+#### External Documentation Object
 
 Allows referencing an external resource for extended documentation.
 
@@ -920,7 +920,7 @@ External Documentation Object Example:
 }
 ```
 
-#### <a name="referenceObject"></a>Reference Object
+#### Reference Object
 
 A simple object to allow referencing other components in the specification, internally and externally.
 
@@ -954,7 +954,7 @@ Relative Documents With Embedded Schema Example:
 }
 ```
 
-### <a name="specificationExtensions"></a>Specification Extensions
+### Specification Extensions
 
 While the OpenRPC Specification tries to accommodate most use cases, additional data can be added to extend the specification at certain points.
 
