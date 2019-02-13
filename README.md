@@ -97,7 +97,7 @@ The schema exposes two types of fields: Fixed fields, which have a declared name
 
 Patterned fields MUST have unique names within the containing object.
 
-Due to the nature of JSON RPC APIs using JSON formats, strictly use JSON only [as described here](https://tools.ietf.org/html/rfc7159).
+Due to the nature of JSON-RPC APIs using JSON formats, strictly use JSON only [as described here](https://tools.ietf.org/html/rfc7159).
 
 ### Document Structure
 
@@ -298,7 +298,7 @@ This object MAY be extended with [Specification Extensions](#specification-exten
 
 #### Method Object
 
-Describes the interface for the given method name. The method name is used as the `method` field of the JSON RPC body. It therefor MUST be unique.
+Describes the interface for the given method name. The method name is used as the `method` field of the JSON-RPC body. It therefor MUST be unique.
 
 Field Name | Type | Description
 ---|:---:|---
@@ -745,7 +745,7 @@ Runtime expressions allow defining values based on information that will only be
 This mechanism is used by [Link Objects](#link-object).
 
 The runtime expression is based on the runtime expression defined by the following [ABNF](https://tools.ietf.org/html/rfc5234) syntax.
-Since JSON RPC does not make extensive use of status codes, query params or paths, many of the fields do not apply and have been omited.
+Since JSON-RPC does not make extensive use of status codes, query params or paths, many of the fields do not apply and have been omited.
 
 ```
       expression = ( "$params." source | "$result." source )
@@ -775,7 +775,7 @@ Defines an application level error.
 
 Field Name | Type | Description
 ---|:---:|---
-<a name="error-code"></a>code | [Application Defined Error Code](https://www.jsonrpc.org/specification#response_object) | A Number that indicates the error type that occurred. This MUST be an integer. The error codes from and including -32768 to -32000 are reserved for pre-defined errors. These pre-defined errors SHOULD be assumed to be returned from any JSON RPC api.
+<a name="error-code"></a>code | [Application Defined Error Code](https://www.jsonrpc.org/specification#response_object) | A Number that indicates the error type that occurred. This MUST be an integer. The error codes from and including -32768 to -32000 are reserved for pre-defined errors. These pre-defined errors SHOULD be assumed to be returned from any JSON-RPC api.
 <a name="error-message"></a>message | `string` | A String providing a short description of the error. The message SHOULD be limited to a concise single sentence.
 <a name="error-data"></a>data | `any` | A Primitive or Structured value that contains additional information about the error. This may be omitted. The value of this member is defined by the Server (e.g. detailed error information, nested errors etc.).
 
