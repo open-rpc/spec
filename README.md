@@ -211,6 +211,7 @@ An object representing a Server.
 
 Field Name | Type | Description
 ---|:---:|---
+<a name="serverName"></a>name | `string` | **REQUIRED**. A name to be used as the cannonical name for the server.
 <a name="serverUrl"></a>url | `string` | **REQUIRED**. A URL to the target host.  This URL supports Server Variables and MAY be relative, to indicate that the host location is relative to the location where the OpenRPC document is being served. Variable substitutions will be made when a variable is named in `{`brackets`}`.
 <a name="serverDescription"></a>description | `string` | An optional string describing the host designated by the URL. [CommonMark syntax](http://spec.commonmark.org/) MAY be used for rich text representation.
 <a name="serverVariables"></a>variables | Map[`string`, [Server Variable Object](#serverVariableObject)] | A map between a variable name and its value.  The value is used for substitution in the server's URL template.
@@ -223,6 +224,7 @@ A single server would be described as:
 
 ```json
 {
+  "name": "dev",
   "url": "https://development.gigantic-server.com/v1",
   "description": "Development server"
 }
@@ -234,14 +236,17 @@ The following shows how multiple servers can be described, for example, at the O
 {
   "servers": [
     {
+      "name": "dev",
       "url": "https://development.gigantic-server.com/v1",
       "description": "Development server"
     },
     {
+      "name": "staging",
       "url": "https://staging.gigantic-server.com/v1",
       "description": "Staging server"
     },
     {
+      "name": "production",
       "url": "https://api.gigantic-server.com/v1",
       "description": "Production server"
     }
@@ -255,6 +260,7 @@ The following shows how variables can be used for a server configuration:
 {
   "servers": [
     {
+      "name": "production",
       "url": "https://{username}.gigantic-server.com:{port}/{basePath}",
       "description": "The production API server",
       "variables": {
