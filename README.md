@@ -625,7 +625,7 @@ Example Object Examples:
       "name": "exampleString"
       "type": "string",
       "examples": [
-        { "$ref": "http://example.org/petapi-examples/openapi.json#/components/examples/name-example" },
+        { "$ref": "http://example.org/petapi-examples/openrpc.json#/components/examples/name-example" },
         {
           "name": "Chinese",
           "summary": "using non-english characters",
