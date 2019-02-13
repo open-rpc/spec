@@ -56,7 +56,7 @@ This document is licensed under [The Apache License, Version 2.0](https://www.ap
 
 The OpenRPC Specification defines a standard, programming language-agnostic interface description for [JSON-RPC 2.0 APIs](https://www.jsonrpc.org/specification), which allows both humans and computers to discover and understand the capabilities of a service without requiring access to source code, additional documentation, or inspection of network traffic. When properly defined via OpenRPC, a consumer can understand and interact with the remote service with a minimal amount of implementation logic. Similar to what interface descriptions have done for lower-level programming, the OpenRPC Specification removes guesswork in calling a service.
 
-Use cases for machine-readable RPC API definition documents include, but are not limited to:
+Use cases for machine-readable JSON-RPC API definition documents include, but are not limited to:
  - interactive documentation
  - code generation for documentation
  - clients
@@ -65,7 +65,7 @@ Use cases for machine-readable RPC API definition documents include, but are not
 
 OpenRPC documents describe a JSON-RPC APIs services and are represented in JSON format. These documents may either be produced and served statically or be generated dynamically from an application.
 
-The OpenRPC Specification does not require rewriting existing APIs. It does not require binding any software to a service — the service being described may not even be owned by the creator of its description. It does, however, require the capabilities of the service be described in the structure of the OpenRPC Specification. Not all services can be described by OpenRPC — this specification is not intended to cover REST APIs - It is exclusively for APIs which adhere to the JSON-RPC 2.0 spec. The OpenRPC Specification does not mandate a specific development process such as design-first or code-first. It does facilitate either technique by establishing clear interactions with a JSON-RPC API.
+The OpenRPC Specification does not require rewriting existing JSON-RPC APIs. It does not require binding any software to a service — the service being described may not even be owned by the creator of its description. It does, however, require the capabilities of the service be described in the structure of the OpenRPC Specification. Not all services can be described by OpenRPC — this specification is not intended to cover REST APIs - It is exclusively for APIs which adhere to the JSON-RPC 2.0 spec. The OpenRPC Specification does not mandate a specific development process such as design-first or code-first. It does facilitate either technique by establishing clear interactions with a JSON-RPC API.
 
 ## Contributing
 
@@ -97,7 +97,7 @@ The schema exposes two types of fields: Fixed fields, which have a declared name
 
 Patterned fields MUST have unique names within the containing object.
 
-Due to the nature of JSON RPC APIs using JSON formats, strictly use JSON only [as described here](https://tools.ietf.org/html/rfc7159).
+Due to the nature of JSON-RPC APIs using JSON formats, strictly use JSON only [as described here](https://tools.ietf.org/html/rfc7159).
 
 ### Document Structure
 
@@ -298,7 +298,7 @@ This object MAY be extended with [Specification Extensions](#specification-exten
 
 #### Method Object
 
-Describes the interface for the given method name. The method name is used as the `method` field of the JSON RPC body. It therefor MUST be unique.
+Describes the interface for the given method name. The method name is used as the `method` field of the JSON-RPC body. It therefor MUST be unique.
 
 Field Name | Type | Description
 ---|:---:|---
@@ -745,7 +745,7 @@ Runtime expressions allow defining values based on information that will only be
 This mechanism is used by [Link Objects](#link-object).
 
 The runtime expression is based on the runtime expression defined by the following [ABNF](https://tools.ietf.org/html/rfc5234) syntax.
-Since JSON RPC does not make extensive use of status codes, query params or paths, many of the fields do not apply and have been omited.
+Since JSON-RPC does not make extensive use of status codes, query params or paths, many of the fields do not apply and have been omited.
 
 ```
       expression = ( "$params." source | "$result." source )
@@ -775,7 +775,7 @@ Defines an application level error.
 
 Field Name | Type | Description
 ---|:---:|---
-<a name="error-code"></a>code | [Application Defined Error Code](https://www.jsonrpc.org/specification#response_object) | A Number that indicates the error type that occurred. This MUST be an integer. The error codes from and including -32768 to -32000 are reserved for pre-defined errors. These pre-defined errors SHOULD be assumed to be returned from any JSON RPC api.
+<a name="error-code"></a>code | [Application Defined Error Code](https://www.jsonrpc.org/specification#response_object) | A Number that indicates the error type that occurred. This MUST be an integer. The error codes from and including -32768 to -32000 are reserved for pre-defined errors. These pre-defined errors SHOULD be assumed to be returned from any JSON-RPC api.
 <a name="error-message"></a>message | `string` | A String providing a short description of the error. The message SHOULD be limited to a concise single sentence.
 <a name="error-data"></a>data | `any` | A Primitive or Structured value that contains additional information about the error. This may be omitted. The value of this member is defined by the Server (e.g. detailed error information, nested errors etc.).
 
