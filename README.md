@@ -559,36 +559,28 @@ For a string to model mapping:
 {
   "components": {
     "schemas": {
-      "ErrorModel": {
+      "DogModel": {
         "type": "object",
         "required": [
-          "message",
-          "code"
+          "breedName",
         ],
         "properties": {
-          "message": {
+          "breedName": {
             "type": "string"
-          },
-          "code": {
-            "type": "integer",
-            "minimum": 100,
-            "maximum": 600
           }
         }
       },
-      "ExtendedErrorModel": {
+      "ShepherdDogModel": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/ErrorModel"
+            "$ref": "#/components/schemas/DogModel"
           },
           {
             "type": "object",
-            "required": [
-              "rootCause"
-            ],
             "properties": {
-              "rootCause": {
-                "type": "string"
+              "hairLength": {
+                "type": "string",
+		"enum": ["short", "long"]
               }
             }
           }
@@ -811,7 +803,7 @@ Components Object Example:
 ```json
 "components": {
   "schemas": {
-    "GeneralError": {
+    "GeneralModel": {
       "type": "object",
       "properties": {
         "code": {
@@ -872,7 +864,7 @@ Components Object Example:
     "CustomNotFound": {
       "code": "1",
       "message": "super duper not found doe",
-      "meaning": "absolute pandemonium"
+      "data": "absolute pandemonium"
     }
   }
 }
