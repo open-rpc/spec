@@ -110,8 +110,8 @@ It is RECOMMENDED that the root OpenRPC document be named: `openrpc.json`.
 The Data types MUST be in the set defined by the [JSON Schema Specification 7](https://json-schema.org/latest/json-schema-core.html)
 
 ### Rich Text Formatting
-Throughout the specification `description` fields are noted as supporting CommonMark markdown formatting.
-Where OpenRPC tooling renders rich text it MUST support, at a minimum, markdown syntax as described by [CommonMark 0.27](http://spec.commonmark.org/0.27/). Tooling MAY choose to ignore some CommonMark features to address security concerns.
+Throughout the specification `description` fields are noted as supporting Github markdown formatting.
+Where OpenRPC tooling renders rich text it MUST support, at a minimum, markdown syntax as described by [GitHub Flavored Markdown](https://github.github.com/gfm/). Tooling MAY choose to ignore some GitHub Flavored Markdown features to address security concerns.
 
 ### OpenRPC Schema Object
 This is the root document object of the [OpenRPC document](#openrpcDocument).
@@ -135,7 +135,7 @@ The metadata MAY be used by the clients if needed, and MAY be presented in editi
 Field Name | Type | Description
 ---|:---:|---
 <a name="info-title"></a>title | `string` | **REQUIRED**. The title of the application.
-<a name="info-description"></a>description | `string` | A short description of the application. [CommonMark syntax](http://spec.commonmark.org/) MAY be used for rich text representation.
+<a name="info-description"></a>description | `string` | A short description of the application. [GitHub Flavored Markdown](https://github.github.com/gfm/) MAY be used for rich text representation.
 <a name="info-termsofservice"></a>termsOfService | `string` | A URL to the Terms of Service for the API. MUST be in the format of a URL.
 <a name="info-contact"></a>contact | [Contact Object](#contact-object) | The contact information for the exposed API.
 <a name="info-license"></a>license | [License Object](#license-object) | The license information for the exposed API.
@@ -213,7 +213,7 @@ Field Name | Type | Description
 ---|:---:|---
 <a name="server-name"></a>name | `string` | **REQUIRED**. A name to be used as the cannonical name for the server.
 <a name="server-url"></a>url | `string` | **REQUIRED**. A URL to the target host.  This URL supports Server Variables and MAY be relative, to indicate that the host location is relative to the location where the OpenRPC document is being served. Variable substitutions will be made when a variable is named in `{`brackets`}`.
-<a name="server-description"></a>description | `string` | An optional string describing the host designated by the URL. [CommonMark syntax](http://spec.commonmark.org/) MAY be used for rich text representation.
+<a name="server-description"></a>description | `string` | An optional string describing the host designated by the URL. [CGitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
 <a name="server-variables"></a>variables | Map[`string`, [Server Variable Object](#server-variable-object)] | A map between a variable name and its value.  The value is used for substitution in the server's URL template.
 
 This object MAY be extended with [Specification Extensions](#specification-extensions).
@@ -292,7 +292,7 @@ Field Name | Type | Description
 ---|:---:|---
 <a name="server-variable-enum"></a>enum | [`string`] | An enumeration of string values to be used if the substitution options are from a limited set.
 <a name="server-variable-default"></a>default | `string` |  **REQUIRED**. The default value to use for substitution, which SHALL be sent if an alternate value is _not_ supplied. Note this behavior is different than the [Schema Object's](#schema-object) treatment of default values, because in those cases parameter values are optional.
-<a name="server-variable-description"></a>description | `string` | An optional description for the server variable. [CommonMark syntax](http://spec.commonmark.org/) MAY be used for rich text representation.
+<a name="server-variable-description"></a>description | `string` | An optional description for the server variable. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
 
 This object MAY be extended with [Specification Extensions](#specification-extensions).
 
@@ -305,7 +305,7 @@ Field Name | Type | Description
 <a name="method-name"></a>name | [`string`] | The cannonical name for the method. The name MUST be unique within the methods array.
 <a name="method-tags"></a>tags | [`string`] | A list of tags for API documentation control. Tags can be used for logical grouping of methods by resources or any other qualifier.
 <a name="method-summary"></a>summary | `string` | A short summary of what the method does.
-<a name="method-description"></a>description | `string` | A verbose explanation of the method behavior. [CommonMark syntax](http://spec.commonmark.org/) MAY be used for rich text representation.
+<a name="method-description"></a>description | `string` | A verbose explanation of the method behavior. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
 <a name="method-externalDocs"></a>externalDocs | [External Documentation Object](#external-documentation-object) | Additional external documentation for this method.
 <a name="method-parameters"></a>params | [[Content Descriptor](#contentDescriptorObject) \| [Reference Object](#reference-object)] | A list of parameters that are applicable for this method. The list MUST NOT include duplicated parameters and therefore require [name](#content-descriptor-name) to be unique. The list can use the [Reference Object](#reference-object) to link to parameters that are defined by the [Content Descriptor Object](#content-descriptor-object).
 <a name="method-result"></a>result | [Content Descriptor](#content-descriptor-object) \| [Reference Object](#reference-object) | **REQUIRED**. The description of the result returned by the method. It MUST be a Content Descriptor.
@@ -368,7 +368,7 @@ Field Name | Type | Description
 ---|:---:|---
 <a name="content-descriptor-name"></a>name | `string` | name of the content that is being described.
 <a name="content-descriptor-Summary"></a>summary | `string` | A short summary of what the method does.
-<a name="content-descriptor-description"></a>description | `string` | A verbose explanation of the method behavior. [CommonMark syntax](http://spec.commonmark.org/) MAY be used for rich text representation.
+<a name="content-descriptor-description"></a>description | `string` | A verbose explanation of the method behavior. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
 <a name="content-descriptor-required"></a>required | `boolean` | Determines if the content is a required field.
 <a name="content-descriptor-schema"></a>schema | [Schema Object](#schema-object) | Schema that describes the content.
 <a name="content-descriptor-examples"></a>examples | [[Example Object](#example-object)] | Examples of the parameter. The examples MUST match the specified schema. If referencing a `schema` which contains (an) example(s), the `examples` value SHALL _override_ the examples provided by the schema. To represent examples of media types that cannot naturally be represented in JSON, a string value can contain the example with escaping where necessary.
@@ -606,7 +606,7 @@ Field Name | Type | Description
 ---|:---:|---
 <a name="example-name"></a>name | `string` | cannonical name of the example.
 <a name="example-summary"></a>summary | `string` | Short description for the example.
-<a name="example-description"></a>description | `string` | Long description for the example. [CommonMark syntax](http://spec.commonmark.org/) MAY be used for rich text representation.
+<a name="example-description"></a>description | `string` | Long description for the example. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
 <a name="example-value"></a>value | Any | Embedded literal example. The `value` field and `externalValue` field are mutually exclusive. To represent examples of media types that cannot naturally represented in JSON, use a string value to contain the example, escaping where necessary.
 <a name="example-externalValue"></a>externalValue | `string` | A URL that points to the literal example. This provides the capability to reference examples that cannot easily be included in JSON documents.  The `value` field and `externalValue` field are mutually exclusive.
 
@@ -651,7 +651,7 @@ Field Name  |  Type  | Description
 ---|:---:|---
 <a name="link-method"></a>method | `string` | The name of an _existing_, resolvable OpenRPC method, as defined with a unique `method`. This field MUST resolve to a unique [Method Object](#method-object). As opposed to Open Api, Relative `method` values  ARE NOT permitted.
 <a name="link-parameters"></a>params   | Map[`string`, Any \| [{expression}](#runtime-expression)] | A map representing parameters to pass to a method as specified with `method`. The key is the parameter name to be used, whereas the value can be a constant or an expression to be evaluated and passed to the linked method.
-<a name="link-description"></a>description  | `string` | A description of the link. [CommonMark syntax](http://spec.commonmark.org/) MAY be used for rich text representation.
+<a name="link-description"></a>description  | `string` | A description of the link. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
 <a name="link-server"></a>server       | [Server Object](#server-object) | A server object to be used by the target method.
 
 This object MAY be extended with [Specification Extensions](#specification-extensions).
@@ -886,7 +886,7 @@ It is not mandatory to have a Tag Object per tag defined in the Method Object in
 Field Name | Type | Description
 ---|:---:|---
 <a name="tag-name"></a>name | `string` | **REQUIRED**. The name of the tag.
-<a name="tag-description"></a>description | `string` | A short description for the tag. [CommonMark syntax](http://spec.commonmark.org/) MAY be used for rich text representation.
+<a name="tag-description"></a>description | `string` | A short description for the tag. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
 <a name="tag-externalDocs"></a>externalDocs | [External Documentation Object](#external-documentation-object) | Additional external documentation for this tag.
 
 This object MAY be extended with [Specification Extensions](#specification-extensions).
@@ -906,7 +906,7 @@ Allows referencing an external resource for extended documentation.
 
 Field Name | Type | Description
 ---|:---:|---
-<a name="external-doc-description"></a>description | `string` | A short description of the target documentation. [CommonMark syntax](http://spec.commonmark.org/) MAY be used for rich text representation.
+<a name="external-doc-description"></a>description | `string` | A short description of the target documentation. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
 <a name="external-doc-url"></a>url | `string` | **REQUIRED**. The URL for the target documentation. Value MUST be in the format of a URL.
 
 This object MAY be extended with [Specification Extensions](#specification-extensions).
