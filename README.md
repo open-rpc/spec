@@ -880,7 +880,7 @@ Components Object Example:
 
 #### Tag Object
 
-Adds metadata to a single tag that is used by the [Method Object](#methodObject).
+Adds metadata to a single tag that is used by the [Method Object](#method-object).
 It is not mandatory to have a Tag Object per tag defined in the Method Object instances.
 
 Field Name | Type | Description
