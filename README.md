@@ -307,12 +307,13 @@ Field Name | Type | Description
 <a name="methodSummary"></a>summary | `string` | A short summary of what the method does.
 <a name="methodDescription"></a>description | `string` | A verbose explanation of the method behavior. [CommonMark syntax](http://spec.commonmark.org/) MAY be used for rich text representation.
 <a name="methodExternalDocs"></a>externalDocs | [External Documentation Object](#externalDocumentationObject) | Additional external documentation for this method.
-<a name="methodParameters"></a>params | [[Content Descriptor](#contentDescriptorObject) \| [Reference Object](#referenceObject)] | A list of parameters that are applicable for this method. The list MUST NOT include duplicated parameters and therefore require [name](#contentDescriptorName) to be unique. The list can use the [Reference Object](#referenceObject) to link to parameters that are defined by the [Content Descriptor Object](#contentDescriptorObject).
+<a name="methodParameters"></a>params | [[Content Descriptor](#contentDescriptorObject) \| [Reference Object](#referenceObject)] | A list of parameters that are applicable for this method. The list MUST NOT include duplicated parameters and therefore require [name](#contentDescriptorName) to be unique. If the [Method Param Structure](#methodParamStructure) is set to `by-name`, each content descriptor in the array represents the params positionally. The list can use the [Reference Object](#referenceObject) to link to parameters that are defined by the [Content Descriptor Object](#contentDescriptorObject).
 <a name="methodResult"></a>result | [Content Descriptor](#contentDescriptorObject) \| [Reference Object](#referenceObject) | **REQUIRED**. The description of the result returned by the method. It MUST be a Content Descriptor.
 <a name="methodDeprecated"></a>deprecated | `boolean` | Declares this method to be deprecated. Consumers SHOULD refrain from usage of the declared method. Default value is `false`.
 <a name="methodServers"></a>servers | [[Server Object](#serverObject)] | An alternative `servers` array to service this method. If an alternative `servers` array is specified at the Root level, it will be overridden by this value.
 <a name="methodErrors"></a>errors | [[Error Object](#errorObject) \| [Reference Object](#referenceObject)] | A list of custom application defined errors that MAY be returned. The Errors MUST have unique error codes.
 <a name="methodLinks"></a>links | [[Link Object](#linkObject) \| [Reference Object](#referenceObject)] | A list of possible links from this method call.
+<a name="methodParamStructure"></a>paramStructure | `"by-name"` | `"by-position"` | Format the server expects the params. Defaults to `"by-positon"`.
 
 This object MAY be extended with [Specification Extensions](#specificationExtensions).
 
@@ -323,6 +324,7 @@ Method Object Example:
     "pet"
   ],
   "name": "update_pet",
+  "paramStructure": "by-name",
   "summary": "Updates a pet in the store with form data",
   "description": "#Big Ol long Doc Filled WIth Markdown!",
   "params": [
@@ -899,8 +901,6 @@ Tag Object Example:
 ```
 
 #### <a name="externalDocumentationObject"></a>External Documentation Object
-
-***Prolly doesnt belong at this depth level of the spec***
 
 Allows referencing an external resource for extended documentation.
 
