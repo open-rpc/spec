@@ -23,31 +23,31 @@ This document is licensed under [The Apache License, Version 2.0](https://www.ap
 - [Introduction](#introduction)
 - [Contributing](#contributing)
 - [Definitions](#definitions)
-	- [OpenRPC Document](#openrpcDocument)
+	- [OpenRPC Document](#openrpc-document)
 - [Specification](#specification)
 	- [Versions](#versions)
 	- [Format](#format)
-	- [Document Structure](#documentStructure)
-	- [Data Types](#dataTypes)
-	- [Rich Text Formatting](#richText)
-	- [OpenRPC Schema Object](#openrpcSchemaObject)
-		- [Info Object](#infoObject)
-		    - [Contact Object](#contactObject)
-		    - [License Object](#licenseObject)
+	- [Document Structure](#document-structure)
+	- [Data Types](#data-types)
+	- [Rich Text Formatting](#rich-text-formatting)
+	- [OpenRPC Schema Object](#openrpc-schema-object)
+		- [Info Object](#info-object)
+		    - [Contact Object](#contact-object)
+		    - [License Object](#license-object)
 		- [Server Object](#serverObject)
-		    - [Server Variable Object](#serverVariableObject)
-		- [Method Object](#methodObject)
-		    - [Content Descriptor Object](#contentDescriptorObject)
-		        - [Schema Object](#schemaObject)
-            	- [Example Object](#exampleObject)
-		    - [Link Object](#linkObject)
-            	- [Runtime Expression](#runtimeExpression)
+		    - [Server Variable Object](#server-variable-object)
+		- [Method Object](#method-object)
+		    - [Content Descriptor Object](#content-descriptor-object)
+		        - [Schema Object](#schema-object)
+            	- [Example Object](#example-object)
+		    - [Link Object](#link-object)
+            	- [Runtime Expression](#runtime-expression)
 		    - [Error Object](#errorObject)
-		- [Components Object](#componentsObject)
-		- [Tag Object](#tagObject)
+		- [Components Object](#components-object)
+		- [Tag Object](#tag-object)
 		- [External Documentation Object](#externalDocumentationObject)
-		- [Reference Object](#referenceObject)
-	- [Specification Extensions](#specificationExtensions)
+		- [Reference Object](#reference-object)
+	- [Specification Extensions](#specification-extensions)
 
 
 <!-- /TOC -->
@@ -84,7 +84,7 @@ The `major`.`minor` portion of the semver (for example `1.0.x`) SHALL designate 
 
 Subsequent minor version releases of the OpenRPC Specification (incrementing the `minor` version number) SHOULD NOT interfere with tooling developed to a lower minor version and same major version.  Thus a hypothetical `1.1.0` specification SHOULD be usable with tooling designed for `1.0.0`.
 
-An OpenRPC document compatible with OpenRPC 1.0.0 contains a required [`openrpc`](#openrpcVersion) field which designates the semantic version of the OpenRPC that it uses.
+An OpenRPC document compatible with OpenRPC 1.0.0 contains a required [`openrpc`](#openrpc-version) field which designates the semantic version of the OpenRPC that it uses.
 
 ### Format
 
@@ -99,50 +99,50 @@ Patterned fields MUST have unique names within the containing object.
 
 Due to the nature of JSON RPC APIs using JSON formats, strictly use JSON only [as described here](https://tools.ietf.org/html/rfc7159).
 
-### <a name="documentStructure"></a>Document Structure
+### Document Structure
 
 An OpenRPC document MAY be made up of a single document or be divided into multiple, connected parts at the discretion of the user. In the latter case, `$ref` fields MUST be used in the specification to reference those parts as follows from the [JSON Schema](https://json-schema.org/latest/json-schema-core.html#rfc.section.8.3) definitions.
 
 It is RECOMMENDED that the root OpenRPC document be named: `openrpc.json`.
 
-### <a name="dataTypes"></a>Data Types
+### Data Types
 
 The Data types MUST be in the set defined by the [JSON Schema Specification 7](https://json-schema.org/latest/json-schema-core.html)
 
-### <a name="richText"></a>Rich Text Formatting
+### Rich Text Formatting
 Throughout the specification `description` fields are noted as supporting CommonMark markdown formatting.
 Where OpenRPC tooling renders rich text it MUST support, at a minimum, markdown syntax as described by [CommonMark 0.27](http://spec.commonmark.org/0.27/). Tooling MAY choose to ignore some CommonMark features to address security concerns.
 
-### <a name="openrpcSchemaObject">OpenRPC Schema Object
+### OpenRPC Schema Object
 This is the root document object of the [OpenRPC document](#openrpcDocument).
 
 Field Name | Type | Description
 ---|:---:|---
-<a name="openrpcVersion"></a>openrpc | `string` | **REQUIRED**. This string MUST be the [semantic version number](https://semver.org/spec/v2.0.0.html) of the [OpenRPC Specification version](#versions) that the OpenRPC document uses. The `openrpc` field SHOULD be used by tooling specifications and clients to interpret the OpenRPC document. This is *not* related to the API [`info.version`](#infoVersion) string.
-<a name="openrpcInfo"></a>info | [Info Object](#infoObject) | **REQUIRED**. Provides metadata about the API. The metadata MAY be used by tooling as required.
-<a name="openrpcServers"></a>servers | [[Server Object](#serverObject)] | An array of Server Objects, which provide connectivity information to a target server. If the `servers` property is not provided, or is an empty array, the default value would be a [Server Object](#serverObject) with a [url](#serverUrl) value of `/`.
-<a name="openrpcMethods"></a>methods | [[Method Object](#methodObject) \| [Reference Object](#referenceObject)] | **REQUIRED**. The available methods for the API. While it is required, the array may be empty (to handle security filtering, for example).
-<a name="openrpcComponents"></a>components | [Components Object](#componentsObject) | An element to hold various schemas for the specification.
-<a name="openrpcTags"></a>tags | [[Tag Object](#tagObject)] | A list of tags used by the specification with additional metadata. The order of the tags can be used to reflect on their order by the parsing tools. Not all tags that are used by the [Method Object](#methodObject) must be declared. The tags that are not declared MAY be organized randomly or based on the tools' logic. Each tag name in the list MUST be unique.
-<a name="openrpcExternalDocs"></a>externalDocs | [External Documentation Object](#externalDocumentationObject) | Additional external documentation.
+<a name="openrpc-version"></a>openrpc | `string` | **REQUIRED**. This string MUST be the [semantic version number](https://semver.org/spec/v2.0.0.html) of the [OpenRPC Specification version](#versions) that the OpenRPC document uses. The `openrpc` field SHOULD be used by tooling specifications and clients to interpret the OpenRPC document. This is *not* related to the API [`info.version`](#infoVersion) string.
+<a name="openrpc-info"></a>info | [Info Object](#info-object) | **REQUIRED**. Provides metadata about the API. The metadata MAY be used by tooling as required.
+<a name="openrpc-servers"></a>servers | [[Server Object](#server-object)] | An array of Server Objects, which provide connectivity information to a target server. If the `servers` property is not provided, or is an empty array, the default value would be a [Server Object](#server-object) with a [url](#server-url) value of `/`.
+<a name="openrpc-methods"></a>methods | [[Method Object](#method-object) \| [Reference Object](#reference-object)] | **REQUIRED**. The available methods for the API. While it is required, the array may be empty (to handle security filtering, for example).
+<a name="openrpc-components"></a>components | [Components Object](#components-object) | An element to hold various schemas for the specification.
+<a name="openrpc-tags"></a>tags | [[Tag Object](#tag-object)] | A list of tags used by the specification with additional metadata. The order of the tags can be used to reflect on their order by the parsing tools. Not all tags that are used by the [Method Object](#method-object) must be declared. The tags that are not declared MAY be organized randomly or based on the tools' logic. Each tag name in the list MUST be unique.
+<a name="openrpcExternalDocs"></a>externalDocs | [External Documentation Object](#external-documentation-object) | Additional external documentation.
 
-This object MAY be extended with [Specification Extensions](#specificationExtensions).
+This object MAY be extended with [Specification Extensions](#specification-extensions).
 
-#### <a name="infoObject"></a>Info Object
+#### Info Object
 The object provides metadata about the API.
 The metadata MAY be used by the clients if needed, and MAY be presented in editing or documentation generation tools for convenience.
 
 Field Name | Type | Description
 ---|:---:|---
-<a name="infoTitle"></a>title | `string` | **REQUIRED**. The title of the application.
-<a name="infoDescription"></a>description | `string` | A short description of the application. [CommonMark syntax](http://spec.commonmark.org/) MAY be used for rich text representation.
-<a name="infoTermsOfService"></a>termsOfService | `string` | A URL to the Terms of Service for the API. MUST be in the format of a URL.
-<a name="infoContact"></a>contact | [Contact Object](#contactObject) | The contact information for the exposed API.
-<a name="infoLicense"></a>license | [License Object](#licenseObject) | The license information for the exposed API.
-<a name="infoVersion"></a>version | `string` | **REQUIRED**. The version of the OpenRPC document (which is distinct from the [OpenRPC Specification version](#openrpcVersion) or the API implementation version).
+<a name="info-title"></a>title | `string` | **REQUIRED**. The title of the application.
+<a name="info-description"></a>description | `string` | A short description of the application. [CommonMark syntax](http://spec.commonmark.org/) MAY be used for rich text representation.
+<a name="info-termsofservice"></a>termsOfService | `string` | A URL to the Terms of Service for the API. MUST be in the format of a URL.
+<a name="info-contact"></a>contact | [Contact Object](#contact-object) | The contact information for the exposed API.
+<a name="info-license"></a>license | [License Object](#license-object) | The license information for the exposed API.
+<a name="info-version"></a>version | `string` | **REQUIRED**. The version of the OpenRPC document (which is distinct from the [OpenRPC Specification version](#openrpc-version) or the API implementation version).
 
 
-This object MAY be extended with [Specification Extensions](#specificationExtensions).
+This object MAY be extended with [Specification Extensions](#specification-extensions).
 
 Info Object Example:
 
@@ -164,17 +164,17 @@ Info Object Example:
 }
 ```
 
-##### <a name="contactObject"></a>Contact Object
+##### Contact Object
 
 Contact information for the exposed API.
 
 Field Name | Type | Description
 ---|:---:|---
-<a name="contactName"></a>name | `string` | The identifying name of the contact person/organization.
-<a name="contactUrl"></a>url | `string` | The URL pointing to the contact information. MUST be in the format of a URL.
-<a name="contactEmail"></a>email | `string` | The email address of the contact person/organization. MUST be in the format of an email address.
+<a name="contact-name"></a>name | `string` | The identifying name of the contact person/organization.
+<a name="contact-url"></a>url | `string` | The URL pointing to the contact information. MUST be in the format of a URL.
+<a name="contact-email"></a>email | `string` | The email address of the contact person/organization. MUST be in the format of an email address.
 
-This object MAY be extended with [Specification Extensions](#specificationExtensions).
+This object MAY be extended with [Specification Extensions](#specification-extensions).
 
 Contact Object Example:
 ```json
@@ -185,16 +185,16 @@ Contact Object Example:
 }
 ```
 
-##### <a name="licenseObject"></a>License Object
+##### License Object
 
 License information for the exposed API.
 
 Field Name | Type | Description
 ---|:---:|---
-<a name="licenseName"></a>name | `string` | **REQUIRED**. The license name used for the API.
-<a name="licenseUrl"></a>url | `string` | A URL to the license used for the API. MUST be in the format of a URL.
+<a name="license-name"></a>name | `string` | **REQUIRED**. The license name used for the API.
+<a name="license-url"></a>url | `string` | A URL to the license used for the API. MUST be in the format of a URL.
 
-This object MAY be extended with [Specification Extensions](#specificationExtensions).
+This object MAY be extended with [Specification Extensions](#specification-extensions).
 
 License Object Example:
 ```json
@@ -205,18 +205,18 @@ License Object Example:
 ```
 
 
-#### <a name="serverObject"></a>Server Object
+#### Server Object
 
 An object representing a Server.
 
 Field Name | Type | Description
 ---|:---:|---
-<a name="serverName"></a>name | `string` | **REQUIRED**. A name to be used as the cannonical name for the server.
-<a name="serverUrl"></a>url | `string` | **REQUIRED**. A URL to the target host.  This URL supports Server Variables and MAY be relative, to indicate that the host location is relative to the location where the OpenRPC document is being served. Variable substitutions will be made when a variable is named in `{`brackets`}`.
-<a name="serverDescription"></a>description | `string` | An optional string describing the host designated by the URL. [CommonMark syntax](http://spec.commonmark.org/) MAY be used for rich text representation.
-<a name="serverVariables"></a>variables | Map[`string`, [Server Variable Object](#serverVariableObject)] | A map between a variable name and its value.  The value is used for substitution in the server's URL template.
+<a name="server-name"></a>name | `string` | **REQUIRED**. A name to be used as the cannonical name for the server.
+<a name="server-url"></a>url | `string` | **REQUIRED**. A URL to the target host.  This URL supports Server Variables and MAY be relative, to indicate that the host location is relative to the location where the OpenRPC document is being served. Variable substitutions will be made when a variable is named in `{`brackets`}`.
+<a name="server-description"></a>description | `string` | An optional string describing the host designated by the URL. [CommonMark syntax](http://spec.commonmark.org/) MAY be used for rich text representation.
+<a name="server-variables"></a>variables | Map[`string`, [Server Variable Object](#server-variable-object)] | A map between a variable name and its value.  The value is used for substitution in the server's URL template.
 
-This object MAY be extended with [Specification Extensions](#specificationExtensions).
+This object MAY be extended with [Specification Extensions](#specification-extensions).
 
 Server Object Example:
 
@@ -230,7 +230,7 @@ A single server would be described as:
 }
 ```
 
-The following shows how multiple servers can be described, for example, at the OpenRPC Object's [`servers`](#openrpcServers):
+The following shows how multiple servers can be described, for example, at the OpenRPC Object's [`servers`](#openrpc-servers):
 
 ```json
 {
@@ -284,38 +284,38 @@ The following shows how variables can be used for a server configuration:
 }
 ```
 
-##### <a name="serverVariableObject"></a>Server Variable Object
+##### Server Variable Object
 
 An object representing a Server Variable for server URL template substitution.
 
 Field Name | Type | Description
 ---|:---:|---
-<a name="serverVariableEnum"></a>enum | [`string`] | An enumeration of string values to be used if the substitution options are from a limited set.
-<a name="serverVariableDefault"></a>default | `string` |  **REQUIRED**. The default value to use for substitution, which SHALL be sent if an alternate value is _not_ supplied. Note this behavior is different than the [Schema Object's](#schemaObject) treatment of default values, because in those cases parameter values are optional.
-<a name="serverVariableDescription"></a>description | `string` | An optional description for the server variable. [CommonMark syntax](http://spec.commonmark.org/) MAY be used for rich text representation.
+<a name="server-variable-enum"></a>enum | [`string`] | An enumeration of string values to be used if the substitution options are from a limited set.
+<a name="server-variable-default"></a>default | `string` |  **REQUIRED**. The default value to use for substitution, which SHALL be sent if an alternate value is _not_ supplied. Note this behavior is different than the [Schema Object's](#schema-object) treatment of default values, because in those cases parameter values are optional.
+<a name="server-variable-description"></a>description | `string` | An optional description for the server variable. [CommonMark syntax](http://spec.commonmark.org/) MAY be used for rich text representation.
 
-This object MAY be extended with [Specification Extensions](#specificationExtensions).
+This object MAY be extended with [Specification Extensions](#specification-extensions).
 
-#### <a name="methodObject"></a>Method Object
+#### Method Object
 
 Describes the interface for the given method name. The method name is used as the `method` field of the JSON RPC body. It therefor MUST be unique.
 
 Field Name | Type | Description
 ---|:---:|---
-<a name="methodName"></a>name | [`string`] | The cannonical name for the method. The name MUST be unique within the methods array.
-<a name="methodTags"></a>tags | [`string`] | A list of tags for API documentation control. Tags can be used for logical grouping of methods by resources or any other qualifier.
-<a name="methodSummary"></a>summary | `string` | A short summary of what the method does.
-<a name="methodDescription"></a>description | `string` | A verbose explanation of the method behavior. [CommonMark syntax](http://spec.commonmark.org/) MAY be used for rich text representation.
-<a name="methodExternalDocs"></a>externalDocs | [External Documentation Object](#externalDocumentationObject) | Additional external documentation for this method.
-<a name="methodParameters"></a>params | [[Content Descriptor](#contentDescriptorObject) \| [Reference Object](#referenceObject)] | A list of parameters that are applicable for this method. The list MUST NOT include duplicated parameters and therefore require [name](#contentDescriptorName) to be unique. If the [Method Param Structure](#methodParamStructure) is set to `by-name`, each content descriptor in the array represents the params positionally. The list can use the [Reference Object](#referenceObject) to link to parameters that are defined by the [Content Descriptor Object](#contentDescriptorObject).
-<a name="methodResult"></a>result | [Content Descriptor](#contentDescriptorObject) \| [Reference Object](#referenceObject) | **REQUIRED**. The description of the result returned by the method. It MUST be a Content Descriptor.
-<a name="methodDeprecated"></a>deprecated | `boolean` | Declares this method to be deprecated. Consumers SHOULD refrain from usage of the declared method. Default value is `false`.
-<a name="methodServers"></a>servers | [[Server Object](#serverObject)] | An alternative `servers` array to service this method. If an alternative `servers` array is specified at the Root level, it will be overridden by this value.
-<a name="methodErrors"></a>errors | [[Error Object](#errorObject) \| [Reference Object](#referenceObject)] | A list of custom application defined errors that MAY be returned. The Errors MUST have unique error codes.
-<a name="methodLinks"></a>links | [[Link Object](#linkObject) \| [Reference Object](#referenceObject)] | A list of possible links from this method call.
-<a name="methodParamStructure"></a>paramStructure | `"by-name"` | `"by-position"` | Format the server expects the params. Defaults to `"by-positon"`.
+<a name="method-name"></a>name | [`string`] | The cannonical name for the method. The name MUST be unique within the methods array.
+<a name="method-tags"></a>tags | [`string`] | A list of tags for API documentation control. Tags can be used for logical grouping of methods by resources or any other qualifier.
+<a name="method-summary"></a>summary | `string` | A short summary of what the method does.
+<a name="method-description"></a>description | `string` | A verbose explanation of the method behavior. [CommonMark syntax](http://spec.commonmark.org/) MAY be used for rich text representation.
+<a name="method-externalDocs"></a>externalDocs | [External Documentation Object](#external-documentation-object) | Additional external documentation for this method.
+<a name="method-parameters"></a>params | [[Content Descriptor](#contentDescriptorObject) \| [Reference Object](#reference-object)] | A list of parameters that are applicable for this method. The list MUST NOT include duplicated parameters and therefore require [name](#content-descriptor-name) to be unique. The list can use the [Reference Object](#reference-object) to link to parameters that are defined by the [Content Descriptor Object](#content-descriptor-object).
+<a name="method-result"></a>result | [Content Descriptor](#content-descriptor-object) \| [Reference Object](#reference-object) | **REQUIRED**. The description of the result returned by the method. It MUST be a Content Descriptor.
+<a name="method-deprecated"></a>deprecated | `boolean` | Declares this method to be deprecated. Consumers SHOULD refrain from usage of the declared method. Default value is `false`.
+<a name="method-servers"></a>servers | [[Server Object](#server-object)] | An alternative `servers` array to service this method. If an alternative `servers` array is specified at the Root level, it will be overridden by this value.
+<a name="method-errors"></a>errors | [[Error Object](#error-object) \| [Reference Object](#referenceObject)] | A list of custom application defined errors that MAY be returned. The Errors MUST have unique error codes.
+<a name="method-links"></a>links | [[Link Object](#link-object) \| [Reference Object](#reference-object)] | A list of possible links from this method call.
+<a name="method-param-structure"></a>paramStructure | `"by-name"` | `"by-position"` | Format the server expects the params. Defaults to `"by-positon"`.
 
-This object MAY be extended with [Specification Extensions](#specificationExtensions).
+This object MAY be extended with [Specification Extensions](#specification-extensions).
 
 Method Object Example:
 ```json
@@ -361,20 +361,20 @@ Method Object Example:
 }
 ```
 
-##### <a name="contentDescriptorObject"></a>Content Descriptor Object
+##### Content Descriptor Object
 Content Descriptors are objects that do just as they suggest - describe content. They are reusable ways of describing either parameters or result. They MUST have a schema.
 
 Field Name | Type | Description
 ---|:---:|---
-<a name="contentDescriptorName"></a>name | `string` | name of the content that is being described.
-<a name="contentDescriptorsummary"></a>summary | `string` | A short summary of what the method does.
-<a name="contentDescriptorDescription"></a>description | `string` | A verbose explanation of the method behavior. [CommonMark syntax](http://spec.commonmark.org/) MAY be used for rich text representation.
-<a name="contentDescriptorRequired"></a>required | `boolean` | Determines if the content is a required field.
-<a name="contentDescriptorSchema"></a>schema | [Schema Object](#schemaObject) | Schema that describes the content.
-<a name="contentDescriptorExamples"></a>examples | [[Example Object](#exampleObject)] | Examples of the parameter. The examples MUST match the specified schema. If referencing a `schema` which contains (an) example(s), the `examples` value SHALL _override_ the examples provided by the schema. To represent examples of media types that cannot naturally be represented in JSON, a string value can contain the example with escaping where necessary.
-<a name="contentDescriptorDeprecated"></a>deprecated | `boolean` | Specifies that the content is deprecated and SHOULD be transitioned out of usage. Default value is `false`.
+<a name="content-descriptor-name"></a>name | `string` | name of the content that is being described.
+<a name="content-descriptor-Summary"></a>summary | `string` | A short summary of what the method does.
+<a name="content-descriptor-description"></a>description | `string` | A verbose explanation of the method behavior. [CommonMark syntax](http://spec.commonmark.org/) MAY be used for rich text representation.
+<a name="content-descriptor-required"></a>required | `boolean` | Determines if the content is a required field.
+<a name="content-descriptor-schema"></a>schema | [Schema Object](#schema-object) | Schema that describes the content.
+<a name="content-descriptor-examples"></a>examples | [[Example Object](#example-object)] | Examples of the parameter. The examples MUST match the specified schema. If referencing a `schema` which contains (an) example(s), the `examples` value SHALL _override_ the examples provided by the schema. To represent examples of media types that cannot naturally be represented in JSON, a string value can contain the example with escaping where necessary.
+<a name="content-descriptor-deprecated"></a>deprecated | `boolean` | Specifies that the content is deprecated and SHOULD be transitioned out of usage. Default value is `false`.
 
-This object MAY be extended with [Specification Extensions](#specificationExtensions).
+This object MAY be extended with [Specification Extensions](#specification-extensions).
 
 When `examples` is provided in conjunction with the `schema` object, the examples MUST follow the prescribed serialization strategy for the parameter.
 
@@ -460,13 +460,13 @@ Content Descriptor Object Examples:
 ```
 
 
-###### <a name="schemaObject"></a>Schema Object
+###### Schema Object
 
 The Schema Object allows the definition of input and output data types.
 The Schema Objects MUST follow the specifications outline in the [JSON Schema Specification 7](https://json-schema.org/draft-07/json-schema-release-notes.html)
-Alternatively, any time a Schema Object can be used, a [Reference Object](#referenceObject) can be used in its place. This allows referencing definitions instead of defining them inline.
+Alternatively, any time a Schema Object can be used, a [Reference Object](#reference-object) can be used in its place. This allows referencing definitions instead of defining them inline.
 
-This object MAY be extended with [Specification Extensions](#specificationExtensions).
+This object MAY be extended with [Specification Extensions](#specification-extensions).
 
 Schema Object Examples:
 
@@ -600,17 +600,17 @@ For a string to model mapping:
 ```
 
 
-###### <a name="exampleObject"></a>Example Object
+###### Example Object
 
 Field Name | Type | Description
 ---|:---:|---
-<a name="exampleName"></a>name | `string` | cannonical name of the example.
-<a name="exampleSummary"></a>summary | `string` | Short description for the example.
-<a name="exampleDescription"></a>description | `string` | Long description for the example. [CommonMark syntax](http://spec.commonmark.org/) MAY be used for rich text representation.
-<a name="exampleValue"></a>value | Any | Embedded literal example. The `value` field and `externalValue` field are mutually exclusive. To represent examples of media types that cannot naturally represented in JSON, use a string value to contain the example, escaping where necessary.
-<a name="exampleExternalValue"></a>externalValue | `string` | A URL that points to the literal example. This provides the capability to reference examples that cannot easily be included in JSON documents.  The `value` field and `externalValue` field are mutually exclusive.
+<a name="example-name"></a>name | `string` | cannonical name of the example.
+<a name="example-summary"></a>summary | `string` | Short description for the example.
+<a name="example-description"></a>description | `string` | Long description for the example. [CommonMark syntax](http://spec.commonmark.org/) MAY be used for rich text representation.
+<a name="example-value"></a>value | Any | Embedded literal example. The `value` field and `externalValue` field are mutually exclusive. To represent examples of media types that cannot naturally represented in JSON, use a string value to contain the example, escaping where necessary.
+<a name="example-externalValue"></a>externalValue | `string` | A URL that points to the literal example. This provides the capability to reference examples that cannot easily be included in JSON documents.  The `value` field and `externalValue` field are mutually exclusive.
 
-This object MAY be extended with [Specification Extensions](#specificationExtensions).
+This object MAY be extended with [Specification Extensions](#specification-extensions).
 
 In all cases, the example value is expected to be compatible with the type schema
 of its associated value.  Tooling implementations MAY choose to
@@ -622,7 +622,7 @@ Example Object Examples:
 {
   "contentDescriptors": {
     "nameExample": {
-      "name": "exampleString"
+      "name": "exampleString",
       "type": "string",
       "examples": [
         { "$ref": "http://example.org/petapi-examples/openrpc.json#/components/examples/name-example" },
@@ -638,7 +638,7 @@ Example Object Examples:
 }
 ```
 
-##### <a name="linkObject"></a>Link Object
+##### Link Object
 
 The `Link object` represents a possible design-time link for a result.
 The presence of a link does not guarantee the caller's ability to successfully invoke it, rather it provides a known relationship and traversal mechanism between results and other methods.
@@ -649,14 +649,14 @@ For computing links, and providing instructions to execute them, a [runtime expr
 
 Field Name  |  Type  | Description
 ---|:---:|---
-<a name="linkMethod"></a>method | `string` | The name of an _existing_, resolvable OpenRPC method, as defined with a unique `method`. This field MUST resolve to a unique [Method Object](#methodObject). As opposed to Open Api, Relative `method` values  ARE NOT permitted.
-<a name="linkParameters"></a>params   | Map[`string`, Any \| [{expression}](#runtimeExpression)] | A map representing parameters to pass to a method as specified with `method`. The key is the parameter name to be used, whereas the value can be a constant or an expression to be evaluated and passed to the linked method.
-<a name="linkDescription"></a>description  | `string` | A description of the link. [CommonMark syntax](http://spec.commonmark.org/) MAY be used for rich text representation.
-<a name="linkServer"></a>server       | [Server Object](#serverObject) | A server object to be used by the target method.
+<a name="link-method"></a>method | `string` | The name of an _existing_, resolvable OpenRPC method, as defined with a unique `method`. This field MUST resolve to a unique [Method Object](#method-object). As opposed to Open Api, Relative `method` values  ARE NOT permitted.
+<a name="link-parameters"></a>params   | Map[`string`, Any \| [{expression}](#runtime-expression)] | A map representing parameters to pass to a method as specified with `method`. The key is the parameter name to be used, whereas the value can be a constant or an expression to be evaluated and passed to the linked method.
+<a name="link-description"></a>description  | `string` | A description of the link. [CommonMark syntax](http://spec.commonmark.org/) MAY be used for rich text representation.
+<a name="link-server"></a>server       | [Server Object](#server-object) | A server object to be used by the target method.
 
-This object MAY be extended with [Specification Extensions](#specificationExtensions).
+This object MAY be extended with [Specification Extensions](#specification-extensions).
 
-A linked method must be identified directly, and must exist in the list of methods defined by the [Methods Object](#methodsObject).
+A linked method must be identified directly, and must exist in the list of methods defined by the [Methods Object](#method-object).
 
 Examples:
 
@@ -739,10 +739,10 @@ Clients follow all links at their discretion.
 Neither permissions, nor the capability to make a successful call to that link, is guaranteed
 solely by the existence of a relationship.
 
-###### <a name="runtimeExpression"></a>Runtime Expressions
+###### Runtime Expressions
 
 Runtime expressions allow defining values based on information that will only be available within the HTTP message in an actual API call.
-This mechanism is used by [Link Objects](#linkObject).
+This mechanism is used by [Link Objects](#link-object).
 
 The runtime expression is based on the runtime expression defined by the following [ABNF](https://tools.ietf.org/html/rfc5234) syntax.
 Since JSON RPC does not make extensive use of status codes, query params or paths, many of the fields do not apply and have been omited.
@@ -770,29 +770,29 @@ Result         | `$result.uuid`       |  In methods which return payloads, refer
 Runtime expressions preserve the type of the referenced value.
 Expressions can be embedded into string values by surrounding the expression with `{}` curly braces.
 
-##### <a name="errorObject"></a>Error Object
+##### Error Object
 Defines an application level error.
 
 Field Name | Type | Description
 ---|:---:|---
-<a name="errorCode"></a>code | [Application Defined Error Code](https://www.jsonrpc.org/specification#response_object) | A Number that indicates the error type that occurred. This MUST be an integer. The error codes from and including -32768 to -32000 are reserved for pre-defined errors. These pre-defined errors SHOULD be assumed to be returned from any JSON RPC api.
-<a name="errorMessage"></a>message | `string` | A String providing a short description of the error. The message SHOULD be limited to a concise single sentence.
-<a name="errorData"></a>data | `any` | A Primitive or Structured value that contains additional information about the error. This may be omitted. The value of this member is defined by the Server (e.g. detailed error information, nested errors etc.).
+<a name="error-code"></a>code | [Application Defined Error Code](https://www.jsonrpc.org/specification#response_object) | A Number that indicates the error type that occurred. This MUST be an integer. The error codes from and including -32768 to -32000 are reserved for pre-defined errors. These pre-defined errors SHOULD be assumed to be returned from any JSON RPC api.
+<a name="error-message"></a>message | `string` | A String providing a short description of the error. The message SHOULD be limited to a concise single sentence.
+<a name="error-data"></a>data | `any` | A Primitive or Structured value that contains additional information about the error. This may be omitted. The value of this member is defined by the Server (e.g. detailed error information, nested errors etc.).
 
-#### <a name="componentsObject"></a>Components Object
+#### Components Object
 
 Holds a set of reusable objects for different aspects of the OpenRPC.
 All objects defined within the components object will have no effect on the API unless they are explicitly referenced from properties outside the components object.
 
 Field Name | Type | Description
 ---|:---|---
-<a name="componentsContentDescriptors"></a>contentDescriptors | Map[`string`, [Content Descriptor Object](#contentDescriptorObject)] | An object to hold reusable [Content Descriptor Objects](#contentDescriptorObject).
-<a name="componentsSchemas"></a>schemas | Map[`string`, [Schema Object](#schemaObject)] | An object to hold reusable [Schema Objects](#schemaObject).
-<a name="componentsExamples"></a>examples | Map[`string`, [Example Object](#exampleObject) \| [Reference Object](#referenceObject)] | An object to hold reusable [Example Objects](#exampleObject).
-<a name="componentsLinks"></a> links | Map[`string`, [Link Object](#linkObject) \| [Reference Object](#referenceObject)] | An object to hold reusable [Link Objects](#linkObject).
-<a name="componentsErrors"></a>errors | Map[`string`, [Error Object](#errorObject)] | An object to hold reusable [Error Objects](#errorObject).
+<a name="components-content-descriptors"></a>contentDescriptors | Map[`string`, [Content Descriptor Object](#content-descriptor-object)] | An object to hold reusable [Content Descriptor Objects](#content-descriptor-object).
+<a name="components-schemas"></a>schemas | Map[`string`, [Schema Object](#schema-object)] | An object to hold reusable [Schema Objects](#schema-object).
+<a name="components-examples"></a>examples | Map[`string`, [Example Object](#example-object) \| [Reference Object](#reference-object)] | An object to hold reusable [Example Objects](#example-object).
+<a name="components-links"></a> links | Map[`string`, [Link Object](#link-object) \| [Reference Object](#reference-object)] | An object to hold reusable [Link Objects](#link-object).
+<a name="components-errors"></a>errors | Map[`string`, [Error Object](#error-object)] | An object to hold reusable [Error Objects](#error-object).
 
-This object MAY be extended with [Specification Extensions](#specificationExtensions).
+This object MAY be extended with [Specification Extensions](#specification-extensions).
 
 All the fixed fields declared above are objects that MUST use keys that match the regular expression: `^[a-zA-Z0-9\.\-_]+$`.
 
@@ -878,18 +878,18 @@ Components Object Example:
 }
 ```
 
-#### <a name="tagObject"></a>Tag Object
+#### Tag Object
 
 Adds metadata to a single tag that is used by the [Method Object](#methodObject).
 It is not mandatory to have a Tag Object per tag defined in the Method Object instances.
 
 Field Name | Type | Description
 ---|:---:|---
-<a name="tagName"></a>name | `string` | **REQUIRED**. The name of the tag.
-<a name="tagDescription"></a>description | `string` | A short description for the tag. [CommonMark syntax](http://spec.commonmark.org/) MAY be used for rich text representation.
-<a name="tagExternalDocs"></a>externalDocs | [External Documentation Object](#externalDocumentationObject) | Additional external documentation for this tag.
+<a name="tag-name"></a>name | `string` | **REQUIRED**. The name of the tag.
+<a name="tag-description"></a>description | `string` | A short description for the tag. [CommonMark syntax](http://spec.commonmark.org/) MAY be used for rich text representation.
+<a name="tag-externalDocs"></a>externalDocs | [External Documentation Object](#external-documentation-object) | Additional external documentation for this tag.
 
-This object MAY be extended with [Specification Extensions](#specificationExtensions).
+This object MAY be extended with [Specification Extensions](#specification-extensions).
 
 Tag Object Example:
 
@@ -900,16 +900,16 @@ Tag Object Example:
 }
 ```
 
-#### <a name="externalDocumentationObject"></a>External Documentation Object
+#### External Documentation Object
 
 Allows referencing an external resource for extended documentation.
 
 Field Name | Type | Description
 ---|:---:|---
-<a name="externalDocDescription"></a>description | `string` | A short description of the target documentation. [CommonMark syntax](http://spec.commonmark.org/) MAY be used for rich text representation.
-<a name="externalDocUrl"></a>url | `string` | **REQUIRED**. The URL for the target documentation. Value MUST be in the format of a URL.
+<a name="external-doc-description"></a>description | `string` | A short description of the target documentation. [CommonMark syntax](http://spec.commonmark.org/) MAY be used for rich text representation.
+<a name="external-doc-url"></a>url | `string` | **REQUIRED**. The URL for the target documentation. Value MUST be in the format of a URL.
 
-This object MAY be extended with [Specification Extensions](#specificationExtensions).
+This object MAY be extended with [Specification Extensions](#specification-extensions).
 
 External Documentation Object Example:
 
@@ -920,7 +920,7 @@ External Documentation Object Example:
 }
 ```
 
-#### <a name="referenceObject"></a>Reference Object
+#### Reference Object
 
 A simple object to allow referencing other components in the specification, internally and externally.
 
@@ -954,7 +954,7 @@ Relative Documents With Embedded Schema Example:
 }
 ```
 
-### <a name="specificationExtensions"></a>Specification Extensions
+### Specification Extensions
 
 While the OpenRPC Specification tries to accommodate most use cases, additional data can be added to extend the specification at certain points.
 
@@ -962,6 +962,6 @@ The extensions properties are implemented as patterned fields that are always pr
 
 Field Pattern | Type | Description
 ---|:---:|---
-<a name="infoExtensions"></a>^x- | Any | Allows extensions to the OpenRPC Schema. The field name MUST begin with `x-`, for example, `x-internal-id`. The value can be `null`, a primitive, an array or an object. Can have any valid JSON format value.
+<a name="info-extensions"></a>^x- | Any | Allows extensions to the OpenRPC Schema. The field name MUST begin with `x-`, for example, `x-internal-id`. The value can be `null`, a primitive, an array or an object. Can have any valid JSON format value.
 
 The extensions may or may not be supported by the available tooling, but those may be extended as well to add requested support (if tools are internal or open-sourced).
