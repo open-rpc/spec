@@ -1,0 +1,12 @@
+<html>
+  <body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.0/showdown.min.js"></script>
+    <script>
+      var converter = new showdown.Converter();
+      fetch('https://raw.githubusercontent.com/open-rpc/spec/master/README.md').then((res) => res.text()).then((text) => {
+        const html = converter.makeHtml(text);
+        document.body.innerHTML += html;
+      });
+    </script>
+  </body>
+</html>
