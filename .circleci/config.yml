@@ -1,1 +1,8 @@
 version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:10.11.0
+    steps:
+      - checkout
+      - run: echo "let the awesome begin"
