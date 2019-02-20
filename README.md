@@ -946,6 +946,29 @@ Relative Documents With Embedded Schema Example:
 }
 ```
 
+#### oneOf Object
+
+a simple object allowing for conditional content descriptors. It MUST only be used in place of a content descriptor. It specifices that the content descriptor in question must match one of the list of content descriptors. This allows you to define content descriptors more granularly, without having to rely so heavily on json schemas.
+
+
+The oneOf Object is defined by [JSON Schema](http://json-schema.org/latest/json-schema-validation.html#rfc.section.6.7.3) and follows the same structure, behavior and rules.
+
+Field Name | Type | Description
+---|:---:|---
+<a name="oneof-oneof"></a>oneOf | [Content Descriptor](#content-descriptor) | **REQUIRED**. The reference string.
+
+oneOf Object example:
+
+```json
+{
+  "oneOf": [
+    { "$ref": "#/components/schemas/Pet" },
+    { "schema": { "type": null } }
+  ]
+}
+```
+
+
 ### Specification Extensions
 
 While the OpenRPC Specification tries to accommodate most use cases, additional data can be added to extend the specification at certain points.
