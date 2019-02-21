@@ -115,7 +115,7 @@ Throughout the specification `description` fields are noted as supporting Github
 Where OpenRPC tooling renders rich text it MUST support, at a minimum, markdown syntax as described by [GitHub Flavored Markdown](https://github.github.com/gfm/). Tooling MAY choose to ignore some GitHub Flavored Markdown features to address security concerns.
 
 ### OpenRPC Schema Object
-This is the root document object of the [OpenRPC document](#openrpcDocument).
+This is the root document object of the [OpenRPC document](#openrpc-document).
 
 Field Name | Type | Description
 ---|:---:|---
@@ -732,7 +732,7 @@ Clients follow all links at their discretion.
 Neither permissions, nor the capability to make a successful call to that link, is guaranteed
 solely by the existence of a relationship.
 
-###### Runtime Expressions
+###### Runtime Expression
 
 Runtime expressions allow defining values based on information that will only be available within the HTTP message in an actual API call.
 This mechanism is used by [Link Objects](#link-object).
