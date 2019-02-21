@@ -1,0 +1,29 @@
+{
+  "name": "open-rpc-spec",
+  "version": "1.0.0",
+  "description": "The OPEN-RPC Specification",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx mdv ./*.md"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/open-rpc/spec.git"
+  },
+  "keywords": [
+    "open-rpc",
+    "rpc",
+    "json-rpc",
+    "api",
+    "spec"
+  ],
+  "author": "Zachary Belford",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/open-rpc/spec/issues"
+  },
+  "homepage": "https://github.com/open-rpc/spec#readme",
+  "devDependencies": {
+    "mdv": "^1.1.0"
+  }
+}
