@@ -115,7 +115,7 @@ Throughout the specification `description` fields are noted as supporting Github
 Where OpenRPC tooling renders rich text it MUST support, at a minimum, markdown syntax as described by [GitHub Flavored Markdown](https://github.github.com/gfm/). Tooling MAY choose to ignore some GitHub Flavored Markdown features to address security concerns.
 
 ### Service Discovery Method
-JSON RPC apis can support the OpenRPC specification by implementing a service discovery method that will return the OpenRPC schema for the JSON RPC api. The method MUST be named `rpc.discovery`. The `rpc.` prefix is a reserved method prefix for JSON RPC 2.0 specification extensions. Below is the OpenRPC specification for the service discovery method:
+JSON RPC apis can support the OpenRPC specification by implementing a service discovery method that will return the OpenRPC schema for the JSON RPC api. The method MUST be named `rpc.discover`. The `rpc.` prefix is a reserved method prefix for JSON RPC 2.0 specification extensions. Below is the OpenRPC specification for the service discovery method:
 
 ```json
 {
