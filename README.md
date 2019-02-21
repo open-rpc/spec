@@ -34,7 +34,7 @@ This document is licensed under [The Apache License, Version 2.0](https://www.ap
 		- [Info Object](#info-object)
 		    - [Contact Object](#contact-object)
 		    - [License Object](#license-object)
-		- [Server Object](#serverObject)
+		- [Server Object](#server-object)
 		    - [Server Variable Object](#server-variable-object)
 		- [Method Object](#method-object)
 		    - [Content Descriptor Object](#content-descriptor-object)
@@ -42,10 +42,10 @@ This document is licensed under [The Apache License, Version 2.0](https://www.ap
             	- [Example Object](#example-object)
 		    - [Link Object](#link-object)
             	- [Runtime Expression](#runtime-expression)
-		    - [Error Object](#errorObject)
+		    - [Error Object](#error-object)
 		- [Components Object](#components-object)
 		- [Tag Object](#tag-object)
-		- [External Documentation Object](#externalDocumentationObject)
+		- [External Documentation Object](#external-documentation-object)
 		- [Reference Object](#reference-object)
 		- [OneOf Object](#oneof-object)
 	- [Specification Extensions](#specification-extensions)
@@ -638,7 +638,7 @@ The presence of a link does not guarantee the caller's ability to successfully i
 
 Unlike _dynamic_ links (i.e. links provided **in** the result payload), the OpenRPC linking mechanism does not require link information in the runtime result.
 
-For computing links, and providing instructions to execute them, a [runtime expression](#runtimeExpression) is used for accessing values in an method and using them as parameters while invoking the linked method.
+For computing links, and providing instructions to execute them, a [runtime expression](#runtime-expression) is used for accessing values in an method and using them as parameters while invoking the linked method.
 
 Field Name  |  Type  | Description
 ---|:---:|---
