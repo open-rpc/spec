@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/open-rpc/design/blob/master/png/open-rpc-logo-320x320.png?raw=true" />
+  <img alt="open-rpc logo" src="https://github.com/open-rpc/design/blob/master/png/open-rpc-logo-320x320.png?raw=true" />
 
 </p>
 <p align="center">
