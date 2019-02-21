@@ -30,6 +30,7 @@ This document is licensed under [The Apache License, Version 2.0](https://www.ap
 	- [Document Structure](#document-structure)
 	- [Data Types](#data-types)
 	- [Rich Text Formatting](#rich-text-formatting)
+	- [Service Discovery Method](#service-discovery-method)
 	- [OpenRPC Schema Object](#openrpc-schema-object)
 		- [Info Object](#info-object)
 		    - [Contact Object](#contact-object)
@@ -113,6 +114,27 @@ The Data types MUST be in the set defined by the [JSON Schema Specification 7](h
 ### Rich Text Formatting
 Throughout the specification `description` fields are noted as supporting Github markdown formatting.
 Where OpenRPC tooling renders rich text it MUST support, at a minimum, markdown syntax as described by [GitHub Flavored Markdown](https://github.github.com/gfm/). Tooling MAY choose to ignore some GitHub Flavored Markdown features to address security concerns.
+
+### Service Discovery Method
+JSON-RPC APIs can support the OpenRPC specification by implementing a service discovery method that will return the OpenRPC schema for the JSON-RPC API. The method MUST be named `rpc.discover`. The `rpc.` prefix is a reserved method prefix for JSON-RPC 2.0 specification system extensions. Below is the OpenRPC specification for the service discovery method:
+
+```json
+{
+  "methods": [
+    {
+      "name": "rpc.discover",
+      "description": "Returns an OpenRPC schema as a description of this service",
+      "result": {
+        "name": "OpenRPC Schema",
+        "schema": {
+          "$ref": "https://raw.githubusercontent.com/open-rpc/meta-schema/master/schema.json"
+        }
+      }
+    }
+  ]
+}
+```
+
 
 ### OpenRPC Schema Object
 This is the root document object of the [OpenRPC document](#openrpc-document).
