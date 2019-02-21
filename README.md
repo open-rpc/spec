@@ -34,7 +34,7 @@ This document is licensed under [The Apache License, Version 2.0](https://www.ap
 		- [Info Object](#info-object)
 		    - [Contact Object](#contact-object)
 		    - [License Object](#license-object)
-		- [Server Object](#serverObject)
+		- [Server Object](#server-object)
 		    - [Server Variable Object](#server-variable-object)
 		- [Method Object](#method-object)
 		    - [Content Descriptor Object](#content-descriptor-object)
@@ -136,7 +136,7 @@ The metadata MAY be used by the clients if needed, and MAY be presented in editi
 Field Name | Type | Description
 ---|:---:|---
 <a name="info-title"></a>title | `string` | **REQUIRED**. The title of the application.
-<a name="info-description"></a>description | `string` | A short description of the application. [GitHub Flavored Markdown](https://github.github.com/gfm/) MAY be used for rich text representation.
+<a name="info-description"></a>description | `string` | A verbose description of the application. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
 <a name="info-termsofservice"></a>termsOfService | `string` | A URL to the Terms of Service for the API. MUST be in the format of a URL.
 <a name="info-contact"></a>contact | [Contact Object](#contact-object) | The contact information for the exposed API.
 <a name="info-license"></a>license | [License Object](#license-object) | The license information for the exposed API.
@@ -599,7 +599,7 @@ Field Name | Type | Description
 ---|:---:|---
 <a name="example-name"></a>name | `string` | cannonical name of the example.
 <a name="example-summary"></a>summary | `string` | Short description for the example.
-<a name="example-description"></a>description | `string` | Long description for the example. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
+<a name="example-description"></a>description | `string` | A verbose explanation of the example. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
 <a name="example-value"></a>value | Any | Embedded literal example. The `value` field and `externalValue` field are mutually exclusive. To represent examples of media types that cannot naturally represented in JSON, use a string value to contain the example, escaping where necessary.
 <a name="example-externalValue"></a>externalValue | `string` | A URL that points to the literal example. This provides the capability to reference examples that cannot easily be included in JSON documents.  The `value` field and `externalValue` field are mutually exclusive.
 
@@ -879,7 +879,7 @@ It is not mandatory to have a Tag Object per tag defined in the Method Object in
 Field Name | Type | Description
 ---|:---:|---
 <a name="tag-name"></a>name | `string` | **REQUIRED**. The name of the tag.
-<a name="tag-description"></a>description | `string` | A short description for the tag. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
+<a name="tag-description"></a>description | `string` | A verbose explanation for the tag. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
 <a name="tag-externalDocs"></a>externalDocs | [External Documentation Object](#external-documentation-object) | Additional external documentation for this tag.
 
 This object MAY be extended with [Specification Extensions](#specification-extensions).
@@ -899,7 +899,7 @@ Allows referencing an external resource for extended documentation.
 
 Field Name | Type | Description
 ---|:---:|---
-<a name="external-doc-description"></a>description | `string` | A short description of the target documentation. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
+<a name="external-doc-description"></a>description | `string` | A verbose explanation of the target documentation. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
 <a name="external-doc-url"></a>url | `string` | **REQUIRED**. The URL for the target documentation. Value MUST be in the format of a URL.
 
 This object MAY be extended with [Specification Extensions](#specification-extensions).
