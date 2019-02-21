@@ -45,7 +45,8 @@ This document is licensed under [The Apache License, Version 2.0](https://www.ap
 		    - [Error Object](#errorObject)
 		- [Components Object](#components-object)
 		- [Tag Object](#tag-object)
-		- [External Documentation Object](#externalDocumentationObject)
+		- [Mixin Object](#mixin-object)
+		    - [External Documentation Object](#externalDocumentationObject)
 		- [Reference Object](#reference-object)
 		- [OneOf Object](#oneof-object)
 	- [Specification Extensions](#specification-extensions)
@@ -136,13 +137,12 @@ The metadata MAY be used by the clients if needed, and MAY be presented in editi
 Field Name | Type | Description
 ---|:---:|---
 <a name="info-title"></a>title | `string` | **REQUIRED**. The title of the application.
-<a name="info-description"></a>description | `string` | A short description of the application. [GitHub Flavored Markdown](https://github.github.com/gfm/) MAY be used for rich text representation.
 <a name="info-termsofservice"></a>termsOfService | `string` | A URL to the Terms of Service for the API. MUST be in the format of a URL.
 <a name="info-contact"></a>contact | [Contact Object](#contact-object) | The contact information for the exposed API.
 <a name="info-license"></a>license | [License Object](#license-object) | The license information for the exposed API.
 <a name="info-version"></a>version | `string` | **REQUIRED**. The version of the OpenRPC document (which is distinct from the [OpenRPC Specification version](#openrpc-version) or the API implementation version).
 
-
+This object MUST be extended with a [Mixin Object](#mixin-object).
 This object MAY be extended with [Specification Extensions](#specification-extensions).
 
 Info Object Example:
@@ -212,11 +212,10 @@ An object representing a Server.
 
 Field Name | Type | Description
 ---|:---:|---
-<a name="server-name"></a>name | `string` | **REQUIRED**. A name to be used as the cannonical name for the server.
 <a name="server-url"></a>url | `string` | **REQUIRED**. A URL to the target host.  This URL supports Server Variables and MAY be relative, to indicate that the host location is relative to the location where the OpenRPC document is being served. Variable substitutions will be made when a variable is named in `{`brackets`}`.
-<a name="server-description"></a>description | `string` | An optional string describing the host designated by the URL. [CGitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
 <a name="server-variables"></a>variables | Map[`string`, [Server Variable Object](#server-variable-object)] | A map between a variable name and its value.  The value is used for substitution in the server's URL template.
 
+This object MUST be extended with a [Mixin Object](#mixin-object).
 This object MAY be extended with [Specification Extensions](#specification-extensions).
 
 Server Object Example:
@@ -303,11 +302,7 @@ Describes the interface for the given method name. The method name is used as th
 
 Field Name | Type | Description
 ---|:---:|---
-<a name="method-name"></a>name | [`string`] | The cannonical name for the method. The name MUST be unique within the methods array.
 <a name="method-tags"></a>tags | [`string`] | A list of tags for API documentation control. Tags can be used for logical grouping of methods by resources or any other qualifier.
-<a name="method-summary"></a>summary | `string` | A short summary of what the method does.
-<a name="method-description"></a>description | `string` | A verbose explanation of the method behavior. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
-<a name="method-externalDocs"></a>externalDocs | [External Documentation Object](#external-documentation-object) | Additional external documentation for this method.
 <a name="method-parameters"></a>params | [[Content Descriptor](#content-descriptor-object) \| [Reference Object](#reference-object) \| [OneOf Object](#oneof-object)] | A list of parameters that are applicable for this method. The list MUST NOT include duplicated parameters and therefore require [name](#content-descriptor-name) to be unique. The list can use the [Reference Object](#reference-object) to link to parameters that are defined by the [Content Descriptor Object](#content-descriptor-object). It may also nest the content descriptor or reference object inside of a [OneOf Object](#oneof-object).
 <a name="method-result"></a>result | [Content Descriptor](#content-descriptor-object) \| [Reference Object](#reference-object) | **REQUIRED**. The description of the result returned by the method. It MUST be a Content Descriptor.
 <a name="method-deprecated"></a>deprecated | `boolean` | Declares this method to be deprecated. Consumers SHOULD refrain from usage of the declared method. Default value is `false`.
@@ -316,6 +311,7 @@ Field Name | Type | Description
 <a name="method-links"></a>links | [[Link Object](#link-object) \| [Reference Object](#reference-object)] | A list of possible links from this method call.
 <a name="method-param-structure"></a>paramStructure | `"by-name"` | `"by-position"` | Format the server expects the params. Defaults to `"by-positon"`.
 
+This object MUST be extended with a [Mixin Object](#mixin-object).
 This object MAY be extended with [Specification Extensions](#specification-extensions).
 
 Method Object Example:
@@ -367,14 +363,12 @@ Content Descriptors are objects that do just as they suggest - describe content.
 
 Field Name | Type | Description
 ---|:---:|---
-<a name="content-descriptor-name"></a>name | `string` | name of the content that is being described.
-<a name="content-descriptor-Summary"></a>summary | `string` | A short summary of what the method does.
-<a name="content-descriptor-description"></a>description | `string` | A verbose explanation of the method behavior. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
 <a name="content-descriptor-required"></a>required | `boolean` | Determines if the content is a required field.
 <a name="content-descriptor-schema"></a>schema | [Schema Object](#schema-object) | Schema that describes the content.
 <a name="content-descriptor-examples"></a>examples | [[Example Object](#example-object)] | Examples of the parameter. The examples MUST match the specified schema. If referencing a `schema` which contains (an) example(s), the `examples` value SHALL _override_ the examples provided by the schema. To represent examples of media types that cannot naturally be represented in JSON, a string value can contain the example with escaping where necessary.
 <a name="content-descriptor-deprecated"></a>deprecated | `boolean` | Specifies that the content is deprecated and SHOULD be transitioned out of usage. Default value is `false`.
 
+This object MUST be extended with a [Mixin Object](#mixin-object).
 This object MAY be extended with [Specification Extensions](#specification-extensions).
 
 When `examples` is provided in conjunction with the `schema` object, the examples MUST follow the prescribed serialization strategy for the parameter.
@@ -597,12 +591,10 @@ For a string to model mapping:
 
 Field Name | Type | Description
 ---|:---:|---
-<a name="example-name"></a>name | `string` | cannonical name of the example.
-<a name="example-summary"></a>summary | `string` | Short description for the example.
-<a name="example-description"></a>description | `string` | Long description for the example. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
 <a name="example-value"></a>value | Any | Embedded literal example. The `value` field and `externalValue` field are mutually exclusive. To represent examples of media types that cannot naturally represented in JSON, use a string value to contain the example, escaping where necessary.
 <a name="example-externalValue"></a>externalValue | `string` | A URL that points to the literal example. This provides the capability to reference examples that cannot easily be included in JSON documents.  The `value` field and `externalValue` field are mutually exclusive.
 
+This object MUST be extended with a [Mixin Object](#mixin-object).
 This object MAY be extended with [Specification Extensions](#specification-extensions).
 
 In all cases, the example value is expected to be compatible with the type schema
@@ -644,9 +636,9 @@ Field Name  |  Type  | Description
 ---|:---:|---
 <a name="link-method"></a>method | `string` | The name of an _existing_, resolvable OpenRPC method, as defined with a unique `method`. This field MUST resolve to a unique [Method Object](#method-object). As opposed to Open Api, Relative `method` values  ARE NOT permitted.
 <a name="link-parameters"></a>params   | Map[`string`, Any \| [{expression}](#runtime-expression)] | A map representing parameters to pass to a method as specified with `method`. The key is the parameter name to be used, whereas the value can be a constant or an expression to be evaluated and passed to the linked method.
-<a name="link-description"></a>description  | `string` | A description of the link. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
 <a name="link-server"></a>server       | [Server Object](#server-object) | A server object to be used by the target method.
 
+This object MUST be extended with a [Mixin Object](#mixin-object).
 This object MAY be extended with [Specification Extensions](#specification-extensions).
 
 A linked method must be identified directly, and must exist in the list of methods defined by the [Methods Object](#method-object).
@@ -684,6 +676,7 @@ Computing a link from a request operation where the `$params.id` is used to pass
       },
       "links": [
         {
+	  "name": "addresses",
           "method": "get_user_address",
           "params": {
             "userId": "$params.id"
@@ -876,12 +869,7 @@ Components Object Example:
 Adds metadata to a single tag that is used by the [Method Object](#method-object).
 It is not mandatory to have a Tag Object per tag defined in the Method Object instances.
 
-Field Name | Type | Description
----|:---:|---
-<a name="tag-name"></a>name | `string` | **REQUIRED**. The name of the tag.
-<a name="tag-description"></a>description | `string` | A short description for the tag. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
-<a name="tag-externalDocs"></a>externalDocs | [External Documentation Object](#external-documentation-object) | Additional external documentation for this tag.
-
+This object MUST be extended with a [Mixin Object](#mixin-object).
 This object MAY be extended with [Specification Extensions](#specification-extensions).
 
 Tag Object Example:
@@ -893,21 +881,46 @@ Tag Object Example:
 }
 ```
 
-#### External Documentation Object
+#### Mixin Object
+
+A mixin object is a number of fields that are useful to have on every other object. This is to avoid duplicate definitions of these fields, since they are all the same across each object inside of which they may be.
+
+Field Name | Type | Description
+---|:---:|---
+<a name="mixin-name"></a>name | `string` | **REQUIRED**. The name of the Object being mixed in with.
+<a name="mixin-summary"></a>summary | `string` | A short summary of what the Object does.
+<a name="mixin-description"></a>description | `string` | A short description for the Object being mixed in with. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
+<a name="mixin-externalDocs"></a>externalDocs | [External Documentation Object](#external-documentation-object) | Additional external documentation for this Object.
+
+Example Mixin Object:
+```json
+{
+  "name": "get_pet",
+  "summary": "method that gets a pet",
+  "description": "#Get Pet \n ...",
+  "externalDocs": {
+    "name": "moreDocs",
+    "url": "https://foobar.com"
+  }
+}
+```
+
+##### External Documentation Object
 
 Allows referencing an external resource for extended documentation.
 
 Field Name | Type | Description
 ---|:---:|---
-<a name="external-doc-description"></a>description | `string` | A short description of the target documentation. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
 <a name="external-doc-url"></a>url | `string` | **REQUIRED**. The URL for the target documentation. Value MUST be in the format of a URL.
 
+This object MUST be extended with a [Mixin Object](#mixin-object).
 This object MAY be extended with [Specification Extensions](#specification-extensions).
 
 External Documentation Object Example:
 
 ```json
 {
+  "name": "extraDocs",
   "description": "Find more info here",
   "url": "https://example.com"
 }
