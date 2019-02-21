@@ -120,7 +120,7 @@ JSON RPC apis can support the OpenRPC specification by implementing a service di
 ```json
 {
   ...,
-  methods: [
+  "methods": [
     {
       "name": "openrpc.discovery",
       "description": "Returns an OpenRPC schema as a description of this service",
