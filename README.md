@@ -119,7 +119,7 @@ This is the root document object of the [OpenRPC document](#openrpcDocument).
 
 Field Name | Type | Description
 ---|:---:|---
-<a name="openrpc-version"></a>openrpc | `string` | **REQUIRED**. This string MUST be the [semantic version number](https://semver.org/spec/v2.0.0.html) of the [OpenRPC Specification version](#versions) that the OpenRPC document uses. The `openrpc` field SHOULD be used by tooling specifications and clients to interpret the OpenRPC document. This is *not* related to the API [`info.version`](#infoVersion) string.
+<a name="openrpc-version"></a>openrpc | `string` | **REQUIRED**. This string MUST be the [semantic version number](https://semver.org/spec/v2.0.0.html) of the [OpenRPC Specification version](#versions) that the OpenRPC document uses. The `openrpc` field SHOULD be used by tooling specifications and clients to interpret the OpenRPC document. This is *not* related to the API [`info.version`](#info-version) string.
 <a name="openrpc-info"></a>info | [Info Object](#info-object) | **REQUIRED**. Provides metadata about the API. The metadata MAY be used by tooling as required.
 <a name="openrpc-servers"></a>servers | [[Server Object](#server-object)] | An array of Server Objects, which provide connectivity information to a target server. If the `servers` property is not provided, or is an empty array, the default value would be a [Server Object](#server-object) with a [url](#server-url) value of `/`.
 <a name="openrpc-methods"></a>methods | [[Method Object](#method-object) \| [Reference Object](#reference-object)] | **REQUIRED**. The available methods for the API. While it is required, the array may be empty (to handle security filtering, for example).
@@ -368,7 +368,7 @@ Content Descriptors are objects that do just as they suggest - describe content.
 Field Name | Type | Description
 ---|:---:|---
 <a name="content-descriptor-name"></a>name | `string` | name of the content that is being described.
-<a name="content-descriptor-Summary"></a>summary | `string` | A short summary of what the method does.
+<a name="content-descriptor-summary"></a>summary | `string` | A short summary of what the method does.
 <a name="content-descriptor-description"></a>description | `string` | A verbose explanation of the method behavior. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
 <a name="content-descriptor-required"></a>required | `boolean` | Determines if the content is a required field.
 <a name="content-descriptor-schema"></a>schema | [Schema Object](#schema-object) | Schema that describes the content.
@@ -956,7 +956,7 @@ The oneOf Object is defined by [JSON Schema](http://json-schema.org/latest/json-
 
 Field Name | Type | Description
 ---|:---:|---
-<a name="oneof-oneof"></a>oneOf | [Content Descriptor](#content-descriptor) | **REQUIRED**. The reference string.
+<a name="oneof-oneof"></a>oneOf | [Content Descriptor](#content-descriptor-object) | **REQUIRED**. The reference string.
 
 oneOf Object example:
 
