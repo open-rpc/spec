@@ -336,7 +336,7 @@ Field Name | Type | Description
 <a name="method-servers"></a>servers | [[Server Object](#server-object)] | An alternative `servers` array to service this method. If an alternative `servers` array is specified at the Root level, it will be overridden by this value.
 <a name="method-errors"></a>errors | [[Error Object](#error-object) \| [Reference Object](#reference-object)] | A list of custom application defined errors that MAY be returned. The Errors MUST have unique error codes.
 <a name="method-links"></a>links | [[Link Object](#link-object) \| [Reference Object](#reference-object)] | A list of possible links from this method call.
-<a name="method-param-structure"></a>paramStructure | `"by-name"` | `"by-position"` | Format the server expects the params. Defaults to `"by-positon"`.
+<a name="method-param-structure"></a>paramStructure | `"by-name"` \| `"by-position"` | Format the server expects the params. Defaults to `"by-positon"`.
 
 This object MAY be extended with [Specification Extensions](#specification-extensions).
 
