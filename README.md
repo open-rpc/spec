@@ -677,8 +677,8 @@ Example Mapping Object Examples:
 
 Field Name | Type | Description
 ---|:---:|---
-<a name="example-params"></a>params | `string` | cannonical name of the example.
-<a name="example-result"></a>result | `string` | Short description for the example.
+<a name="example-name"></a>name | `string` | cannonical name of the example.
+<a name="example-summary"></a>summary | `string` | Short description for the example.
 <a name="example-description"></a>description | `string` | A verbose explanation of the example. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
 <a name="example-value"></a>value | Any | Embedded literal example. The `value` field and `externalValue` field are mutually exclusive. To represent examples of media types that cannot naturally represented in JSON, use a string value to contain the example, escaping where necessary.
 <a name="example-externalValue"></a>externalValue | `string` | A URL that points to the literal example. This provides the capability to reference examples that cannot easily be included in JSON documents.  The `value` field and `externalValue` field are mutually exclusive.
