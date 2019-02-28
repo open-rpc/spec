@@ -40,6 +40,7 @@ This document is licensed under [The Apache License, Version 2.0](https://www.ap
 		- [Method Object](#method-object)
 		    - [Content Descriptor Object](#content-descriptor-object)
 		        - [Schema Object](#schema-object)
+		- [Example Mapping Object](#example-mapping-object)
             	- [Example Object](#example-object)
 		    - [Link Object](#link-object)
             	- [Runtime Expression](#runtime-expression)
@@ -337,6 +338,7 @@ Field Name | Type | Description
 <a name="method-errors"></a>errors | [[Error Object](#error-object) \| [Reference Object](#reference-object)] | A list of custom application defined errors that MAY be returned. The Errors MUST have unique error codes.
 <a name="method-links"></a>links | [[Link Object](#link-object) \| [Reference Object](#reference-object)] | A list of possible links from this method call.
 <a name="method-param-structure"></a>paramStructure | `"by-name"` | `"by-position"` | Format the server expects the params. Defaults to `"by-positon"`.
+<a name="method-example-mapping"></a>examples | [[Example Mapping Object](#example- mapping-object)] | Examples of the parameters and result pairing.
 
 This object MAY be extended with [Specification Extensions](#specification-extensions).
 
@@ -394,12 +396,9 @@ Field Name | Type | Description
 <a name="content-descriptor-description"></a>description | `string` | A verbose explanation of the method behavior. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
 <a name="content-descriptor-required"></a>required | `boolean` | Determines if the content is a required field. Default value is `false`.
 <a name="content-descriptor-schema"></a>schema | [Schema Object](#schema-object) | Schema that describes the content.
-<a name="content-descriptor-examples"></a>examples | [[Example Object](#example-object)] | Examples of the parameter. The examples MUST match the specified schema. If referencing a `schema` which contains (an) example(s), the `examples` value SHALL _override_ the examples provided by the schema. To represent examples of media types that cannot naturally be represented in JSON, a string value can contain the example with escaping where necessary.
 <a name="content-descriptor-deprecated"></a>deprecated | `boolean` | Specifies that the content is deprecated and SHOULD be transitioned out of usage. Default value is `false`.
 
 This object MAY be extended with [Specification Extensions](#specification-extensions).
-
-When `examples` is provided in conjunction with the `schema` object, the examples MUST follow the prescribed serialization strategy for the parameter.
 
 Content Descriptor Object Examples:
 
@@ -614,13 +613,72 @@ For a string to model mapping:
 }
 ```
 
+###### Example Mapping Object
+
+Field Name | Type | Description
+---|:---:|---
+<a name="example-params"></a>params | [[Example Object](#example-object)] | Example parameters.
+<a name="example-result"></a>result | [[Example Object](#example-object)] | Example results.
+
+This object MAY be extended with [Specification Extensions](#specification-extensions).
+
+Example Mapping Object Examples:
+```json
+{
+ "methods": [
+   {
+     "name": "addition",
+     "params": [ 
+       { "$ref": "#/components/contentDescriptors/Integer" },
+       { "$ref": "#/components/contentDescriptors/Integer" }
+     ],
+     "result": {
+       "$ref": "#/components/contentDescriptors/Integer"
+     },
+     "examples": [
+        {
+           "params": [ 
+             { "$ref": "#/components/examples/integerTwo" },
+             { "$ref": "#/components/examples/integerTwo" }
+           ],
+           "result": { "$ref": "#/components/examples/integerFour" }
+        }
+     ]
+   }
+  ], 
+  "components": {
+    "contentDescriptors": {
+      "Integer": {
+        "name": "Integer",
+        "schema": {
+          "type": "number"
+        }
+      }
+    },
+    "examples": {
+      "integerTwo": {   
+        "name": "two", 
+        "summary": "its a sample foo",
+        "description": "Im not sure how else to say it", 
+        "value": 2
+      },
+      "integerFour": {   
+        "name": "four", 
+        "summary": "its a sample foo",
+        "description": "Im not sure how else to say it", 
+        "value": 4
+      }
+    }
+  }
+}
+```
 
 ###### Example Object
 
 Field Name | Type | Description
 ---|:---:|---
-<a name="example-name"></a>name | `string` | cannonical name of the example.
-<a name="example-summary"></a>summary | `string` | Short description for the example.
+<a name="example-params"></a>params | `string` | cannonical name of the example.
+<a name="example-result"></a>result | `string` | Short description for the example.
 <a name="example-description"></a>description | `string` | A verbose explanation of the example. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
 <a name="example-value"></a>value | Any | Embedded literal example. The `value` field and `externalValue` field are mutually exclusive. To represent examples of media types that cannot naturally represented in JSON, use a string value to contain the example, escaping where necessary.
 <a name="example-externalValue"></a>externalValue | `string` | A URL that points to the literal example. This provides the capability to reference examples that cannot easily be included in JSON documents.  The `value` field and `externalValue` field are mutually exclusive.
