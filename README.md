@@ -229,6 +229,28 @@ License Object Example:
 ```
 
 
+#### Tag Object
+
+Adds metadata to a single tag that is used by the [Method Object](#method-object).
+It is not mandatory to have a Tag Object per tag defined in the Method Object instances.
+
+Field Name | Type | Description
+---|:---:|---
+<a name="tag-name"></a>name | `string` | **REQUIRED**. The name of the tag.
+<a name="tag-description"></a>description | `string` | A verbose explanation for the tag. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
+<a name="tag-externalDocs"></a>externalDocs | [External Documentation Object](#external-documentation-object) | Additional external documentation for this tag.
+
+This object MAY be extended with [Specification Extensions](#specification-extensions).
+
+Tag Object Example:
+
+```json
+{
+  "name": "pet",
+  "description": "Pets operations"
+}
+```
+
 #### Server Object
 
 An object representing a Server.
@@ -951,27 +973,6 @@ Components Object Example:
 }
 ```
 
-#### Tag Object
-
-Adds metadata to a single tag that is used by the [Method Object](#method-object).
-It is not mandatory to have a Tag Object per tag defined in the Method Object instances.
-
-Field Name | Type | Description
----|:---:|---
-<a name="tag-name"></a>name | `string` | **REQUIRED**. The name of the tag.
-<a name="tag-description"></a>description | `string` | A verbose explanation for the tag. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
-<a name="tag-externalDocs"></a>externalDocs | [External Documentation Object](#external-documentation-object) | Additional external documentation for this tag.
-
-This object MAY be extended with [Specification Extensions](#specification-extensions).
-
-Tag Object Example:
-
-```json
-{
-  "name": "pet",
-  "description": "Pets operations"
-}
-```
 
 #### External Documentation Object
 
