@@ -23,34 +23,34 @@ This document is licensed under [The Apache License, Version 2.0](https://www.ap
 - [Introduction](#introduction)
 - [Contributing](#contributing)
 - [Definitions](#definitions)
-	- [OpenRPC Document](#openrpc-document)
+- [OpenRPC Document](#openrpc-document)
 - [Specification](#specification)
-	- [Versions](#versions)
-	- [Format](#format)
-	- [Document Structure](#document-structure)
-	- [Data Types](#data-types)
-	- [Rich Text Formatting](#rich-text-formatting)
-	- [Service Discovery Method](#service-discovery-method)
-	- [OpenRPC Schema Object](#openrpc-schema-object)
-		- [Info Object](#info-object)
-		    - [Contact Object](#contact-object)
-		    - [License Object](#license-object)
-		- [Server Object](#server-object)
-		    - [Server Variable Object](#server-variable-object)
-		- [Method Object](#method-object)
-		    - [Content Descriptor Object](#content-descriptor-object)
-		        - [Schema Object](#schema-object)
-		- [Example Mapping Object](#example-mapping-object)
-            	- [Example Object](#example-object)
-		    - [Link Object](#link-object)
-            	- [Runtime Expression](#runtime-expression)
-		    - [Error Object](#error-object)
-		- [Components Object](#components-object)
-		- [Tag Object](#tag-object)
-		- [External Documentation Object](#external-documentation-object)
-		- [Reference Object](#reference-object)
-		- [OneOf Object](#oneof-object)
-	- [Specification Extensions](#specification-extensions)
+  - [Versions](#versions)
+  - [Format](#format)
+  - [Document Structure](#document-structure)
+  - [Data Types](#data-types)
+  - [Rich Text Formatting](#rich-text-formatting)
+  - [Service Discovery Method](#service-discovery-method)
+  - [OpenRPC Schema Object](#openrpc-schema-object)
+    - [Info Object](#info-object)
+      - [Contact Object](#contact-object)
+      - [License Object](#license-object)
+    - [Tag Object](#tag-object)
+    - [Server Object](#server-object)
+      - [Server Variable Object](#server-variable-object)
+    - [Method Object](#method-object)
+      - [Content Descriptor Object](#content-descriptor-object)
+        - [Schema Object](#schema-object)
+      - [Example Mapping Object](#example-mapping-object)
+        - [Example Object](#example-object)
+      - [Link Object](#link-object)
+        - [Runtime Expression](#runtime-expression)
+      - [Error Object](#error-object)
+    - [Components Object](#components-object)
+    - [External Documentation Object](#external-documentation-object)
+    - [Reference Object](#reference-object)
+    - [OneOf Object](#oneof-object)
+  - [Specification Extensions](#specification-extensions)
 
 
 <!-- /TOC -->
@@ -602,7 +602,7 @@ For a string to model mapping:
             "properties": {
               "hairLength": {
                 "type": "string",
-		"enum": ["short", "long"]
+                "enum": ["short", "long"]
               }
             }
           }
@@ -628,7 +628,7 @@ Example Mapping Object Examples:
  "methods": [
    {
      "name": "addition",
-     "params": [ 
+     "params": [
        { "$ref": "#/components/contentDescriptors/Integer" },
        { "$ref": "#/components/contentDescriptors/Integer" }
      ],
@@ -637,7 +637,7 @@ Example Mapping Object Examples:
      },
      "examples": [
         {
-           "params": [ 
+           "params": [
              { "$ref": "#/components/examples/integerTwo" },
              { "$ref": "#/components/examples/integerTwo" }
            ],
@@ -645,7 +645,7 @@ Example Mapping Object Examples:
         }
      ]
    }
-  ], 
+  ],
   "components": {
     "contentDescriptors": {
       "Integer": {
@@ -656,16 +656,16 @@ Example Mapping Object Examples:
       }
     },
     "examples": {
-      "integerTwo": {   
-        "name": "two", 
+      "integerTwo": {
+        "name": "two",
         "summary": "its a sample foo",
-        "description": "Im not sure how else to say it", 
+        "description": "Im not sure how else to say it",
         "value": 2
       },
-      "integerFour": {   
-        "name": "four", 
+      "integerFour": {
+        "name": "four",
         "summary": "its a sample foo",
-        "description": "Im not sure how else to say it", 
+        "description": "Im not sure how else to say it",
         "value": 4
       }
     }
@@ -968,8 +968,8 @@ Tag Object Example:
 
 ```json
 {
-	"name": "pet",
-	"description": "Pets operations"
+  "name": "pet",
+  "description": "Pets operations"
 }
 ```
 
@@ -1009,7 +1009,7 @@ Reference Object Example:
 
 ```json
 {
-	"$ref": "#/components/schemas/Pet"
+  "$ref": "#/components/schemas/Pet"
 }
 ```
 
