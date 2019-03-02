@@ -697,7 +697,7 @@ Example Pairing Object Examples:
 ```
 
 ###### Example Object
-The Example object is an object the defines an example that is intended to match a given [Content Descriptor Schema](#content-descriptor-schema).
+The Example object is an object the defines an example that is intended to match a given [Content Descriptor Schema](#content-descriptor-schema). If the [Content Descriptor Schema](#content-descriptor-schema) includes `examples`, the value from *this* [Example Object](#example-object) supercedes the value of the schema example.
 
 Field Name | Type | Description
 ---|:---:|---
