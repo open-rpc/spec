@@ -41,7 +41,7 @@ This document is licensed under [The Apache License, Version 2.0](https://www.ap
     - [Method Object](#method-object)
       - [Content Descriptor Object](#content-descriptor-object)
         - [Schema Object](#schema-object)
-      - [Example Mapping Object](#example-mapping-object)
+      - [Example Pairing Object](#example-mapping-object)
         - [Example Object](#example-object)
       - [Link Object](#link-object)
         - [Runtime Expression](#runtime-expression)
@@ -360,7 +360,7 @@ Field Name | Type | Description
 <a name="method-errors"></a>errors | [[Error Object](#error-object) \| [Reference Object](#reference-object)] | A list of custom application defined errors that MAY be returned. The Errors MUST have unique error codes.
 <a name="method-links"></a>links | [[Link Object](#link-object) \| [Reference Object](#reference-object)] | A list of possible links from this method call.
 <a name="method-param-structure"></a>paramStructure | `"by-name"` | `"by-position"` | Format the server expects the params. Defaults to `"by-positon"`.
-<a name="method-example-mapping"></a>examples | [[Example Mapping Object](#example- mapping-object)] | Examples of the parameters and result pairing.
+<a name="method-example-mapping"></a>examples | [[Example Pairing Object](#example-mapping-object)] | Examples of the parameters and result pairing.
 
 This object MAY be extended with [Specification Extensions](#specification-extensions).
 
@@ -635,7 +635,8 @@ For a string to model mapping:
 }
 ```
 
-###### Example Mapping Object
+##### Example Pairing Object
+The example Pairing object consists of a set of example params and result. The result is what you can expect from the JSON-RPC service given the exact params. 
 
 Field Name | Type | Description
 ---|:---:|---
@@ -644,7 +645,7 @@ Field Name | Type | Description
 
 This object MAY be extended with [Specification Extensions](#specification-extensions).
 
-Example Mapping Object Examples:
+Example Pairing Object Examples:
 ```json
 {
  "methods": [
@@ -696,6 +697,7 @@ Example Mapping Object Examples:
 ```
 
 ###### Example Object
+The Example object is an object the defines an example that is intended to match a given [Content Descriptor Schema](#content-descriptor-schema).
 
 Field Name | Type | Description
 ---|:---:|---
@@ -707,29 +709,16 @@ Field Name | Type | Description
 
 This object MAY be extended with [Specification Extensions](#specification-extensions).
 
-In all cases, the example value is expected to be compatible with the type schema
-of its associated value.  Tooling implementations MAY choose to
-validate compatibility automatically, and reject the example value(s) if incompatible.
+In all cases, the example value is expected to be compatible with the type schema of its associated value. Tooling implementations MAY choose to validate compatibility automatically, and reject the example value(s) if incompatible.
 
 Example Object Examples:
 
 ```json
 {
-  "contentDescriptors": {
-    "nameExample": {
-      "name": "exampleString",
-      "type": "string",
-      "examples": [
-        { "$ref": "http://example.org/petapi-examples/openrpc.json#/components/examples/name-example" },
-        {
-          "name": "Chinese",
-          "summary": "using non-english characters",
-          "description": "an example of how the rpc api can handle non english characters",
-          "value": "你好世界"
-        }
-      ]
-    }
-  }
+  "name": "Chinese",
+  "summary": "using non-english characters",
+  "description": "an example of how the rpc api can handle non english characters",
+  "value": "你好世界"
 }
 ```
 
@@ -747,7 +736,7 @@ Field Name  |  Type  | Description
 <a name="link-method"></a>method | `string` | The name of an _existing_, resolvable OpenRPC method, as defined with a unique `method`. This field MUST resolve to a unique [Method Object](#method-object). As opposed to Open Api, Relative `method` values  ARE NOT permitted.
 <a name="link-parameters"></a>params   | Map[`string`, Any \| [{expression}](#runtime-expression)] | A map representing parameters to pass to a method as specified with `method`. The key is the parameter name to be used, whereas the value can be a constant or an expression to be evaluated and passed to the linked method.
 <a name="link-description"></a>description  | `string` | A description of the link. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
-<a name="link-server"></a>server       | [Server Object](#server-object) | A server object to be used by the target method.
+<a name="link-server"></a>server | [Server Object](#server-object) | A server object to be used by the target method.
 
 This object MAY be extended with [Specification Extensions](#specification-extensions).
 
