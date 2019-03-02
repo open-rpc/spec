@@ -41,7 +41,7 @@ This document is licensed under [The Apache License, Version 2.0](https://www.ap
     - [Method Object](#method-object)
       - [Content Descriptor Object](#content-descriptor-object)
         - [Schema Object](#schema-object)
-      - [Example Pairing Object](#example-mapping-object)
+      - [Example Pairing Object](#example-pairing-object)
         - [Example Object](#example-object)
       - [Link Object](#link-object)
         - [Runtime Expression](#runtime-expression)
@@ -360,7 +360,7 @@ Field Name | Type | Description
 <a name="method-errors"></a>errors | [[Error Object](#error-object) \| [Reference Object](#reference-object)] | A list of custom application defined errors that MAY be returned. The Errors MUST have unique error codes.
 <a name="method-links"></a>links | [[Link Object](#link-object) \| [Reference Object](#reference-object)] | A list of possible links from this method call.
 <a name="method-param-structure"></a>paramStructure | `"by-name"` | `"by-position"` | Format the server expects the params. Defaults to `"by-positon"`.
-<a name="method-example-mapping"></a>examples | [[Example Pairing Object](#example-mapping-object)] | Examples of the parameters and result pairing.
+<a name="method-example-mapping"></a>examples | [[Example Pairing Object](#example-pairing-object)] | Examples of the parameters and result pairing.
 
 This object MAY be extended with [Specification Extensions](#specification-extensions).
 
