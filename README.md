@@ -23,33 +23,34 @@ This document is licensed under [The Apache License, Version 2.0](https://www.ap
 - [Introduction](#introduction)
 - [Contributing](#contributing)
 - [Definitions](#definitions)
-	- [OpenRPC Document](#openrpc-document)
+- [OpenRPC Document](#openrpc-document)
 - [Specification](#specification)
-	- [Versions](#versions)
-	- [Format](#format)
-	- [Document Structure](#document-structure)
-	- [Data Types](#data-types)
-	- [Rich Text Formatting](#rich-text-formatting)
-	- [Service Discovery Method](#service-discovery-method)
-	- [OpenRPC Schema Object](#openrpc-schema-object)
-		- [Info Object](#info-object)
-		    - [Contact Object](#contact-object)
-		    - [License Object](#license-object)
-		- [Server Object](#server-object)
-		    - [Server Variable Object](#server-variable-object)
-		- [Method Object](#method-object)
-		    - [Content Descriptor Object](#content-descriptor-object)
-		        - [Schema Object](#schema-object)
-            	- [Example Object](#example-object)
-		    - [Link Object](#link-object)
-            	- [Runtime Expression](#runtime-expression)
-		    - [Error Object](#error-object)
-		- [Components Object](#components-object)
-		- [Tag Object](#tag-object)
-		- [External Documentation Object](#external-documentation-object)
-		- [Reference Object](#reference-object)
-		- [OneOf Object](#oneof-object)
-	- [Specification Extensions](#specification-extensions)
+  - [Versions](#versions)
+  - [Format](#format)
+  - [Document Structure](#document-structure)
+  - [Data Types](#data-types)
+  - [Rich Text Formatting](#rich-text-formatting)
+  - [Service Discovery Method](#service-discovery-method)
+  - [OpenRPC Schema Object](#openrpc-schema-object)
+    - [Info Object](#info-object)
+      - [Contact Object](#contact-object)
+      - [License Object](#license-object)
+    - [Tag Object](#tag-object)
+    - [Server Object](#server-object)
+      - [Server Variable Object](#server-variable-object)
+    - [Method Object](#method-object)
+      - [Content Descriptor Object](#content-descriptor-object)
+        - [Schema Object](#schema-object)
+      - [Example Pairing Object](#example-pairing-object)
+        - [Example Object](#example-object)
+      - [Link Object](#link-object)
+        - [Runtime Expression](#runtime-expression)
+      - [Error Object](#error-object)
+    - [Components Object](#components-object)
+    - [External Documentation Object](#external-documentation-object)
+    - [Reference Object](#reference-object)
+    - [OneOf Object](#oneof-object)
+  - [Specification Extensions](#specification-extensions)
 
 
 <!-- /TOC -->
@@ -228,6 +229,28 @@ License Object Example:
 ```
 
 
+#### Tag Object
+
+Adds metadata to a single tag that is used by the [Method Object](#method-object).
+It is not mandatory to have a Tag Object per tag defined in the Method Object instances.
+
+Field Name | Type | Description
+---|:---:|---
+<a name="tag-name"></a>name | `string` | **REQUIRED**. The name of the tag.
+<a name="tag-description"></a>description | `string` | A verbose explanation for the tag. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
+<a name="tag-externalDocs"></a>externalDocs | [External Documentation Object](#external-documentation-object) | Additional external documentation for this tag.
+
+This object MAY be extended with [Specification Extensions](#specification-extensions).
+
+Tag Object Example:
+
+```json
+{
+  "name": "pet",
+  "description": "Pets operations"
+}
+```
+
 #### Server Object
 
 An object representing a Server.
@@ -337,6 +360,7 @@ Field Name | Type | Description
 <a name="method-errors"></a>errors | [[Error Object](#error-object) \| [Reference Object](#reference-object)] | A list of custom application defined errors that MAY be returned. The Errors MUST have unique error codes.
 <a name="method-links"></a>links | [[Link Object](#link-object) \| [Reference Object](#reference-object)] | A list of possible links from this method call.
 <a name="method-param-structure"></a>paramStructure | `"by-name"` \| `"by-position"` | Format the server expects the params. Defaults to `"by-positon"`.
+<a name="method-examples"></a>examples | [[Example Pairing Object](#example-pairing-object)] | Array of [Example Pairing Object](#example-pairing-object) where each example includes a valid params-to-result [Content Descriptor](#content-descriptor-object) pairing.
 
 This object MAY be extended with [Specification Extensions](#specification-extensions).
 
@@ -392,14 +416,11 @@ Field Name | Type | Description
 <a name="content-descriptor-name"></a>name | `string` | name of the content that is being described.
 <a name="content-descriptor-summary"></a>summary | `string` | A short summary of what the method does.
 <a name="content-descriptor-description"></a>description | `string` | A verbose explanation of the method behavior. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
-<a name="content-descriptor-required"></a>required | `boolean` | Determines if the content is a required field.
+<a name="content-descriptor-required"></a>required | `boolean` | Determines if the content is a required field. Default value is `false`.
 <a name="content-descriptor-schema"></a>schema | [Schema Object](#schema-object) | Schema that describes the content.
-<a name="content-descriptor-examples"></a>examples | [[Example Object](#example-object)] | Examples of the parameter. The examples MUST match the specified schema. If referencing a `schema` which contains (an) example(s), the `examples` value SHALL _override_ the examples provided by the schema. To represent examples of media types that cannot naturally be represented in JSON, a string value can contain the example with escaping where necessary.
 <a name="content-descriptor-deprecated"></a>deprecated | `boolean` | Specifies that the content is deprecated and SHOULD be transitioned out of usage. Default value is `false`.
 
 This object MAY be extended with [Specification Extensions](#specification-extensions).
-
-When `examples` is provided in conjunction with the `schema` object, the examples MUST follow the prescribed serialization strategy for the parameter.
 
 Content Descriptor Object Examples:
 
@@ -603,7 +624,7 @@ For a string to model mapping:
             "properties": {
               "hairLength": {
                 "type": "string",
-		"enum": ["short", "long"]
+                "enum": ["short", "long"]
               }
             }
           }
@@ -614,8 +635,70 @@ For a string to model mapping:
 }
 ```
 
+##### Example Pairing Object
+The example Pairing object consists of a set of example params and result. The result is what you can expect from the JSON-RPC service given the exact params. 
+
+Field Name | Type | Description
+---|:---:|---
+<a name="example-pairing-name"></a>name | `string` | Name for the example pairing.
+<a name="example-pairing-params"></a>params | [[Example Object](#example-object)] | Example parameters.
+<a name="example-result"></a>result | [Example Object](#example-object) | Example result.
+
+This object MAY be extended with [Specification Extensions](#specification-extensions).
+
+Example Pairing Object Examples:
+```json
+{
+ "methods": [
+   {
+     "name": "addition",
+     "params": [
+       { "$ref": "#/components/contentDescriptors/Integer" },
+       { "$ref": "#/components/contentDescriptors/Integer" }
+     ],
+     "result": {
+       "$ref": "#/components/contentDescriptors/Integer"
+     },
+     "examples": [
+        {
+           "params": [
+             { "$ref": "#/components/examples/integerTwo" },
+             { "$ref": "#/components/examples/integerTwo" }
+           ],
+           "result": { "$ref": "#/components/examples/integerFour" }
+        }
+     ]
+   }
+  ],
+  "components": {
+    "contentDescriptors": {
+      "Integer": {
+        "name": "Integer",
+        "schema": {
+          "type": "number"
+        }
+      }
+    },
+    "examples": {
+      "integerTwo": {
+        "name": "two",
+        "summary": "its a sample foo",
+        "description": "Im not sure how else to say it",
+        "value": 2
+      },
+      "integerFour": {
+        "name": "four",
+        "summary": "its a sample foo",
+        "description": "Im not sure how else to say it",
+        "value": 4
+      }
+    }
+  }
+}
+```
 
 ###### Example Object
+The Example object is an object the defines an example that is intended to match a given [Content Descriptor Schema](#content-descriptor-schema). If the [Content Descriptor Schema](#content-descriptor-schema) includes `examples`, the value from *this* [Example Object](#example-object) supercedes the value of the schema example.
 
 Field Name | Type | Description
 ---|:---:|---
@@ -627,29 +710,16 @@ Field Name | Type | Description
 
 This object MAY be extended with [Specification Extensions](#specification-extensions).
 
-In all cases, the example value is expected to be compatible with the type schema
-of its associated value.  Tooling implementations MAY choose to
-validate compatibility automatically, and reject the example value(s) if incompatible.
+In all cases, the example value is expected to be compatible with the type schema of its associated value. Tooling implementations MAY choose to validate compatibility automatically, and reject the example value(s) if incompatible.
 
 Example Object Examples:
 
 ```json
 {
-  "contentDescriptors": {
-    "nameExample": {
-      "name": "exampleString",
-      "type": "string",
-      "examples": [
-        { "$ref": "http://example.org/petapi-examples/openrpc.json#/components/examples/name-example" },
-        {
-          "name": "Chinese",
-          "summary": "using non-english characters",
-          "description": "an example of how the rpc api can handle non english characters",
-          "value": "你好世界"
-        }
-      ]
-    }
-  }
+  "name": "Chinese",
+  "summary": "using non-english characters",
+  "description": "an example of how the rpc api can handle non english characters",
+  "value": "你好世界"
 }
 ```
 
@@ -667,7 +737,7 @@ Field Name  |  Type  | Description
 <a name="link-method"></a>method | `string` | The name of an _existing_, resolvable OpenRPC method, as defined with a unique `method`. This field MUST resolve to a unique [Method Object](#method-object). As opposed to Open Api, Relative `method` values  ARE NOT permitted.
 <a name="link-parameters"></a>params   | Map[`string`, Any \| [{expression}](#runtime-expression)] | A map representing parameters to pass to a method as specified with `method`. The key is the parameter name to be used, whereas the value can be a constant or an expression to be evaluated and passed to the linked method.
 <a name="link-description"></a>description  | `string` | A description of the link. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
-<a name="link-server"></a>server       | [Server Object](#server-object) | A server object to be used by the target method.
+<a name="link-server"></a>server | [Server Object](#server-object) | A server object to be used by the target method.
 
 This object MAY be extended with [Specification Extensions](#specification-extensions).
 
@@ -893,27 +963,6 @@ Components Object Example:
 }
 ```
 
-#### Tag Object
-
-Adds metadata to a single tag that is used by the [Method Object](#method-object).
-It is not mandatory to have a Tag Object per tag defined in the Method Object instances.
-
-Field Name | Type | Description
----|:---:|---
-<a name="tag-name"></a>name | `string` | **REQUIRED**. The name of the tag.
-<a name="tag-description"></a>description | `string` | A verbose explanation for the tag. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
-<a name="tag-externalDocs"></a>externalDocs | [External Documentation Object](#external-documentation-object) | Additional external documentation for this tag.
-
-This object MAY be extended with [Specification Extensions](#specification-extensions).
-
-Tag Object Example:
-
-```json
-{
-	"name": "pet",
-	"description": "Pets operations"
-}
-```
 
 #### External Documentation Object
 
@@ -951,7 +1000,7 @@ Reference Object Example:
 
 ```json
 {
-	"$ref": "#/components/schemas/Pet"
+  "$ref": "#/components/schemas/Pet"
 }
 ```
 
