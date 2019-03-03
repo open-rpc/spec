@@ -641,6 +641,8 @@ The example Pairing object consists of a set of example params and result. The r
 Field Name | Type | Description
 ---|:---:|---
 <a name="example-pairing-name"></a>name | `string` | Name for the example pairing.
+<a name="example-pairing-description"></a>description | `string` | A verbose explanation of the example pairing.
+<a name="example-pairing-summary"></a>summary | `string` | Short description for the example pairing.
 <a name="example-pairing-params"></a>params | [[Example Object](#example-object)] | Example parameters.
 <a name="example-result"></a>result | [Example Object](#example-object) | Example result.
 
