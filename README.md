@@ -37,6 +37,7 @@ Using conventions, documentation and specifications make it easier to:
 - [Literate programming](https://en.wikipedia.org/wiki/Literate_programming)
 - [Hammock Driven Development](https://www.youtube.com/watch?v=f84n5oFoZBc)
 - [Inversion and The Power of Avoiding Stupidity](https://fs.blog/2013/10/inversion/)
+- [choosealicense.com](http://choosealicense.com)
 
 ## Getting Started
 
