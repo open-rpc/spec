@@ -704,7 +704,7 @@ The Example object is an object the defines an example that is intended to match
 
 Field Name | Type | Description
 ---|:---:|---
-<a name="example-name"></a>name | `string` | cannonical name of the example.
+<a name="example-name"></a>name | `string` | Cannonical name of the example.
 <a name="example-summary"></a>summary | `string` | Short description for the example.
 <a name="example-description"></a>description | `string` | A verbose explanation of the example. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
 <a name="example-value"></a>value | Any | Embedded literal example. The `value` field and `externalValue` field are mutually exclusive. To represent examples of media types that cannot naturally represented in JSON, use a string value to contain the example, escaping where necessary.
@@ -862,8 +862,8 @@ Defines an application level error.
 
 Field Name | Type | Description
 ---|:---:|---
-<a name="error-code"></a>code | [Application Defined Error Code](https://www.jsonrpc.org/specification#response_object) | A Number that indicates the error type that occurred. This MUST be an integer. The error codes from and including -32768 to -32000 are reserved for pre-defined errors. These pre-defined errors SHOULD be assumed to be returned from any JSON-RPC api.
-<a name="error-message"></a>message | `string` | A String providing a short description of the error. The message SHOULD be limited to a concise single sentence.
+<a name="error-code"></a>code | [Application Defined Error Code](https://www.jsonrpc.org/specification#response_object) | **REQUIRED**. A Number that indicates the error type that occurred. This MUST be an integer. The error codes from and including -32768 to -32000 are reserved for pre-defined errors. These pre-defined errors SHOULD be assumed to be returned from any JSON-RPC api.
+<a name="error-message"></a>message | `string` | **REQUIRED**. A String providing a short description of the error. The message SHOULD be limited to a concise single sentence.
 <a name="error-data"></a>data | `any` | A Primitive or Structured value that contains additional information about the error. This may be omitted. The value of this member is defined by the Server (e.g. detailed error information, nested errors etc.).
 
 #### Components Object
