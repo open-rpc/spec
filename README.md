@@ -259,7 +259,7 @@ Field Name | Type | Description
 ---|:---:|---
 <a name="server-name"></a>name | `string` | **REQUIRED**. A name to be used as the cannonical name for the server.
 <a name="server-url"></a>url | `string` | **REQUIRED**. A URL to the target host.  This URL supports Server Variables and MAY be relative, to indicate that the host location is relative to the location where the OpenRPC document is being served. Variable substitutions will be made when a variable is named in `{`brackets`}`.
-<a name="server-description"></a>description | `string` | An optional string describing the host designated by the URL. [CGitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
+<a name="server-description"></a>description | `string` | An optional string describing the host designated by the URL. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
 <a name="server-variables"></a>variables | Map[`string`, [Server Variable Object](#server-variable-object)] | A map between a variable name and its value.  The value is used for substitution in the server's URL template.
 
 This object MAY be extended with [Specification Extensions](#specification-extensions).
