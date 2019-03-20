@@ -636,7 +636,7 @@ For a string to model mapping:
 ```
 
 ##### Example Pairing Object
-The example Pairing object consists of a set of example params and result. The result is what you can expect from the JSON-RPC service given the exact params. 
+The example Pairing object consists of a set of example params and result. The result is what you can expect from the JSON-RPC service given the exact params.
 
 Field Name | Type | Description
 ---|:---:|---
@@ -878,6 +878,7 @@ Field Name | Type | Description
 <a name="components-examples"></a>examples | Map[`string`, [Example Object](#example-object) \| [Reference Object](#reference-object)] | An object to hold reusable [Example Objects](#example-object).
 <a name="components-links"></a> links | Map[`string`, [Link Object](#link-object) \| [Reference Object](#reference-object)] | An object to hold reusable [Link Objects](#link-object).
 <a name="components-errors"></a>errors | Map[`string`, [Error Object](#error-object)] | An object to hold reusable [Error Objects](#error-object).
+<a name="components-example-pairing-objects"></a>examplePairingObjects | Map[`string`, [Example Pairing Object](#example-pairing-object)] | An object to hold reusable [Example Pairing Objects](#example-pairing-object).
 
 This object MAY be extended with [Specification Extensions](#specification-extensions).
 
