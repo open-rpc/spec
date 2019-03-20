@@ -353,7 +353,7 @@ Field Name | Type | Description
 <a name="method-summary"></a>summary | `string` | A short summary of what the method does.
 <a name="method-description"></a>description | `string` | A verbose explanation of the method behavior. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
 <a name="method-externalDocs"></a>externalDocs | [External Documentation Object](#external-documentation-object) | Additional external documentation for this method.
-<a name="method-parameters"></a>params | [[Content Descriptor](#content-descriptor-object) \| [Reference Object](#reference-object) \| [OneOf Object](#oneof-object)] | A list of parameters that are applicable for this method. The list MUST NOT include duplicated parameters and therefore require [name](#content-descriptor-name) to be unique. The list can use the [Reference Object](#reference-object) to link to parameters that are defined by the [Content Descriptor Object](#content-descriptor-object). It may also nest the content descriptor or reference object inside of a [OneOf Object](#oneof-object).
+<a name="method-parameters"></a>params | [[Content Descriptor](#content-descriptor-object) \| [Reference Object](#reference-object) \| [OneOf Object](#oneof-object)] | **REQUIRED** A list of parameters that are applicable for this method. The list MUST NOT include duplicated parameters and therefore require [name](#content-descriptor-name) to be unique. The list can use the [Reference Object](#reference-object) to link to parameters that are defined by the [Content Descriptor Object](#content-descriptor-object). It may also nest the content descriptor or reference object inside of a [OneOf Object](#oneof-object).
 <a name="method-result"></a>result | [Content Descriptor](#content-descriptor-object) \| [Reference Object](#reference-object) | **REQUIRED**. The description of the result returned by the method. It MUST be a Content Descriptor.
 <a name="method-deprecated"></a>deprecated | `boolean` | Declares this method to be deprecated. Consumers SHOULD refrain from usage of the declared method. Default value is `false`.
 <a name="method-servers"></a>servers | [[Server Object](#server-object)] | An alternative `servers` array to service this method. If an alternative `servers` array is specified at the Root level, it will be overridden by this value.
@@ -636,7 +636,7 @@ For a string to model mapping:
 ```
 
 ##### Example Pairing Object
-The example Pairing object consists of a set of example params and result. The result is what you can expect from the JSON-RPC service given the exact params. 
+The example Pairing object consists of a set of example params and result. The result is what you can expect from the JSON-RPC service given the exact params.
 
 Field Name | Type | Description
 ---|:---:|---
