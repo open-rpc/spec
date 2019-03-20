@@ -413,7 +413,7 @@ Content Descriptors are objects that do just as they suggest - describe content.
 
 Field Name | Type | Description
 ---|:---:|---
-<a name="content-descriptor-name"></a>name | `string` | name of the content that is being described.
+<a name="content-descriptor-name"></a>name | `string` | **REQUIRED**. name of the content that is being described.
 <a name="content-descriptor-summary"></a>summary | `string` | A short summary of what the method does.
 <a name="content-descriptor-description"></a>description | `string` | A verbose explanation of the method behavior. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
 <a name="content-descriptor-required"></a>required | `boolean` | Determines if the content is a required field. Default value is `false`.
@@ -636,7 +636,7 @@ For a string to model mapping:
 ```
 
 ##### Example Pairing Object
-The example Pairing object consists of a set of example params and result. The result is what you can expect from the JSON-RPC service given the exact params. 
+The example Pairing object consists of a set of example params and result. The result is what you can expect from the JSON-RPC service given the exact params.
 
 Field Name | Type | Description
 ---|:---:|---
