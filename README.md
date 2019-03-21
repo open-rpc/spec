@@ -348,12 +348,12 @@ Describes the interface for the given method name. The method name is used as th
 
 Field Name | Type | Description
 ---|:---:|---
-<a name="method-name"></a>name | [`string`] | The cannonical name for the method. The name MUST be unique within the methods array.
+<a name="method-name"></a>name | [`string`] | **REQUIRED**. The cannonical name for the method. The name MUST be unique within the methods array.
 <a name="method-tags"></a>tags | [`string`] | A list of tags for API documentation control. Tags can be used for logical grouping of methods by resources or any other qualifier.
 <a name="method-summary"></a>summary | `string` | A short summary of what the method does.
 <a name="method-description"></a>description | `string` | A verbose explanation of the method behavior. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
 <a name="method-externalDocs"></a>externalDocs | [External Documentation Object](#external-documentation-object) | Additional external documentation for this method.
-<a name="method-parameters"></a>params | [[Content Descriptor](#content-descriptor-object) \| [Reference Object](#reference-object) \| [OneOf Object](#oneof-object)] | A list of parameters that are applicable for this method. The list MUST NOT include duplicated parameters and therefore require [name](#content-descriptor-name) to be unique. The list can use the [Reference Object](#reference-object) to link to parameters that are defined by the [Content Descriptor Object](#content-descriptor-object). It may also nest the content descriptor or reference object inside of a [OneOf Object](#oneof-object).
+<a name="method-params"></a>params | [[Content Descriptor](#content-descriptor-object) \| [Reference Object](#reference-object) \| [OneOf Object](#oneof-object)] | **REQUIRED**. A list of parameters that are applicable for this method. The list MUST NOT include duplicated parameters and therefore require [name](#content-descriptor-name) to be unique. The list can use the [Reference Object](#reference-object) to link to parameters that are defined by the [Content Descriptor Object](#content-descriptor-object). It may also nest the content descriptor or reference object inside of a [OneOf Object](#oneof-object).
 <a name="method-result"></a>result | [Content Descriptor](#content-descriptor-object) \| [Reference Object](#reference-object) | **REQUIRED**. The description of the result returned by the method. It MUST be a Content Descriptor.
 <a name="method-deprecated"></a>deprecated | `boolean` | Declares this method to be deprecated. Consumers SHOULD refrain from usage of the declared method. Default value is `false`.
 <a name="method-servers"></a>servers | [[Server Object](#server-object)] | An alternative `servers` array to service this method. If an alternative `servers` array is specified at the Root level, it will be overridden by this value.
