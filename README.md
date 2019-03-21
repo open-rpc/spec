@@ -878,6 +878,7 @@ Field Name | Type | Description
 <a name="components-examples"></a>examples | Map[`string`, [Example Object](#example-object) \| [Reference Object](#reference-object)] | An object to hold reusable [Example Objects](#example-object).
 <a name="components-links"></a> links | Map[`string`, [Link Object](#link-object) \| [Reference Object](#reference-object)] | An object to hold reusable [Link Objects](#link-object).
 <a name="components-errors"></a>errors | Map[`string`, [Error Object](#error-object)] | An object to hold reusable [Error Objects](#error-object).
+<a name="components-tags"></a>tags | Map[`string`, [Tag Object](#tag-object)] | An object to hold reusable [Tag Objects](#tag-object).
 
 This object MAY be extended with [Specification Extensions](#specification-extensions).
 
