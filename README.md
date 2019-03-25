@@ -737,9 +737,11 @@ For computing links, and providing instructions to execute them, a [runtime expr
 
 Field Name  |  Type  | Description
 ---|:---:|---
+<a name="link-name"></a>**REQUIRED** name | `string` | Cannonical name of the link.
+<a name="link-description"></a>description  | `string` | A description of the link. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
+<a name="link-summary"></a>summary | `string` | Short description for the link.
 <a name="link-method"></a>method | `string` | The name of an _existing_, resolvable OpenRPC method, as defined with a unique `method`. This field MUST resolve to a unique [Method Object](#method-object). As opposed to Open Api, Relative `method` values  ARE NOT permitted.
 <a name="link-parameters"></a>params   | Map[`string`, Any \| [{expression}](#runtime-expression)] | A map representing parameters to pass to a method as specified with `method`. The key is the parameter name to be used, whereas the value can be a constant or an expression to be evaluated and passed to the linked method.
-<a name="link-description"></a>description  | `string` | A description of the link. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
 <a name="link-server"></a>server | [Server Object](#server-object) | A server object to be used by the target method.
 
 This object MAY be extended with [Specification Extensions](#specification-extensions).
@@ -779,6 +781,9 @@ Computing a link from a request operation where the `$params.id` is used to pass
       },
       "links": [
         {
+          "name": "getUserAddressLink",
+          "summary": "get_user_address with get_user params",
+          "description": "get the user address with the same params as get_user",
           "method": "get_user_address",
           "params": {
             "userId": "$params.id"
@@ -814,6 +819,7 @@ Values from the result can be used to drive a linked method.
 {
   "links": [
     {
+      "name": "getUserAddressLink",
       "method": "get_user_address",
       "params": {
         "userId": "$result.uuid"
