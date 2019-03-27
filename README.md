@@ -835,21 +835,19 @@ solely by the existence of a relationship.
 
 ###### Runtime Expression
 
-Runtime expressions allow defining values based on information that will only be available within the HTTP message in an actual API call.
+
+Runtime expressions allow defining values based on information that will only be available within an actual JSON-RPC 2.0 API call.
+
 This mechanism is used by [Link Objects](#link-object).
 
 The runtime expression is based on the runtime expression defined by the following [ABNF](https://tools.ietf.org/html/rfc5234) syntax.
 Since JSON-RPC does not make extensive use of status codes, query params or paths, many of the fields do not apply and have been omited.
 
 ```
-      expression = ( "$params." source | "$result." source )
-      fragment = a JSON Pointer [RFC 6901](https://tools.ietf.org/html/rfc6901)
-      name = *( char )
-      char = as per RFC [7159](https://tools.ietf.org/html/rfc7159#section-7)
-      token = as per RFC [7230](https://tools.ietf.org/html/rfc7230#section-3.2.6)
+expression = "$" token *( "." path )
+token = ( "result" / "params" )
+path = *( CHAR )
 ```
-
-The `name` identifier is case-sensitive, whereas `token` is not.
 
 The table below provides examples of runtime expressions and examples of their use in a value:
 
