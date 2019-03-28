@@ -27,7 +27,7 @@ Process is outlined in [BUILDING.md](BUILDING.md)
 
 ### Bump the version of the project
 
-Projects SHOULD automated the version bump following [CONVENTIONAL_COMMITS.md](CONVENTIONAL_COMMITS.md).
+Projects SHOULD automate the version bump following [CONVENTIONAL_COMMITS.md](CONVENTIONAL_COMMITS.md).
 
 ### Generate Changelog
 
@@ -62,4 +62,4 @@ For each of the desired release targets, prepare and push the release.
 ## Resources
 
 - [semantic-release](https://github.com/semantic-release/semantic-release)
-- [Conventional Commits](https://conventionalcommits.org/
+- [Conventional Commits](https://conventionalcommits.org/)
