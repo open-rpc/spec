@@ -168,26 +168,6 @@ Field Name | Type | Description
 
 This object MAY be extended with [Specification Extensions](#specification-extensions).
 
-Info Object Example:
-
-```json
-{
-  "title": "Sample Pet Store App",
-  "description": "This is a sample server for a pet store.",
-  "termsOfService": "http://example.com/terms/",
-  "contact": {
-    "name": "API Support",
-    "url": "http://www.example.com/support",
-    "email": "support@example.com"
-  },
-  "license": {
-    "name": "Apache 2.0",
-    "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
-  },
-  "version": "1.0.1"
-}
-```
-
 ##### Contact Object
 
 Contact information for the exposed API.
@@ -200,15 +180,6 @@ Field Name | Type | Description
 
 This object MAY be extended with [Specification Extensions](#specification-extensions).
 
-Contact Object Example:
-```json
-{
-  "name": "API Support",
-  "url": "http://www.example.com/support",
-  "email": "support@example.com"
-}
-```
-
 ##### License Object
 
 License information for the exposed API.
@@ -219,15 +190,6 @@ Field Name | Type | Description
 <a name="license-url"></a>url | `string` | A URL to the license used for the API. MUST be in the format of a URL.
 
 This object MAY be extended with [Specification Extensions](#specification-extensions).
-
-License Object Example:
-```json
-{
-  "name": "Apache 2.0",
-  "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
-}
-```
-
 
 #### Tag Object
 
@@ -242,15 +204,6 @@ Field Name | Type | Description
 
 This object MAY be extended with [Specification Extensions](#specification-extensions).
 
-Tag Object Example:
-
-```json
-{
-  "name": "pet",
-  "description": "Pets operations"
-}
-```
-
 #### Server Object
 
 An object representing a Server.
@@ -264,72 +217,6 @@ Field Name | Type | Description
 <a name="server-variables"></a>variables | Map[`string`, [Server Variable Object](#server-variable-object)] | A map between a variable name and its value.  The value is passed into the [Runtime Expression](#runtime-expression) to produce a server URL.
 
 This object MAY be extended with [Specification Extensions](#specification-extensions).
-
-Server Object Example:
-
-A single server would be described as:
-
-```json
-{
-  "name": "dev",
-  "url": "https://development.gigantic-server.com/v1",
-  "description": "Development server"
-}
-```
-
-The following shows how multiple servers can be described, for example, at the OpenRPC Object's [`servers`](#openrpc-servers):
-
-```json
-{
-  "servers": [
-    {
-      "name": "dev",
-      "url": "https://development.gigantic-server.com/v1",
-      "description": "Development server"
-    },
-    {
-      "name": "staging",
-      "url": "https://staging.gigantic-server.com/v1",
-      "description": "Staging server"
-    },
-    {
-      "name": "production",
-      "url": "https://api.gigantic-server.com/v1",
-      "description": "Production server"
-    }
-  ]
-}
-```
-
-The following shows how variables can be used for a server configuration:
-
-```json
-{
-  "servers": [
-    {
-      "name": "production",
-      "url": "https://${username}.gigantic-server.com:${port}/${basePath}",
-      "description": "The production API server",
-      "variables": {
-        "username": {
-          "default": "demo",
-          "description": "this value is assigned by the service provider, in this example `gigantic-server.com`"
-        },
-        "port": {
-          "enum": [
-            "8443",
-            "443"
-          ],
-          "default": "8443"
-        },
-        "basePath": {
-          "default": "v2"
-        }
-      }
-    }
-  ]
-}
-```
 
 ##### Server Variable Object
 
@@ -365,50 +252,6 @@ Field Name | Type | Description
 
 This object MAY be extended with [Specification Extensions](#specification-extensions).
 
-Method Object Example:
-```json
-{
-  "tags": [
-    "pet"
-  ],
-  "name": "update_pet",
-  "paramStructure": "by-name",
-  "summary": "Updates a pet in the store with form data",
-  "description": "#Big Ol long Doc Filled WIth Markdown!",
-  "params": [
-    {
-      "name": "petId",
-      "description": "ID of pet that needs to be updated",
-      "required": true,
-      "schema": {
-        "type": "string"
-      }
-    },
-    {
-      "name": "name",
-      "description": "Updated name of the pet",
-      "schema": {
-        "type": "string"
-      }
-    },
-    {
-      "name": "status",
-      "description": "Updated status of the pet",
-      "required": "true",
-      "schema": {
-        "type": "string",
-      }
-    }
-  ],
-  "result": {
-    "description": "Pet updated.",
-    "schema": {
-      "$ref": "#/components/schemas/Pet"
-    }
-  }
-}
-```
-
 ##### Content Descriptor Object
 Content Descriptors are objects that do just as they suggest - describe content. They are reusable ways of describing either parameters or result. They MUST have a schema.
 
@@ -423,88 +266,6 @@ Field Name | Type | Description
 
 This object MAY be extended with [Specification Extensions](#specification-extensions).
 
-Content Descriptor Object Examples:
-
-1. A parameter with an array of 64 bit integer numbers:
-```json
-{
-  "name": "token",
-  "description": "token to be passed as a header",
-  "required": true,
-  "schema": {
-    "type": "array",
-    "items": {
-      "type": "integer",
-      "format": "int64"
-    }
-  }
-}
-```
-
-2. A parameter of a string value:
-```json
-{
-  "name": "username",
-  "description": "username to fetch",
-  "required": true,
-  "schema": {
-    "type": "string"
-  }
-}
-```
-
-3. An optional parameter of an array of string values
-```json
-{
-  "name": "id",
-  "description": "ID of the object to fetch",
-  "required": false,
-  "schema": {
-    "type": "array",
-    "items": {
-      "type": "string"
-    }
-  }
-}
-```
-
-4. A parameter, allowing undefined parameters of a specific type:
-```json
-{
-  "name": "freeForm",
-  "schema": {
-    "type": "object",
-    "additionalProperties": {
-      "type": "integer"
-    }
-  }
-}
-```
-
-5. A complex parameter
-
-```json
-{
-  "name": "coordinates",
-  "schema": {
-    "type": "object",
-    "required": [
-      "lat",
-      "long"
-    ],
-    "properties": {
-      "lat": {
-        "type": "number"
-      },
-      "long": {
-        "type": "number"
-      }
-    }
-  }
-}
-```
-
-
 ###### Schema Object
 
 The Schema Object allows the definition of input and output data types.
@@ -512,129 +273,6 @@ The Schema Objects MUST follow the specifications outline in the [JSON Schema Sp
 Alternatively, any time a Schema Object can be used, a [Reference Object](#reference-object) can be used in its place. This allows referencing definitions instead of defining them inline.
 
 This object MAY be extended with [Specification Extensions](#specification-extensions).
-
-Schema Object Examples:
-
-1. Primitive Sample
-
-```json
-{
-  "type": "string",
-  "format": "email"
-}
-```
-
-2. Simple Model
-
-```json
-{
-  "type": "object",
-  "required": [
-    "name"
-  ],
-  "properties": {
-    "name": {
-      "type": "string"
-    },
-    "address": {
-      "$ref": "#/components/schemas/Address"
-    },
-    "age": {
-      "type": "integer",
-      "format": "int32",
-      "minimum": 0
-    }
-  }
-}
-```
-
-3. Model with Map/Dictionary Properties
-
-For a simple string to string mapping:
-
-```json
-{
-  "type": "object",
-  "additionalProperties": {
-    "type": "string"
-  }
-}
-```
-
-For a string to model mapping:
-
-```json
-{
-  "type": "object",
-  "additionalProperties": {
-    "$ref": "#/components/schemas/ComplexModel"
-  }
-}
-```
-
-4. Model with Examples
-
-```json
-{
-  "type": "object",
-  "properties": {
-    "id": {
-      "type": "integer",
-      "format": "int64"
-    },
-    "name": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "name"
-  ],
-  "examples": [
-    {
-      "name": "Puma",
-      "id": 1
-    }
-  ]
-}
-```
-
-5. Models with Composition
-
-```json
-{
-  "components": {
-    "schemas": {
-      "DogModel": {
-        "type": "object",
-        "required": [
-          "breedName",
-        ],
-        "properties": {
-          "breedName": {
-            "type": "string"
-          }
-        }
-      },
-      "ShepherdDogModel": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/DogModel"
-          },
-          {
-            "type": "object",
-            "properties": {
-              "hairLength": {
-                "type": "string",
-                "enum": ["short", "long"]
-              }
-            }
-          }
-        ]
-      }
-    }
-  }
-}
-```
 
 ##### Example Pairing Object
 The example Pairing object consists of a set of example params and result. The result is what you can expect from the JSON-RPC service given the exact params.
@@ -648,57 +286,6 @@ Field Name | Type | Description
 <a name="example-result"></a>result | [Example Object](#example-object) \| [Reference Object](#reference-object) | Example result.
 
 This object MAY be extended with [Specification Extensions](#specification-extensions).
-
-Example Pairing Object Examples:
-```json
-{
- "methods": [
-   {
-     "name": "addition",
-     "params": [
-       { "$ref": "#/components/contentDescriptors/Integer" },
-       { "$ref": "#/components/contentDescriptors/Integer" }
-     ],
-     "result": {
-       "$ref": "#/components/contentDescriptors/Integer"
-     },
-     "examples": [
-        {
-           "params": [
-             { "$ref": "#/components/examples/integerTwo" },
-             { "$ref": "#/components/examples/integerTwo" }
-           ],
-           "result": { "$ref": "#/components/examples/integerFour" }
-        }
-     ]
-   }
-  ],
-  "components": {
-    "contentDescriptors": {
-      "Integer": {
-        "name": "Integer",
-        "schema": {
-          "type": "number"
-        }
-      }
-    },
-    "examples": {
-      "integerTwo": {
-        "name": "two",
-        "summary": "its a sample foo",
-        "description": "Im not sure how else to say it",
-        "value": 2
-      },
-      "integerFour": {
-        "name": "four",
-        "summary": "its a sample foo",
-        "description": "Im not sure how else to say it",
-        "value": 4
-      }
-    }
-  }
-}
-```
 
 ###### Example Object
 The Example object is an object the defines an example that is intended to match a given [Content Descriptor Schema](#content-descriptor-schema). If the [Content Descriptor Schema](#content-descriptor-schema) includes `examples`, the value from *this* [Example Object](#example-object) supercedes the value of the schema example.
@@ -714,17 +301,6 @@ Field Name | Type | Description
 This object MAY be extended with [Specification Extensions](#specification-extensions).
 
 In all cases, the example value is expected to be compatible with the type schema of its associated value. Tooling implementations MAY choose to validate compatibility automatically, and reject the example value(s) if incompatible.
-
-Example Object Examples:
-
-```json
-{
-  "name": "Chinese",
-  "summary": "using non-english characters",
-  "description": "an example of how the rpc api can handle non english characters",
-  "value": "你好世界"
-}
-```
 
 ##### Link Object
 
@@ -744,94 +320,17 @@ Field Name  |  Type  | Description
 <a name="link-parameters"></a>params   | Map[`string`, `Any` \| [Runtime Expression](#runtime-expression)]] | A map representing parameters to pass to a method as specified with `method`. The key is the parameter name to be used, whereas the value can be a constant or a [runtime expression](#runtime-expression) to be evaluated and passed to the linked method.
 <a name="link-server"></a>server | [Server Object](#server-object) | A server object to be used by the target method.
 
-This object MAY be extended with [Specification Extensions](#specification-extensions).
-
 A linked method must be identified directly, and must exist in the list of methods defined by the [Methods Object](#method-object).
-
-Examples:
-
-Computing a link from a JSON-RPC call where the `${params.id}` is used to pass params to the linked method.
-
-```json
-{
-  "methods": [
-    {
-      "name": "get_user",
-      "params": [
-        {
-          "name": "id",
-          "required": true,
-          "description": "the user identifier, as userId",
-          "schema": {
-            "type": "string"
-          }
-        }
-      ],
-      "result": {
-        "description": "the user being returned",
-        "schema": {
-          "type": "object",
-          "properties": {
-            "uuid": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        }
-      },
-      "links": [
-        {
-          "name": "getUserAddressLink",
-          "summary": "get_user_address with get_user params",
-          "description": "get the user address with the same params as get_user",
-          "method": "get_user_address",
-          "params": {
-            "userId": "${params.id}"
-          }
-        }
-      ]
-    },
-    {
-      "name": "get_user_address",
-      "params": [
-        {
-          "name": "userId",
-          "required": true,
-          "description": "the user identifier, as userId",
-          "schema": {
-            "type": "string"
-          }
-        }
-      ],
-      "result": {
-        "description": "the user's address"
-      }
-    }
-  ]
-}
-```
 
 When a runtime expression fails to evaluate, no parameter value is passed to the target method.
 
 Values from the result can be used to drive a linked method.
 
-```json
-{
-  "links": [
-    {
-      "name": "getUserAddressLink",
-      "method": "get_user_address",
-      "params": {
-        "userId": "${result.uuid}"
-      }
-    }
-  ]
-}
-```
-
 Clients follow all links at their discretion.
 Neither permissions, nor the capability to make a successful call to that link, is guaranteed
 solely by the existence of a relationship.
+
+This object MAY be extended with [Specification Extensions](#specification-extensions).
 
 ###### Runtime Expression
 
@@ -841,15 +340,6 @@ This mechanism is used by [Link Objects](#link-object) and [Server Variables](#s
 The runtime expression makes use of [string-json-template-language](https://github.com/etclabscore/string-json-template-language) syntax.
 
 The table below provides examples of runtime expressions and examples of their use in a value:
-
-Examples:
-
-example method | RPC Call params | RPC Call result | example expression  | resulting value
----|:---|:---|---|---
-`{ "params": [ { "name": "id", "schema": { "type": "number" } } ], "result", { "name": "res", "schema": { "type": "number" } }` | `123` | `321` | `${params.id}` | `123`
-`{ "params": [ { "name": "user", "schema": { "type": "object", "properties": { "uuid": { "type": "string" } } } } ], "result", { "name": "res", "schema": { "type": "string"} }` | `{ "uuid": 123}` | `"foo"` | `${params.user.uuid}` | `123`
-`{ "params": [ { "name": "user", "schema": { "type": "array", "items": { "type": "string" } } } ], "result", { "name": "res", "schema": { } }` | `[ "abc", "def" ]` | `"foo"` | `${params.users[0]}` | `"abc"`
-`{ "params": [ { "name": "user", "schema": { } ], "result", { "name": "res", "schema": { "type": "string" } }` | ` "abc"` | `"foo"` | `${result.uuid}` | `"foo"`
 
 Runtime expressions preserve the type of the referenced value.
 
@@ -879,90 +369,7 @@ Field Name | Type | Description
 
 This object MAY be extended with [Specification Extensions](#specification-extensions).
 
-All the fixed fields declared above are objects that MUST use keys that match the regular expression: `^[a-zA-Z0-9\.\-_]+$`.
-
-Field Name Examples:
-
-```
-User
-User_1
-User_Name
-user-name
-my.org.User
-```
-
-Components Object Example:
-
-```json
-"components": {
-  "schemas": {
-    "GeneralModel": {
-      "type": "object",
-      "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "message": {
-          "type": "string"
-        }
-      }
-    },
-    "Category": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "name": {
-          "type": "string"
-        }
-      }
-    },
-    "Tag": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "name": {
-          "type": "string"
-        }
-      }
-    }
-  },
-  "contentDescriptors": {
-    "skipParam": {
-      "name": "skip",
-      "description": "number of items to skip",
-      "required": true,
-      "schema": {
-        "type": "integer",
-        "format": "int32"
-      }
-    },
-    "limitParam": {
-      "name": "limit",
-      "description": "max records to return",
-      "required": true,
-      "schema" : {
-        "type": "integer",
-        "format": "int32"
-      }
-    }
-  },
-  "errors": {
-    "CustomNotFound": {
-      "code": "1",
-      "message": "super duper not found doe",
-      "data": "absolute pandemonium"
-    }
-  }
-}
-```
-
+All the fixed fields declared above are objects that MUST use keys that match the regular expression: `^[a-zA-Z0-9\.\-_]+$`
 
 #### External Documentation Object
 
@@ -974,15 +381,6 @@ Field Name | Type | Description
 <a name="external-doc-url"></a>url | `string` | **REQUIRED**. The URL for the target documentation. Value MUST be in the format of a URL.
 
 This object MAY be extended with [Specification Extensions](#specification-extensions).
-
-External Documentation Object Example:
-
-```json
-{
-  "description": "Find more info here",
-  "url": "https://example.com"
-}
-```
 
 #### Reference Object
 
@@ -996,27 +394,6 @@ Field Name | Type | Description
 
 This object cannot be extended with additional properties and any properties added SHALL be ignored.
 
-Reference Object Example:
-
-```json
-{
-  "$ref": "#/components/schemas/Pet"
-}
-```
-
-Relative Schema Document Example:
-```json
-{
-  "$ref": "Pet.json"
-}
-```
-
-Relative Documents With Embedded Schema Example:
-```json
-{
-  "$ref": "definitions.json#/Pet"
-}
-```
 
 #### oneOf Object
 
@@ -1028,18 +405,6 @@ The oneOf Object is defined by [JSON Schema](http://json-schema.org/latest/json-
 Field Name | Type | Description
 ---|:---:|---
 <a name="oneof-oneof"></a>oneOf | [Content Descriptor](#content-descriptor-object) | **REQUIRED**. The reference string.
-
-oneOf Object example:
-
-```json
-{
-  "oneOf": [
-    { "$ref": "#/components/schemas/Pet" },
-    { "schema": { "type": null } }
-  ]
-}
-```
-
 
 ### Specification Extensions
 
