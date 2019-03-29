@@ -258,7 +258,7 @@ An object representing a Server.
 Field Name | Type | Description
 ---|:---:|---
 <a name="server-name"></a>name | `string` | **REQUIRED**. A name to be used as the cannonical name for the server.
-<a name="server-url"></a>url | [Template String](#template-strings) | **REQUIRED**. A URL to the target host.  This URL supports Server Variables and MAY be relative, to indicate that the host location is relative to the location where the OpenRPC document is being served. [Server Variables](#server-variables) are passed into the [Runtime Expression](#runtime-expression) to produce a server URL.
+<a name="server-url"></a>url | [Runtime Expression](#runtime-expression) | **REQUIRED**. A URL to the target host.  This URL supports Server Variables and MAY be relative, to indicate that the host location is relative to the location where the OpenRPC document is being served. [Server Variables](#server-variables) are passed into the [Runtime Expression](#runtime-expression) to produce a server URL.
 <a name="server-summary"></a>summary | `string` | A short summary of what the server is.
 <a name="server-description"></a>description | `string` | An optional string describing the host designated by the URL. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
 <a name="server-variables"></a>variables | Map[`string`, [Server Variable Object](#server-variable-object)] | A map between a variable name and its value.  The value is passed into the [Runtime Expression](#runtime-expression) to produce a server URL.
