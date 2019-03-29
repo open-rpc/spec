@@ -30,7 +30,6 @@ This document is licensed under [The Apache License, Version 2.0](https://www.ap
   - [Document Structure](#document-structure)
   - [Data Types](#data-types)
   - [Rich Text Formatting](#rich-text-formatting)
-  - [Template Strings](#template-strings)
   - [Service Discovery Method](#service-discovery-method)
   - [OpenRPC Schema Object](#openrpc-schema-object)
     - [Info Object](#info-object)
@@ -837,7 +836,7 @@ solely by the existence of a relationship.
 ###### Runtime Expression
 
 Runtime expressions allow the user to define an expression which will evaluate to a string once the result and params are known. They are used when the desired value of a link or server can only be constructed at run time.
-This mechanism is used by [Link Objects](#link-object).
+This mechanism is used by [Link Objects](#link-object) and [Server Variables](#server-variables).
 
 The runtime expression makes use of [string-json-template-language](https://github.com/etclabscore/string-json-template-language) syntax.
 
@@ -846,7 +845,7 @@ The table below provides examples of runtime expressions and examples of their u
 Examples:
 
 example method | RPC Call params | RPC Call result | example expression  | resulting value
----|:---|:---|
+---|:---|:---|---|---
 `{ "params": [ { "name": "id", "schema": { "type": "number" } } ], "result", { "name": "res", "schema": { "type": "number" } }` | `123` | `321` | `${params.id}` | `123`
 `{ "params": [ { "name": "user", "schema": { "type": "object", "properties": { "uuid": { "type": "string" } } } } ], "result", { "name": "res", "schema": { "type": "string"} }` | `{ "uuid": 123}` | `"foo"` | `${params.user.uuid}` | `123`
 `{ "params": [ { "name": "user", "schema": { "type": "array", "items": { "type": "string" } } } ], "result", { "name": "res", "schema": { } }` | `[ "abc", "def" ]` | `"foo"` | `${params.users[0]}` | `"abc"`
