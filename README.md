@@ -30,6 +30,7 @@ This document is licensed under [The Apache License, Version 2.0](https://www.ap
   - [Document Structure](#document-structure)
   - [Data Types](#data-types)
   - [Rich Text Formatting](#rich-text-formatting)
+  - [Template Strings](#template-strings)
   - [Service Discovery Method](#service-discovery-method)
   - [OpenRPC Schema Object](#openrpc-schema-object)
     - [Info Object](#info-object)
@@ -115,6 +116,10 @@ The Data types MUST be in the set defined by the [JSON Schema Specification 7](h
 ### Rich Text Formatting
 Throughout the specification `description` fields are noted as supporting Github markdown formatting.
 Where OpenRPC tooling renders rich text it MUST support, at a minimum, markdown syntax as described by [GitHub Flavored Markdown](https://github.github.com/gfm/). Tooling MAY choose to ignore some GitHub Flavored Markdown features to address security concerns.
+
+### Template Strings
+The template language used throughout the specification is defined by [String JSON template language](https://github.com/etclabscore/string-json-template-language).
+
 
 ### Service Discovery Method
 JSON-RPC APIs can support the OpenRPC specification by implementing a service discovery method that will return the OpenRPC schema for the JSON-RPC API. The method MUST be named `rpc.discover`. The `rpc.` prefix is a reserved method prefix for JSON-RPC 2.0 specification system extensions. Below is the OpenRPC specification for the service discovery method:
@@ -258,10 +263,10 @@ An object representing a Server.
 Field Name | Type | Description
 ---|:---:|---
 <a name="server-name"></a>name | `string` | **REQUIRED**. A name to be used as the cannonical name for the server.
-<a name="server-url"></a>url | `string` | **REQUIRED**. A URL to the target host.  This URL supports Server Variables and MAY be relative, to indicate that the host location is relative to the location where the OpenRPC document is being served. Variable substitutions will be made when a variable is named in `{`brackets`}`.
+<a name="server-url"></a>url | [Template String](#template-strings) | **REQUIRED**. A URL to the target host.  This URL supports Server Variables and MAY be relative, to indicate that the host location is relative to the location where the OpenRPC document is being served. [Server Variables](#server-variables) substitutions can be made with [Template Strings](#template-strings) syntax.
 <a name="server-summary"></a>summary | `string` | A short summary of what the server is.
 <a name="server-description"></a>description | `string` | An optional string describing the host designated by the URL. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
-<a name="server-variables"></a>variables | Map[`string`, [Server Variable Object](#server-variable-object)] | A map between a variable name and its value.  The value is used for substitution in the server's URL template.
+<a name="server-variables"></a>variables | Map[`string`, [Server Variable Object](#server-variable-object)] | A map between a variable name and its value.  The value is used for substitution in the server's URL [Template String](#template-strings).
 
 This object MAY be extended with [Specification Extensions](#specification-extensions).
 
@@ -308,7 +313,7 @@ The following shows how variables can be used for a server configuration:
   "servers": [
     {
       "name": "production",
-      "url": "https://{username}.gigantic-server.com:{port}/{basePath}",
+      "url": "https://${username}.gigantic-server.com:${port}/${basePath}",
       "description": "The production API server",
       "variables": {
         "username": {
@@ -741,7 +746,7 @@ Field Name  |  Type  | Description
 <a name="link-description"></a>description  | `string` | A description of the link. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
 <a name="link-summary"></a>summary | `string` | Short description for the link.
 <a name="link-method"></a>method | `string` | The name of an _existing_, resolvable OpenRPC method, as defined with a unique `method`. This field MUST resolve to a unique [Method Object](#method-object). As opposed to Open Api, Relative `method` values  ARE NOT permitted.
-<a name="link-parameters"></a>params   | Map[`string`, Any \| [{expression}](#runtime-expression)] | A map representing parameters to pass to a method as specified with `method`. The key is the parameter name to be used, whereas the value can be a constant or an expression to be evaluated and passed to the linked method.
+<a name="link-parameters"></a>params   | Map[`string`, [Runtime Expression](#runtime-expression)]] | A map representing parameters to pass to a method as specified with `method`. The key is the parameter name to be used, whereas the value can be a constant or a [runtime expression](#runtime-expression) to be evaluated and passed to the linked method.
 <a name="link-server"></a>server | [Server Object](#server-object) | A server object to be used by the target method.
 
 This object MAY be extended with [Specification Extensions](#specification-extensions).
@@ -750,7 +755,7 @@ A linked method must be identified directly, and must exist in the list of metho
 
 Examples:
 
-Computing a link from a request operation where the `$params.id` is used to pass a request parameter to the linked method.
+Computing a link from a JSON-RPC call where the `${params.id}` is used to pass as params to the linked method.
 
 ```json
 {
@@ -786,7 +791,7 @@ Computing a link from a request operation where the `$params.id` is used to pass
           "description": "get the user address with the same params as get_user",
           "method": "get_user_address",
           "params": {
-            "userId": "$params.id"
+            "userId": "${params.id}"
           }
         }
       ]
@@ -822,7 +827,7 @@ Values from the result can be used to drive a linked method.
       "name": "getUserAddressLink",
       "method": "get_user_address",
       "params": {
-        "userId": "$result.uuid"
+        "userId": "${result.uuid}"
       }
     }
   ]
@@ -835,21 +840,11 @@ solely by the existence of a relationship.
 
 ###### Runtime Expression
 
-Runtime expressions allow defining values based on information that will only be available within the HTTP message in an actual API call.
+Runtime expressions allow defining values based on information that will only be available within params or the result in an actual JSON-RPC API call.
 This mechanism is used by [Link Objects](#link-object).
 
-The runtime expression is based on the runtime expression defined by the following [ABNF](https://tools.ietf.org/html/rfc5234) syntax.
+The runtime expression makes use of [Template Strings](#template-strings) to provide a familiar interface to reference the JSON-RPC params or result.
 Since JSON-RPC does not make extensive use of status codes, query params or paths, many of the fields do not apply and have been omited.
-
-```
-      expression = ( "$params." source | "$result." source )
-      fragment = a JSON Pointer [RFC 6901](https://tools.ietf.org/html/rfc6901)
-      name = *( char )
-      char = as per RFC [7159](https://tools.ietf.org/html/rfc7159#section-7)
-      token = as per RFC [7230](https://tools.ietf.org/html/rfc7230#section-3.2.6)
-```
-
-The `name` identifier is case-sensitive, whereas `token` is not.
 
 The table below provides examples of runtime expressions and examples of their use in a value:
 
@@ -857,12 +852,12 @@ Examples:
 
 Source Location | example expression  | notes
 ---|:---|:---|
-Parameters      | `$params.id`        | Parameters MUST be declared in the `params` section of the parent method or they cannot be evaluated.
-Deep Parameters | `$params.user.uuid`   | In methods which accept nested object payloads, `.` may be used to denote traversal of an object.
-Result         | `$result.uuid`       |  In methods which return payloads, references may be made to portions of result or the entire result.
+Parameters      | `${params.id}`        | Parameters MUST be declared in the `params` section of the parent method or they cannot be evaluated.
+Deep Parameters | `${params.user.uuid}`   | In methods which accept nested object payloads, `.` may be used to denote traversal of an object.
+Deep Parameters Array | `${params.users[0]}`   | In methods which contain nested array payloads, square brackets `[]` may be used to denote index of an array.
+Result         | `${result.uuid}`       |  In methods which return payloads, references may be made to portions of result or the entire result.
 
 Runtime expressions preserve the type of the referenced value.
-Expressions can be embedded into string values by surrounding the expression with `{}` curly braces.
 
 ##### Error Object
 Defines an application level error.
