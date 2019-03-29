@@ -835,7 +835,7 @@ solely by the existence of a relationship.
 
 ###### Runtime Expression
 
-Runtime expressions allow the user to define an expression which will evaluate to a string once the result and params are known. They are used when the desired value of a link or server can only be constructed at run time.
+Runtime expressions allow the user to define an expression which will evaluate to a string once the desired value(s) are known. They are used when the desired value of a link or server can only be constructed at run time.
 This mechanism is used by [Link Objects](#link-object) and [Server Variables](#server-variables).
 
 The runtime expression makes use of [string-json-template-language](https://github.com/etclabscore/string-json-template-language) syntax.
