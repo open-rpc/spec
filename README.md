@@ -44,7 +44,6 @@ How to contribute, build and release are outlined in [CONTRIBUTING.md](CONTRIBUT
 
 A document (or set of documents) that defines or describes an API. An OpenRPC definition uses and conforms to the OpenRPC Specification.
 
-
 # Versions
 
 The OpenRPC Specification is versioned using [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html).
@@ -66,7 +65,7 @@ This includes all fields that are used as keys in a map, except where explicitly
 
 The schema exposes two types of fields: Fixed fields, which have a declared name, and Patterned fields, which declare a regex pattern for the field name.
 
-Patterned fields MUST have unique names within the containing object.
+[JSON objects](https://tools.ietf.org/html/rfc7159#section-4) SHOULD be unique. To avoid ambiguity, OpenRPC documents require that patterned fields MUST have unique key names within the containing object.
 
 Due to the nature of JSON-RPC APIs using JSON formats, strictly use JSON only [as described here](https://tools.ietf.org/html/rfc7159).
 
