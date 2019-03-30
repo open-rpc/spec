@@ -52,7 +52,6 @@ This document is licensed under [The Apache License, Version 2.0](https://www.ap
     - [OneOf Object](#oneof-object)
   - [Specification Extensions](#specification-extensions)
 
-
 <!-- /TOC -->
 
 ## Introduction
@@ -171,7 +170,6 @@ Field Name | Type | Description
 <a name="info-contact"></a>contact | [Contact Object](#contact-object) | The contact information for the exposed API.
 <a name="info-license"></a>license | [License Object](#license-object) | The license information for the exposed API.
 <a name="info-version"></a>version | `string` | **REQUIRED**. The version of the OpenRPC document (which is distinct from the [OpenRPC Specification version](#openrpc-version) or the API implementation version).
-
 
 This object MAY be extended with [Specification Extensions](#specification-extensions).
 
@@ -405,11 +403,9 @@ Field Name | Type | Description
 
 This object cannot be extended with additional properties and any properties added SHALL be ignored.
 
-
 #### oneOf Object
 
 A simple object allowing for conditional content descriptors. It MUST only be used in place of a content descriptor. It specifies that the content descriptor in question must match one of the listed content descriptors. This allows you to define content descriptors more granularly, without having to rely so heavily on json schemas.
-
 
 The oneOf Object is defined by [JSON Schema](http://json-schema.org/latest/json-schema-validation.html#rfc.section.6.7.3) and follows the same structure, behavior and rules.
 
