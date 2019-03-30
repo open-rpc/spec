@@ -8,8 +8,7 @@
 
 # OpenRPC Specification
 
-
-#### Version 1.0.0
+Version 1.0.0
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [BCP 14](https://tools.ietf.org/html/bcp14) [RFC2119](https://tools.ietf.org/html/rfc2119) [RFC8174](https://tools.ietf.org/html/rfc8174) when, and only when, they appear in all capitals, as shown here.
 
@@ -17,7 +16,8 @@ In the following description, if a field is not explicitly **REQUIRED** or descr
 
 This document is licensed under [The Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0.html).
 
-### Table of Contents
+## Table of Contents
+
 <!-- TOC depthFrom:1 depthTo:3 withLinks:1 updateOnSave:1 orderedList:0 -->
 
 - [Introduction](#introduction)
@@ -52,7 +52,6 @@ This document is licensed under [The Apache License, Version 2.0](https://www.ap
     - [OneOf Object](#oneof-object)
   - [Specification Extensions](#specification-extensions)
 
-
 <!-- /TOC -->
 
 ## Introduction
@@ -60,11 +59,12 @@ This document is licensed under [The Apache License, Version 2.0](https://www.ap
 The OpenRPC Specification defines a standard, programming language-agnostic interface description for [JSON-RPC 2.0 APIs](https://www.jsonrpc.org/specification), which allows both humans and computers to discover and understand the capabilities of a service without requiring access to source code, additional documentation, or inspection of network traffic. When properly defined via OpenRPC, a consumer can understand and interact with the remote service with a minimal amount of implementation logic. Similar to what interface descriptions have done for lower-level programming, the OpenRPC Specification removes guesswork in calling a service.
 
 Use cases for machine-readable JSON-RPC API definition documents include, but are not limited to:
- - interactive documentation
- - code generation for documentation
- - clients
- - servers
- - automation of test cases.
+
+- interactive documentation
+- code generation for documentation
+- clients
+- servers
+- automation of test cases.
 
 OpenRPC documents describe a JSON-RPC APIs services and are represented in JSON format. These documents may either be produced and served statically or be generated dynamically from an application.
 
@@ -75,10 +75,13 @@ The OpenRPC Specification does not require rewriting existing JSON-RPC APIs. It 
 How to contribute, build and release are outlined in [CONTRIBUTING.md](CONTRIBUTING.md), [BUILDING.md](BUILDING.md) and [RELEASING.md](RELEASING.md) respectively. Commits in this repository follow the [CONVENTIONAL_COMMITS.md](CONVENTIONAL_COMMITS.md) specification.
 
 ## Definitions
-##### OpenRPC Document
+
+### OpenRPC Document
+
 A document (or set of documents) that defines or describes an API. An OpenRPC definition uses and conforms to the OpenRPC Specification.
 
 ## Specification
+
 ### Versions
 
 The OpenRPC Specification is versioned using [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html) (semver) and follows the semver specification.
@@ -113,10 +116,12 @@ It is RECOMMENDED that the root OpenRPC document be named: `openrpc.json`.
 The Data types MUST be in the set defined by the [JSON Schema Specification 7](https://json-schema.org/latest/json-schema-core.html)
 
 ### Rich Text Formatting
+
 Throughout the specification `description` fields are noted as supporting Github markdown formatting.
 Where OpenRPC tooling renders rich text it MUST support, at a minimum, markdown syntax as described by [GitHub Flavored Markdown](https://github.github.com/gfm/). Tooling MAY choose to ignore some GitHub Flavored Markdown features to address security concerns.
 
 ### Service Discovery Method
+
 JSON-RPC APIs can support the OpenRPC specification by implementing a service discovery method that will return the OpenRPC schema for the JSON-RPC API. The method MUST be named `rpc.discover`. The `rpc.` prefix is a reserved method prefix for JSON-RPC 2.0 specification system extensions. Below is the OpenRPC specification for the service discovery method:
 
 ```json
@@ -136,8 +141,8 @@ JSON-RPC APIs can support the OpenRPC specification by implementing a service di
 }
 ```
 
-
 ### OpenRPC Schema Object
+
 This is the root document object of the [OpenRPC document](#openrpc-document).
 
 Field Name | Type | Description
@@ -153,6 +158,7 @@ Field Name | Type | Description
 This object MAY be extended with [Specification Extensions](#specification-extensions).
 
 #### Info Object
+
 The object provides metadata about the API.
 The metadata MAY be used by the clients if needed, and MAY be presented in editing or documentation generation tools for convenience.
 
@@ -164,7 +170,6 @@ Field Name | Type | Description
 <a name="info-contact"></a>contact | [Contact Object](#contact-object) | The contact information for the exposed API.
 <a name="info-license"></a>license | [License Object](#license-object) | The license information for the exposed API.
 <a name="info-version"></a>version | `string` | **REQUIRED**. The version of the OpenRPC document (which is distinct from the [OpenRPC Specification version](#openrpc-version) or the API implementation version).
-
 
 This object MAY be extended with [Specification Extensions](#specification-extensions).
 
@@ -253,6 +258,7 @@ Field Name | Type | Description
 This object MAY be extended with [Specification Extensions](#specification-extensions).
 
 ##### Content Descriptor Object
+
 Content Descriptors are objects that do just as they suggest - describe content. They are reusable ways of describing either parameters or result. They MUST have a schema.
 
 Field Name | Type | Description
@@ -275,6 +281,7 @@ Alternatively, any time a Schema Object can be used, a [Reference Object](#refer
 This object MAY be extended with [Specification Extensions](#specification-extensions).
 
 ##### Example Pairing Object
+
 The example Pairing object consists of a set of example params and result. The result is what you can expect from the JSON-RPC service given the exact params.
 
 Field Name | Type | Description
@@ -288,6 +295,7 @@ Field Name | Type | Description
 This object MAY be extended with [Specification Extensions](#specification-extensions).
 
 ###### Example Object
+
 The Example object is an object the defines an example that is intended to match a given [Content Descriptor Schema](#content-descriptor-schema). If the [Content Descriptor Schema](#content-descriptor-schema) includes `examples`, the value from *this* [Example Object](#example-object) supercedes the value of the schema example.
 
 Field Name | Type | Description
@@ -344,6 +352,7 @@ The table below provides examples of runtime expressions and examples of their u
 Runtime expressions preserve the type of the referenced value.
 
 ##### Error Object
+
 Defines an application level error.
 
 Field Name | Type | Description
@@ -394,11 +403,9 @@ Field Name | Type | Description
 
 This object cannot be extended with additional properties and any properties added SHALL be ignored.
 
-
 #### oneOf Object
 
 A simple object allowing for conditional content descriptors. It MUST only be used in place of a content descriptor. It specifies that the content descriptor in question must match one of the listed content descriptors. This allows you to define content descriptors more granularly, without having to rely so heavily on json schemas.
-
 
 The oneOf Object is defined by [JSON Schema](http://json-schema.org/latest/json-schema-validation.html#rfc.section.6.7.3) and follows the same structure, behavior and rules.
 

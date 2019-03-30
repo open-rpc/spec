@@ -4,7 +4,7 @@
   "description": "The OPEN-RPC Specification",
   "main": "index.js",
   "scripts": {
-    "test": "npx mdv ./*.md"
+    "test": "node_modules/.bin/mdv ./*.md && ./node_modules/.bin/markdownlint ./README.md"
   },
   "repository": {
     "type": "git",
@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/open-rpc/spec#readme",
   "devDependencies": {
-    "mdv": "^1.1.0"
+    "markdownlint-cli": "^0.14.1",
+    "mdv": "^1.2.0"
   }
 }
