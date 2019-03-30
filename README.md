@@ -59,6 +59,8 @@ An OpenRPC document compatible with OpenRPC 1.0.0 contains a required [`openrpc`
 
 An OpenRPC document that conforms to the OpenRPC Specification is itself a JSON object, which must be represented in JSON format.
 
+It is RECOMMENDED that the OpenRPC document be named: `openrpc.json`. Tooling that requires an OpenRPC document as input MAY assume the default document location to be `./openrpc.json`, where the `./` represents the current working directory.
+
 All field names in the specification are **case sensitive**.
 This includes all fields that are used as keys in a map, except where explicitly noted that keys are **case insensitive**.
 
@@ -67,16 +69,6 @@ The schema exposes two types of fields: Fixed fields, which have a declared name
 Patterned fields MUST have unique names within the containing object.
 
 Due to the nature of JSON-RPC APIs using JSON formats, strictly use JSON only [as described here](https://tools.ietf.org/html/rfc7159).
-
-# Document Structure
-
-An OpenRPC document MAY be made up of a single document or be divided into multiple, connected parts at the discretion of the user. In the latter case, `$ref` fields MUST be used in the specification to reference those parts as follows from the [JSON Schema](https://json-schema.org/latest/json-schema-core.html#rfc.section.8.3) definitions.
-
-It is RECOMMENDED that the root OpenRPC document be named: `openrpc.json`.
-
-# Data Types
-
-The Data types MUST be in the set defined by the [JSON Schema Specification 7](https://json-schema.org/latest/json-schema-core.html)
 
 # Rich Text Formatting
 
