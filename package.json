@@ -4,7 +4,8 @@
   "description": "The OPEN-RPC Specification",
   "main": "index.js",
   "scripts": {
-    "test": "node_modules/.bin/mdv ./*.md && ./node_modules/.bin/markdownlint ./README.md"
+    "test": "node_modules/.bin/mdv ./*.md && ./node_modules/.bin/markdownlint ./README.md",
+    "build": "./node_modules/.bin/markdown-toc -i README.md"
   },
   "repository": {
     "type": "git",

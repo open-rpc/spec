@@ -16,41 +16,7 @@ In the following description, if a field is not explicitly **REQUIRED** or descr
 
 This document is licensed under [The Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0.html).
 
-<!-- TOC -->
-
-- [Introduction](#introduction)
-- [Contributing](#contributing)
-- [Definitions](#definitions)
-- [OpenRPC Document](#openrpc-document)
-- [Specification](#specification)
-  - [Versions](#versions)
-  - [Format](#format)
-  - [Document Structure](#document-structure)
-  - [Data Types](#data-types)
-  - [Rich Text Formatting](#rich-text-formatting)
-  - [Service Discovery Method](#service-discovery-method)
-  - [OpenRPC Schema Object](#openrpc-schema-object)
-    - [Info Object](#info-object)
-      - [Contact Object](#contact-object)
-      - [License Object](#license-object)
-    - [Tag Object](#tag-object)
-    - [Server Object](#server-object)
-      - [Server Variable Object](#server-variable-object)
-    - [Method Object](#method-object)
-      - [Content Descriptor Object](#content-descriptor-object)
-        - [Schema Object](#schema-object)
-      - [Example Pairing Object](#example-pairing-object)
-        - [Example Object](#example-object)
-      - [Link Object](#link-object)
-        - [Runtime Expression](#runtime-expression)
-      - [Error Object](#error-object)
-    - [Components Object](#components-object)
-    - [External Documentation Object](#external-documentation-object)
-    - [Reference Object](#reference-object)
-    - [OneOf Object](#oneof-object)
-  - [Specification Extensions](#specification-extensions)
-
-<!-- /TOC -->
+<!-- toc -->
 
 # Introduction
 
