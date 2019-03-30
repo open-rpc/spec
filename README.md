@@ -44,6 +44,14 @@ How to contribute, build and release are outlined in [CONTRIBUTING.md](CONTRIBUT
 
 A document (or set of documents) that defines or describes an API. An OpenRPC definition uses and conforms to the OpenRPC Specification.
 
+## Patterned Field
+
+A field (key value pair) where the key name is supplied by the user, and the value is defined by the specification for the patterned field. The Field Pattern is a Regular expression
+
+## Regular Expression
+
+Regular expressions within the OpenRPC specification and tooling is RECOMMENDED to be a [Perl Compatible Regular Expressions](https://www.pcre.org/). That being said, tooling implementers SHOULD adhere to [ECMA-262 6th Edition Regular Expressions](https://www.ecma-international.org/ecma-262/6.0/#sec-regexp-regular-expression-objects).
+
 # Versions
 
 The OpenRPC Specification is versioned using [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html).
@@ -56,18 +64,14 @@ An OpenRPC document compatible with OpenRPC 1.0.0 contains a required [`openrpc`
 
 # Format
 
-An OpenRPC document that conforms to the OpenRPC Specification is itself a JSON object, which must be represented in JSON format.
+An OpenRPC document that conforms to the OpenRPC Specification is itself a JSON object, which must be represented in JSON format. Due to the nature of JSON-RPC APIs using JSON formats, strictly use JSON only [as described here](https://tools.ietf.org/html/rfc7159). If you wish to use any other format than JSON, it should be converted outside of any OpenRPC tooling.
 
 It is RECOMMENDED that the OpenRPC document be named: `openrpc.json`. Tooling that requires an OpenRPC document as input MAY assume the default document location to be `./openrpc.json`, where the `./` represents the current working directory.
 
-All field names in the specification are **case sensitive**.
+All field names in the specification are **case sensitive**. [CamelCase](https://trac.tools.ietf.org/group/tools/trac/wiki/CamelCase) SHOULD be used for all key names.
 This includes all fields that are used as keys in a map, except where explicitly noted that keys are **case insensitive**.
 
-The schema exposes two types of fields: Fixed fields, which have a declared name, and Patterned fields, which declare a regex pattern for the field name.
-
-[JSON objects](https://tools.ietf.org/html/rfc7159#section-4) SHOULD be unique. To avoid ambiguity, OpenRPC documents require that patterned fields MUST have unique key names within the containing object.
-
-Due to the nature of JSON-RPC APIs using JSON formats, strictly use JSON only [as described here](https://tools.ietf.org/html/rfc7159).
+[According to the JSON specification for objects](https://tools.ietf.org/html/rfc7159#section-4), key names SHOULD be unique. However, To avoid ambiguity, all [patterned fields](#patterned-field) in an OpenRPC document MUST have unique key names within the containing object.
 
 # Rich Text Formatting
 
