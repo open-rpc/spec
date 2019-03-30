@@ -212,7 +212,7 @@ An object representing a Server Variable for server URL template substitution.
 
 Field Name | Type | Description
 ---|:---:|---
-<a name="server-variable-enum"></a>enum | [`string`] | An enumeration of string values to be used if the substitution options are from a limited set.
+<a name="server-variable-enum"></a>enum | `[string]` | An enumeration of string values to be used if the substitution options are from a limited set.
 <a name="server-variable-default"></a>default | `string` |  **REQUIRED**. The default value to use for substitution, which SHALL be sent if an alternate value is _not_ supplied. Note this behavior is different than the [Schema Object's](#schema-object) treatment of default values, because in those cases parameter values are optional.
 <a name="server-variable-description"></a>description | `string` | An optional description for the server variable. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
 
