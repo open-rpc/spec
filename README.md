@@ -337,7 +337,7 @@ This object MAY be extended with [Specification Extensions](#specification-exten
 Runtime expressions allow the user to define an expression which will evaluate to a string once the desired value(s) are known. They are used when the desired value of a link or server can only be constructed at run time.
 This mechanism is used by [Link Objects](#link-object) and [Server Variables](#server-variables).
 
-The runtime expression makes use of [string-json-template-language](https://github.com/etclabscore/string-json-template-language) syntax.
+The runtime expression makes use of [JSON Template Language](https://tools.ietf.org/html/draft-jonas-json-template-language-01) syntax.
 
 The table below provides examples of runtime expressions and examples of their use in a value:
 
