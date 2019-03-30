@@ -16,9 +16,7 @@ In the following description, if a field is not explicitly **REQUIRED** or descr
 
 This document is licensed under [The Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0.html).
 
-## Table of Contents
-
-<!-- TOC depthFrom:1 depthTo:3 withLinks:1 updateOnSave:1 orderedList:0 -->
+<!-- TOC -->
 
 - [Introduction](#introduction)
 - [Contributing](#contributing)
@@ -54,7 +52,7 @@ This document is licensed under [The Apache License, Version 2.0](https://www.ap
 
 <!-- /TOC -->
 
-## Introduction
+# Introduction
 
 The OpenRPC Specification defines a standard, programming language-agnostic interface description for [JSON-RPC 2.0 APIs](https://www.jsonrpc.org/specification), which allows both humans and computers to discover and understand the capabilities of a service without requiring access to source code, additional documentation, or inspection of network traffic. When properly defined via OpenRPC, a consumer can understand and interact with the remote service with a minimal amount of implementation logic. Similar to what interface descriptions have done for lower-level programming, the OpenRPC Specification removes guesswork in calling a service.
 
@@ -70,19 +68,18 @@ OpenRPC documents describe a JSON-RPC APIs services and are represented in JSON 
 
 The OpenRPC Specification does not require rewriting existing JSON-RPC APIs. It does not require binding any software to a service — the service being described may not even be owned by the creator of its description. It does, however, require the capabilities of the service be described in the structure of the OpenRPC Specification. Not all services can be described by OpenRPC — this specification is not intended to cover REST APIs - It is exclusively for APIs which adhere to the JSON-RPC 2.0 spec. The OpenRPC Specification does not mandate a specific development process such as design-first or code-first. It does facilitate either technique by establishing clear interactions with a JSON-RPC API.
 
-## Contributing
+# Contributing
 
 How to contribute, build and release are outlined in [CONTRIBUTING.md](CONTRIBUTING.md), [BUILDING.md](BUILDING.md) and [RELEASING.md](RELEASING.md) respectively. Commits in this repository follow the [CONVENTIONAL_COMMITS.md](CONVENTIONAL_COMMITS.md) specification.
 
-## Definitions
+# Definitions
 
-### OpenRPC Document
+## OpenRPC Document
 
 A document (or set of documents) that defines or describes an API. An OpenRPC definition uses and conforms to the OpenRPC Specification.
 
-## Specification
 
-### Versions
+# Versions
 
 The OpenRPC Specification is versioned using [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html) (semver) and follows the semver specification.
 
@@ -92,7 +89,7 @@ Subsequent minor version releases of the OpenRPC Specification (incrementing the
 
 An OpenRPC document compatible with OpenRPC 1.0.0 contains a required [`openrpc`](#openrpc-version) field which designates the semantic version of the OpenRPC that it uses.
 
-### Format
+# Format
 
 An OpenRPC document that conforms to the OpenRPC Specification is itself a JSON object, which must be represented in JSON format.
 
@@ -105,22 +102,22 @@ Patterned fields MUST have unique names within the containing object.
 
 Due to the nature of JSON-RPC APIs using JSON formats, strictly use JSON only [as described here](https://tools.ietf.org/html/rfc7159).
 
-### Document Structure
+# Document Structure
 
 An OpenRPC document MAY be made up of a single document or be divided into multiple, connected parts at the discretion of the user. In the latter case, `$ref` fields MUST be used in the specification to reference those parts as follows from the [JSON Schema](https://json-schema.org/latest/json-schema-core.html#rfc.section.8.3) definitions.
 
 It is RECOMMENDED that the root OpenRPC document be named: `openrpc.json`.
 
-### Data Types
+# Data Types
 
 The Data types MUST be in the set defined by the [JSON Schema Specification 7](https://json-schema.org/latest/json-schema-core.html)
 
-### Rich Text Formatting
+# Rich Text Formatting
 
 Throughout the specification `description` fields are noted as supporting Github markdown formatting.
 Where OpenRPC tooling renders rich text it MUST support, at a minimum, markdown syntax as described by [GitHub Flavored Markdown](https://github.github.com/gfm/). Tooling MAY choose to ignore some GitHub Flavored Markdown features to address security concerns.
 
-### Service Discovery Method
+# Service Discovery Method
 
 JSON-RPC APIs can support the OpenRPC specification by implementing a service discovery method that will return the OpenRPC schema for the JSON-RPC API. The method MUST be named `rpc.discover`. The `rpc.` prefix is a reserved method prefix for JSON-RPC 2.0 specification system extensions. Below is the OpenRPC specification for the service discovery method:
 
@@ -141,7 +138,7 @@ JSON-RPC APIs can support the OpenRPC specification by implementing a service di
 }
 ```
 
-### OpenRPC Schema Object
+# OpenRPC Schema Object
 
 This is the root document object of the [OpenRPC document](#openrpc-document).
 
@@ -157,7 +154,7 @@ Field Name | Type | Description
 
 This object MAY be extended with [Specification Extensions](#specification-extensions).
 
-#### Info Object
+## Info Object
 
 The object provides metadata about the API.
 The metadata MAY be used by the clients if needed, and MAY be presented in editing or documentation generation tools for convenience.
@@ -173,7 +170,7 @@ Field Name | Type | Description
 
 This object MAY be extended with [Specification Extensions](#specification-extensions).
 
-##### Contact Object
+### Contact Object
 
 Contact information for the exposed API.
 
@@ -185,7 +182,7 @@ Field Name | Type | Description
 
 This object MAY be extended with [Specification Extensions](#specification-extensions).
 
-##### License Object
+### License Object
 
 License information for the exposed API.
 
@@ -196,20 +193,7 @@ Field Name | Type | Description
 
 This object MAY be extended with [Specification Extensions](#specification-extensions).
 
-#### Tag Object
-
-Adds metadata to a single tag that is used by the [Method Object](#method-object).
-It is not mandatory to have a Tag Object per tag defined in the Method Object instances.
-
-Field Name | Type | Description
----|:---:|---
-<a name="tag-name"></a>name | `string` | **REQUIRED**. The name of the tag.
-<a name="tag-description"></a>description | `string` | A verbose explanation for the tag. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
-<a name="tag-externalDocs"></a>externalDocs | [External Documentation Object](#external-documentation-object) | Additional external documentation for this tag.
-
-This object MAY be extended with [Specification Extensions](#specification-extensions).
-
-#### Server Object
+## Server Object
 
 An object representing a Server.
 
@@ -223,7 +207,7 @@ Field Name | Type | Description
 
 This object MAY be extended with [Specification Extensions](#specification-extensions).
 
-##### Server Variable Object
+### Server Variable Object
 
 An object representing a Server Variable for server URL template substitution.
 
@@ -235,7 +219,7 @@ Field Name | Type | Description
 
 This object MAY be extended with [Specification Extensions](#specification-extensions).
 
-#### Method Object
+## Method Object
 
 Describes the interface for the given method name. The method name is used as the `method` field of the JSON-RPC body. It therefor MUST be unique.
 
@@ -257,7 +241,7 @@ Field Name | Type | Description
 
 This object MAY be extended with [Specification Extensions](#specification-extensions).
 
-##### Content Descriptor Object
+### Content Descriptor Object
 
 Content Descriptors are objects that do just as they suggest - describe content. They are reusable ways of describing either parameters or result. They MUST have a schema.
 
@@ -272,7 +256,7 @@ Field Name | Type | Description
 
 This object MAY be extended with [Specification Extensions](#specification-extensions).
 
-###### Schema Object
+#### Schema Object
 
 The Schema Object allows the definition of input and output data types.
 The Schema Objects MUST follow the specifications outline in the [JSON Schema Specification 7](https://json-schema.org/draft-07/json-schema-release-notes.html)
@@ -280,7 +264,7 @@ Alternatively, any time a Schema Object can be used, a [Reference Object](#refer
 
 This object MAY be extended with [Specification Extensions](#specification-extensions).
 
-##### Example Pairing Object
+### Example Pairing Object
 
 The example Pairing object consists of a set of example params and result. The result is what you can expect from the JSON-RPC service given the exact params.
 
@@ -294,7 +278,7 @@ Field Name | Type | Description
 
 This object MAY be extended with [Specification Extensions](#specification-extensions).
 
-###### Example Object
+#### Example Object
 
 The Example object is an object the defines an example that is intended to match a given [Content Descriptor Schema](#content-descriptor-schema). If the [Content Descriptor Schema](#content-descriptor-schema) includes `examples`, the value from *this* [Example Object](#example-object) supercedes the value of the schema example.
 
@@ -310,7 +294,7 @@ This object MAY be extended with [Specification Extensions](#specification-exten
 
 In all cases, the example value is expected to be compatible with the type schema of its associated value. Tooling implementations MAY choose to validate compatibility automatically, and reject the example value(s) if incompatible.
 
-##### Link Object
+### Link Object
 
 The `Link object` represents a possible design-time link for a result.
 The presence of a link does not guarantee the caller's ability to successfully invoke it, rather it provides a known relationship and traversal mechanism between results and other methods.
@@ -340,7 +324,7 @@ solely by the existence of a relationship.
 
 This object MAY be extended with [Specification Extensions](#specification-extensions).
 
-###### Runtime Expression
+#### Runtime Expression
 
 Runtime expressions allow the user to define an expression which will evaluate to a string once the desired value(s) are known. They are used when the desired value of a link or server can only be constructed at run time.
 This mechanism is used by [Link Objects](#link-object) and [Server Variables](#server-variables).
@@ -351,7 +335,7 @@ The table below provides examples of runtime expressions and examples of their u
 
 Runtime expressions preserve the type of the referenced value.
 
-##### Error Object
+### Error Object
 
 Defines an application level error.
 
@@ -361,7 +345,7 @@ Field Name | Type | Description
 <a name="error-message"></a>message | `string` | **REQUIRED**. A String providing a short description of the error. The message SHOULD be limited to a concise single sentence.
 <a name="error-data"></a>data | `any` | A Primitive or Structured value that contains additional information about the error. This may be omitted. The value of this member is defined by the Server (e.g. detailed error information, nested errors etc.).
 
-#### Components Object
+## Components Object
 
 Holds a set of reusable objects for different aspects of the OpenRPC.
 All objects defined within the components object will have no effect on the API unless they are explicitly referenced from properties outside the components object.
@@ -380,7 +364,20 @@ This object MAY be extended with [Specification Extensions](#specification-exten
 
 All the fixed fields declared above are objects that MUST use keys that match the regular expression: `^[a-zA-Z0-9\.\-_]+$`
 
-#### External Documentation Object
+## Tag Object
+
+Adds metadata to a single tag that is used by the [Method Object](#method-object).
+It is not mandatory to have a Tag Object per tag defined in the Method Object instances.
+
+Field Name | Type | Description
+---|:---:|---
+<a name="tag-name"></a>name | `string` | **REQUIRED**. The name of the tag.
+<a name="tag-description"></a>description | `string` | A verbose explanation for the tag. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
+<a name="tag-externalDocs"></a>externalDocs | [External Documentation Object](#external-documentation-object) | Additional external documentation for this tag.
+
+This object MAY be extended with [Specification Extensions](#specification-extensions).
+
+## External Documentation Object
 
 Allows referencing an external resource for extended documentation.
 
@@ -391,7 +388,7 @@ Field Name | Type | Description
 
 This object MAY be extended with [Specification Extensions](#specification-extensions).
 
-#### Reference Object
+## Reference Object
 
 A simple object to allow referencing other components in the specification, internally and externally.
 
@@ -403,7 +400,7 @@ Field Name | Type | Description
 
 This object cannot be extended with additional properties and any properties added SHALL be ignored.
 
-#### oneOf Object
+## oneOf Object
 
 A simple object allowing for conditional content descriptors. It MUST only be used in place of a content descriptor. It specifies that the content descriptor in question must match one of the listed content descriptors. This allows you to define content descriptors more granularly, without having to rely so heavily on json schemas.
 
@@ -413,7 +410,7 @@ Field Name | Type | Description
 ---|:---:|---
 <a name="oneof-oneof"></a>oneOf | [Content Descriptor](#content-descriptor-object) | **REQUIRED**. The reference string.
 
-### Specification Extensions
+## Specification Extensions
 
 While the OpenRPC Specification tries to accommodate most use cases, additional data can be added to extend the specification at certain points.
 

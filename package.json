@@ -26,5 +26,9 @@
   "devDependencies": {
     "markdownlint-cli": "^0.14.1",
     "mdv": "^1.2.0"
+  },
+  "dependencies": {
+    "markdown-toc": "^1.2.0",
+    "remarkable": "^1.7.1"
   }
 }
