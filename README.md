@@ -264,8 +264,8 @@ Content Descriptors are objects that do just as they suggest - describe content.
 Field Name | Type | Description
 ---|:---:|---
 <a name="content-descriptor-name"></a>name | `string` | **REQUIRED**. name of the content that is being described.
-<a name="content-descriptor-summary"></a>summary | `string` | A short summary of what the method does.
-<a name="content-descriptor-description"></a>description | `string` | A verbose explanation of the method behavior. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
+<a name="content-descriptor-summary"></a>summary | `string` | A short summary of the content that is being described.
+<a name="content-descriptor-description"></a>description | `string` | A verbose explanation of the content descriptor behavior. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
 <a name="content-descriptor-required"></a>required | `boolean` | Determines if the content is a required field. Default value is `false`.
 <a name="content-descriptor-schema"></a>**REQUIRED** schema | [Schema Object](#schema-object) | Schema that describes the content.
 <a name="content-descriptor-deprecated"></a>deprecated | `boolean` | Specifies that the content is deprecated and SHOULD be transitioned out of usage. Default value is `false`.
