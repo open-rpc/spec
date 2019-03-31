@@ -349,8 +349,6 @@ The runtime expression makes use of [string-json-template-language](https://gith
 
 The table below provides examples of runtime expressions and examples of their use in a value:
 
-Runtime expressions preserve the type of the referenced value.
-
 ##### Error Object
 
 Defines an application level error.
