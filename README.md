@@ -52,6 +52,10 @@ A field (key value pair) where the key name is supplied by the user, and the val
 
 Regular expressions within the OpenRPC specification and tooling is RECOMMENDED to be a [Perl Compatible Regular Expressions](https://www.pcre.org/). That being said, tooling implementers SHOULD adhere to [ECMA-262 6th Edition Regular Expressions](https://www.ecma-international.org/ecma-262/6.0/#sec-regexp-regular-expression-objects).
 
+## Official OpenRPC Tooling
+
+Tooling that is built, maintained and documented by the OpenRPC organization. It is meant to be used as a functional reference implementation of the Specification. Users of the OpenRPC Specification are encouraged to create versions of the tooling as their own organization/projects.
+
 # Versions
 
 The OpenRPC Specification is versioned using [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html).
@@ -98,6 +102,10 @@ JSON-RPC APIs can support the OpenRPC specification by implementing a service di
   ]
 }
 ```
+
+# Examples
+
+Example OpenRPC documents can be found in the [OpenRPC Examples Repository](https://github.com/open-rpc/examples). There SHOULD be an example that uses every concept of the spec. These examples are to be used as the basis of testing for all the Official OpenRPC tooling.
 
 # OpenRPC Schema Object
 
