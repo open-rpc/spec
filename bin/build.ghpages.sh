@@ -40,7 +40,7 @@ const build = async () => {
   }));
 
   await buildMarkdown();
-  await copyFile("./build/markdown/index.md", `${buildDir}/index.md`);
+  await copyFile("./build/markdown/spec.md", `${buildDir}/index.md`);
   await writeFile(`${buildDir}/CNAME`, "spec.open-rpc.org");
 
   console.log("building ghpages complete. gh-pages build ready to release!");
