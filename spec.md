@@ -229,7 +229,7 @@ This object MAY be extended with [Specification Extensions](#specification-exten
 The example Pairing object consists of a set of example params and result. The result is what you can expect from the JSON-RPC service given the exact params.
 
 Field Name | Type | Description
----|---|---
+---|:---:|---
 <a name="example-pairing-name"></a>name | `string` | Name for the example pairing.
 <a name="example-pairing-description"></a>description | `string` | A verbose explanation of the example pairing.
 <a name="example-pairing-summary"></a>summary | `string` | Short description for the example pairing.
