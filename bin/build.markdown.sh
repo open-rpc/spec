@@ -12,8 +12,8 @@ const build = async () => {
   const buildDir = "./build/markdown/";
   await fsx.ensureDir(buildDir);
   await fsx.emptyDir(buildDir);
-  await copyFile(`./spec.md`, `${buildDir}/index.md`);
-  await execFile("./node_modules/.bin/markdown-toc", ["-i",`./${buildDir}/index.md`]);
+  await copyFile(`./spec.md`, `${buildDir}/spec.md`);
+  await execFile("./node_modules/.bin/markdown-toc", ["-i",`./${buildDir}/spec.md`]);
 
   console.log("building markdown complete. Markdown is ready to be released!");
 
