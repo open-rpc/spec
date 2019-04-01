@@ -332,6 +332,7 @@ It is not mandatory to have a Tag Object per tag defined in the Method Object in
 Field Name | Type | Description
 ---|:---:|---
 <a name="tag-name"></a>name | `string` | **REQUIRED**. The name of the tag.
+<a name="tag-summary"></a>summary | `string` | A short summary of the tag.
 <a name="tag-description"></a>description | `string` | A verbose explanation for the tag. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
 <a name="tag-externalDocs"></a>externalDocs | [External Documentation Object](#external-documentation-object) | Additional external documentation for this tag.
 
