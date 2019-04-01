@@ -46,7 +46,7 @@ A document (or set of documents) that defines or describes an API. An OpenRPC de
 
 ## Patterned Field
 
-A field (key value pair) where the key name is supplied by the user, and the value is defined by the specification for the patterned field. The Field Pattern is a Regular expression
+A field (key value pair) where the key name is supplied by the user, and the value is defined by the specification for the patterned field. The Field Pattern is a Regular expression.
 
 ## Regular Expression
 
@@ -106,6 +106,10 @@ JSON-RPC APIs can support the OpenRPC specification by implementing a service di
 # Examples
 
 Example OpenRPC documents can be found in the [OpenRPC Examples Repository](https://github.com/open-rpc/examples). There SHOULD be an example that uses every concept of the spec. These examples are to be used as the basis of testing for all the Official OpenRPC tooling.
+
+# Meta JSON Schema
+
+Validating an OpenRPC document can be accomplished using the OpenRPC MetaSchema. The OpenRPC MetaSchema is based on the [Draft 07 JSON Schema](), and may be be used as a JSON meta-schema for various tooling use. Each field in the Specification MUST be included in the OpenRPC MetaSchema, including all constraints that are possible to model with [Draft 07 JSON Schema]()
 
 # OpenRPC Schema Object
 
