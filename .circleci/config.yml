@@ -1,22 +1,88 @@
 version: 2
+
+aliases:
+  # -------------------------
+  #      ALIASES: Caches
+  # -------------------------
+  - &restore-deps-cache
+    key: deps-cache-{{ checksum "package.json" }}
+
+  - &save-deps-cache
+    key: deps-cache-{{ checksum "package.json" }}
+    paths:
+      - ~/spec/node_modules
+
+  # -------------------------
+  #  ALIASES: Branch Filters
+  # -------------------------
+  - &filter-only-master
+    branches:
+      only: master
+  - &filter-only-semantic-pr
+    branches:
+      only:  /^(pull|dependabot|fix|feat)\/.*$/
+  - &filter-only-fork-pr
+    branches:
+      only:  /^pull\/.*$/
+
+defaults: &defaults
+  working_directory: ~/spec
+  docker:
+    - image: circleci/node:10
+
 jobs:
-  build:
-    docker:
-      - image: circleci/node
+  test:
+    <<: *defaults
     steps:
       - checkout
-      - restore_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
-      - run:
-          name: Install npm dependencies
-          command: npm install
-      - save_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
-          paths:
-            - node_modules
-      - run:
-          name: Tests
-          command: npm test
-      - run:
-          name: Build
-          command: npm run build
+      - restore_cache: *restore-deps-cache
+      - run: npm install
+      - run: npm test
+      - save_cache: *save-deps-cache
+
+  build:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache: *restore-deps-cache
+      - run: npm install
+      - run: ./bin/build.sh
+      - save_cache: *save-deps-cache
+
+  release:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache: *restore-deps-cache
+      - run: npm install
+      - run: ./bin/build.sh
+      - run: npx semantic-release
+      - save_cache: *save-deps-cache
+
+workflows:
+  version: 2
+  analysis:
+    jobs:
+      - test:
+          filters: *filter-only-semantic-pr
+      - build:
+          filters: *filter-only-semantic-pr
+          requires:
+            - test
+
+  release:
+    jobs:
+      - test:
+          filters: *filter-only-master
+      - build:
+          filters: *filter-only-master
+      - hold:
+          filters: *filter-only-master
+          type: approval
+          requires:
+            - test
+            - build
+      - release:
+          filters: *filter-only-master
+          requires:
+            - hold

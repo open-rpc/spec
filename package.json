@@ -4,8 +4,7 @@
   "description": "The OPEN-RPC Specification",
   "main": "index.js",
   "scripts": {
-    "test": "node_modules/.bin/mdv ./*.md && ./node_modules/.bin/markdownlint ./README.md",
-    "build": "./node_modules/.bin/markdown-toc -i README.md"
+    "test": "node_modules/.bin/mdv ./*.md && ./node_modules/.bin/markdownlint ./README.md ./spec.md"
   },
   "repository": {
     "type": "git",
@@ -25,11 +24,20 @@
   },
   "homepage": "https://github.com/open-rpc/spec#readme",
   "devDependencies": {
-    "markdownlint-cli": "^0.14.1",
-    "mdv": "^1.2.0"
-  },
-  "dependencies": {
+    "@etclabscore/dl-github-releases": "^1.0.2",
+    "@qiwi/semantic-release-gh-pages-plugin": "^1.6.1",
+    "@semantic-release/changelog": "^3.0.2",
+    "@semantic-release/commit-analyzer": "^6.1.0",
+    "@semantic-release/git": "^7.0.8",
+    "@semantic-release/github": "^5.2.10",
+    "@semantic-release/release-notes-generator": "^7.1.4",
+    "fs-extra": "^7.0.1",
     "markdown-toc": "^1.2.0",
-    "remarkable": "^1.7.1"
+    "markdownlint-cli": "^0.14.1",
+    "mdv": "^1.2.0",
+    "mkdirp": "^0.5.1",
+    "remarkable": "^1.7.1",
+    "semantic-release": "^15.13.3",
+    "tslib": "^1.9.3"
   }
 }
