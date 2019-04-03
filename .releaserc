@@ -5,7 +5,6 @@
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",
     "@semantic-release/changelog",
-    "@semantic-release/git",
     [
       "@semantic-release/github",
       {
@@ -14,9 +13,11 @@
             "path": "build/markdown/spec.md",
             "label": "Github Markdown distribution"
           }
-        ]
+        ],
+        "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
       }
-    ]
+    ],
+    "@semantic-release/git"
   ],
   "verifyConditions": [
     "@semantic-release/changelog",
@@ -32,5 +33,11 @@
       "src": "build/ghpages/",
       "branch": "gh-pages"
     }
+  ],
+  "success": [
+    "@semantic-release/github"
+  ],
+  "fail": [
+    "@semantic-release/github"
   ]
 }
