@@ -28,7 +28,6 @@ const build = async () => {
 
   await downloadReleases("open-rpc", "spec", buildDir, filterRelease, filterAsset, leaveZipped, disableLogging);
 
-
   const previousVersions = await readdir(buildDir);
 
   await Promise.all(previousVersions.map(async (previousVersion) => {
@@ -41,6 +40,8 @@ const build = async () => {
 
   await buildMarkdown();
   await copyFile("./build/markdown/spec.md", `${buildDir}/index.md`);
+  await mkdir(`${buildDir}/latest`);
+  await copyFile("./build/markdown/spec.md", `${buildDir}/latest/index.md`);
   await writeFile(`${buildDir}/CNAME`, "spec.open-rpc.org");
 
   console.log("building ghpages complete. gh-pages build ready to release!");
