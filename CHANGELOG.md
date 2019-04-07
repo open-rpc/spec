@@ -1,3 +1,15 @@
+# [1.1.0](https://github.com/open-rpc/spec/compare/1.0.0...1.1.0) (2019-04-07)
+
+
+### Bug Fixes
+
+* gh release artifact name ([a38601d](https://github.com/open-rpc/spec/commit/a38601d))
+
+
+### Features
+
+* add link for latest version of spec ([ce8ecf0](https://github.com/open-rpc/spec/commit/ce8ecf0))
+
 # 1.0.0 (2019-04-01)
 
 
