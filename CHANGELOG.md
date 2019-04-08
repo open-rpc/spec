@@ -1,3 +1,10 @@
+## [1.1.2](https://github.com/open-rpc/spec/compare/1.1.1...1.1.2) (2019-04-08)
+
+
+### Bug Fixes
+
+* release not uploading artifacts ([6a9c721](https://github.com/open-rpc/spec/commit/6a9c721))
+
 ## [1.1.1](https://github.com/open-rpc/spec/compare/1.1.0...1.1.1) (2019-04-08)
 
 
