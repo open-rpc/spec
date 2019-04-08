@@ -1,3 +1,12 @@
+## [1.1.4](https://github.com/open-rpc/spec/compare/1.1.3...1.1.4) (2019-04-08)
+
+
+### Bug Fixes
+
+* gitignore build properly ([b2eb08d](https://github.com/open-rpc/spec/commit/b2eb08d))
+* release plugins ([8050a74](https://github.com/open-rpc/spec/commit/8050a74))
+* remove build folder ([b02fe72](https://github.com/open-rpc/spec/commit/b02fe72))
+
 ## [1.1.2](https://github.com/open-rpc/spec/compare/1.1.1...1.1.2) (2019-04-08)
 
 
