@@ -1,16 +1,9 @@
 #!/usr/bin/env node
 
-const {promisify} = require("util");
-const downloadReleases = require('@etclabscore/dl-github-releases');
-const fs = require("fs");
 const fsx = require("fs-extra");
-var toc = require('markdown-toc');
-const mkdir = promisify(fs.mkdir);
-const readFile = promisify(fs.readFile);
-const writeFile = promisify(fs.writeFile);
-const execFile = promisify(require('child_process').execFile);
-const copyFile = promisify(fs.copyFile);
-
+const toc = require('markdown-toc');
+const readFile = require("util").promisify(require("fs").readFile);
+const writeFile = require("util").promisify(require("fs").writeFile);
 
 const specVersion = require("./get-version.js")
 
