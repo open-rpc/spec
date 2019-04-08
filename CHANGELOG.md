@@ -1,3 +1,12 @@
+## [1.1.1](https://github.com/open-rpc/spec/compare/1.1.0...1.1.1) (2019-04-08)
+
+
+### Bug Fixes
+
+* add success and fail handler to release ([589db49](https://github.com/open-rpc/spec/commit/589db49))
+* **release:** indicate commit messages generated ([8c34567](https://github.com/open-rpc/spec/commit/8c34567))
+* **releaserc:** tighten commit message sign off ([b06a454](https://github.com/open-rpc/spec/commit/b06a454))
+
 # [1.1.0](https://github.com/open-rpc/spec/compare/1.0.0...1.1.0) (2019-04-07)
 
 
