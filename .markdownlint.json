@@ -4,5 +4,6 @@
     "allowed_elements": ["p", "img", "a"]
   },
   "MD013": false,
-  "MD025": false
+  "MD025": false,
+  "MD004": false
 }
