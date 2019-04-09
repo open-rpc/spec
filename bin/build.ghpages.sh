@@ -10,6 +10,7 @@ const unlink = promisify(fs.unlink);
 const readdir = promisify(fs.readdir);
 const fsx = require("fs-extra");
 const buildMarkdown = require("./build.markdown.sh");
+const specVersion = require("./get-version.js");
 
 const leaveZipped = false;
 const disableLogging = false;
@@ -39,9 +40,15 @@ const build = async () => {
   }));
 
   await buildMarkdown();
-  await copyFile("./build/markdown/spec.md", `${buildDir}/index.md`);
+  const markdownBuildFilename = "./build/markdown/spec.md";
+  const latestVersionFolderName = `${buildDir}/${specVersion}`;
+
   await mkdir(`${buildDir}/latest`);
-  await copyFile("./build/markdown/spec.md", `${buildDir}/latest/index.md`);
+  await mkdir(latestVersionFolderName);
+  await copyFile(markdownBuildFilename, `${buildDir}/index.md`);
+  await copyFile(markdownBuildFilename, `${buildDir}/latest/index.md`);
+  await copyFile("./build/markdown/spec.md", `${latestVersionFolderName}/spec.md`);
+
   await writeFile(`${buildDir}/CNAME`, "spec.open-rpc.org");
 
   console.log("building ghpages complete. gh-pages build ready to release!");

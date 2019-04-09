@@ -1,19 +1,22 @@
 #!/usr/bin/env node
 
-const {promisify} = require("util");
-const downloadReleases = require('@etclabscore/dl-github-releases');
-const fs = require("fs");
 const fsx = require("fs-extra");
-const mkdir = promisify(fs.mkdir);
-const execFile = promisify(require('child_process').execFile);
-const copyFile = promisify(fs.copyFile);
+const toc = require('markdown-toc');
+const readFile = require("util").promisify(require("fs").readFile);
+const writeFile = require("util").promisify(require("fs").writeFile);
+
+const specVersion = require("./get-version.js");
+
+const replaceVersionComments = s => s.replace("<!-- version -->", `Version ${specVersion}`);
 
 const build = async () => {
   const buildDir = "./build/markdown/";
   await fsx.ensureDir(buildDir);
   await fsx.emptyDir(buildDir);
-  await copyFile(`./spec.md`, `${buildDir}/spec.md`);
-  await execFile("./node_modules/.bin/markdown-toc", ["-i",`./${buildDir}/spec.md`]);
+  const specContent = await readFile("./spec.md", "utf8");
+  const withToc = toc(specContent).content;
+  const withVersion = replaceVersionComments(withToc);
+  await writeFile(`${buildDir}/spec.md`, withVersion);
 
   console.log("building markdown complete. Markdown is ready to be released!");
 
