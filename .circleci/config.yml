@@ -40,22 +40,13 @@ jobs:
       - run: npm test
       - save_cache: *save-deps-cache
 
-  build:
-    <<: *defaults
-    steps:
-      - checkout
-      - restore_cache: *restore-deps-cache
-      - run: npm install
-      - run: ./bin/build.sh
-      - save_cache: *save-deps-cache
-
   release:
     <<: *defaults
     steps:
       - checkout
       - restore_cache: *restore-deps-cache
       - run: npm install
-      - run: ./bin/build.sh
+      - run: npm test
       - run: npx semantic-release
       - save_cache: *save-deps-cache
 
@@ -65,23 +56,16 @@ workflows:
     jobs:
       - test:
           filters: *filter-only-semantic-pr
-      - build:
-          filters: *filter-only-semantic-pr
-          requires:
-            - test
 
   release:
     jobs:
       - test:
-          filters: *filter-only-master
-      - build:
           filters: *filter-only-master
       - hold:
           filters: *filter-only-master
           type: approval
           requires:
             - test
-            - build
       - release:
           filters: *filter-only-master
           requires:

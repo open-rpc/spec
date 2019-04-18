@@ -4,7 +4,10 @@
   "description": "The OPEN-RPC Specification",
   "main": "index.js",
   "scripts": {
-    "test": "node_modules/.bin/mdv ./*.md && ./node_modules/.bin/markdownlint ./README.md ./spec.md"
+    "validate": "node_modules/.bin/mdv ./spec.md ./README.md ./build/markdown/*.md",
+    "lint": "./node_modules/.bin/markdownlint ./spec.md ./README.md ./build/markdown/*.md",
+    "build": "./bin/build.sh",
+    "test": "npm run build && npm run validate && npm run lint"
   },
   "repository": {
     "type": "git",
