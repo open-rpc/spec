@@ -1,3 +1,18 @@
+## [1.1.6](https://github.com/open-rpc/spec/compare/1.1.5...1.1.6) (2019-04-18)
+
+
+### Bug Fixes
+
+* build filter get-version ([0fc9ef8](https://github.com/open-rpc/spec/commit/0fc9ef8))
+* cleanup ([23a0ff4](https://github.com/open-rpc/spec/commit/23a0ff4))
+* formatting ([e8aea3d](https://github.com/open-rpc/spec/commit/e8aea3d))
+* make obvious that version isnt real ([e38cfc0](https://github.com/open-rpc/spec/commit/e38cfc0))
+* release version templated ([141d4e3](https://github.com/open-rpc/spec/commit/141d4e3))
+* **toc:** build working again ([5ae4e66](https://github.com/open-rpc/spec/commit/5ae4e66))
+* remove build from ci ([2dbe3f9](https://github.com/open-rpc/spec/commit/2dbe3f9))
+* update scripts ([9f13be6](https://github.com/open-rpc/spec/commit/9f13be6))
+* versioned latest url ([ff4bcc8](https://github.com/open-rpc/spec/commit/ff4bcc8))
+
 ## [1.1.5](https://github.com/open-rpc/spec/compare/1.1.4...1.1.5) (2019-04-08)
 
 
