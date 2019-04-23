@@ -13,9 +13,7 @@ const build = async () => {
         .filter((filename) => filename.includes("build.") && filename !== "build.sh")
         .map((filename) => filename.split(".")[1]);
 
-  buildTargets.forEach(async (buildTarget) => {
-    await require(`${__dirname}/build.${buildTarget}.sh`)();
-  });
+  await Promise.all(buildTargets.map((buildTarget) => require(`${__dirname}/build.${buildTarget}.sh`)()));
 
   console.log("build complete");
 };
