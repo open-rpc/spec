@@ -1,3 +1,11 @@
+## [1.1.7](https://github.com/open-rpc/spec/compare/1.1.6...1.1.7) (2019-04-23)
+
+
+### Bug Fixes
+
+* add OneOf object to result ([d905538](https://github.com/open-rpc/spec/commit/d905538)), closes [#170](https://github.com/open-rpc/spec/issues/170)
+* release ([4544160](https://github.com/open-rpc/spec/commit/4544160))
+
 ## [1.1.6](https://github.com/open-rpc/spec/compare/1.1.5...1.1.6) (2019-04-18)
 
 
