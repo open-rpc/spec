@@ -1,12 +1,11 @@
 #!/usr/bin/env node
 
 const {promisify} = require("util");
-const downloadReleases = require('@etclabscore/dl-github-releases');
+const downloadReleases = require('@etclabscore/dl-github-releases').default;
 const fs = require("fs");
 const mkdir = promisify(fs.mkdir);
 const copyFile = promisify(fs.copyFile);
 const writeFile = promisify(fs.writeFile);
-const unlink = promisify(fs.unlink);
 const readdir = promisify(fs.readdir);
 const fsx = require("fs-extra");
 const buildMarkdown = require("./build.markdown.sh");
@@ -31,12 +30,10 @@ const build = async () => {
 
   const previousVersions = await readdir(buildDir);
 
-  await Promise.all(previousVersions.map(async (previousVersion) => {
-    const version = previousVersion.replace(".md", "");
-    const newDirName = `${buildDir}${version}`;
-    await mkdir(newDirName);
-    await copyFile(`${buildDir}${previousVersion}`, `${newDirName}/index.md`);
-    await unlink(`${buildDir}${previousVersion}`);
+  await Promise.all(previousVersions.map(async (version) => {
+    const dirName = `${buildDir}${version}`;
+    const [filename] = await readdir(dirName);
+    await fsx.move(`${dirName}/${filename}`, `${dirName}/index.md`);
   }));
 
   await buildMarkdown();
