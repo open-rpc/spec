@@ -1,3 +1,10 @@
+## [1.1.8](https://github.com/open-rpc/spec/compare/1.1.7...1.1.8) (2019-04-27)
+
+
+### Bug Fixes
+
+* **methodObject:** optional params recommendation ([5d614b2](https://github.com/open-rpc/spec/commit/5d614b2)), closes [#138](https://github.com/open-rpc/spec/issues/138)
+
 ## [1.1.7](https://github.com/open-rpc/spec/compare/1.1.6...1.1.7) (2019-04-23)
 
 
