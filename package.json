@@ -36,7 +36,7 @@
     "@semantic-release/release-notes-generator": "^7.1.4",
     "fs-extra": "^7.0.1",
     "markdown-toc": "^1.2.0",
-    "markdownlint-cli": "^0.14.1",
+    "markdownlint-cli": "^0.15.0",
     "mdv": "^1.2.0",
     "mkdirp": "^0.5.1",
     "remarkable": "^1.7.1",
