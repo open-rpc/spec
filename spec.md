@@ -186,7 +186,7 @@ Describes the interface for the given method name. The method name is used as th
 
 Field Name | Type | Description
 ---|:---:|---
-<a name="method-name"></a>name | [`string`] | **REQUIRED**. The cannonical name for the method. The name MUST be unique within the methods array.
+<a name="method-name"></a>name | `string` | **REQUIRED**. The cannonical name for the method. The name MUST be unique within the methods array.
 <a name="method-tags"></a>tags | [[Tag Object](#tag-object) \| [Reference Object](#reference-object)] | A list of tags for API documentation control. Tags can be used for logical grouping of methods by resources or any other qualifier.
 <a name="method-summary"></a>summary | `string` | A short summary of what the method does.
 <a name="method-description"></a>description | `string` | A verbose explanation of the method behavior. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
