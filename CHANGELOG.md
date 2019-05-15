@@ -1,3 +1,12 @@
+## [1.1.9](https://github.com/open-rpc/spec/compare/1.1.8...1.1.9) (2019-05-15)
+
+
+### Bug Fixes
+
+* change type of MethodObject.name to string ([2282b29](https://github.com/open-rpc/spec/commit/2282b29)), closes [#180](https://github.com/open-rpc/spec/issues/180)
+* typo ([ef7b956](https://github.com/open-rpc/spec/commit/ef7b956))
+* typo in a Map description ([247f298](https://github.com/open-rpc/spec/commit/247f298))
+
 ## [1.1.8](https://github.com/open-rpc/spec/compare/1.1.7...1.1.8) (2019-04-27)
 
 
