@@ -216,11 +216,11 @@ This object MAY be extended with [Specification Extensions](#specification-exten
 
 ## Method Object
 
-Describes the interface for the given method name. The method name is used as the `method` field of the JSON-RPC body. It therefore MUST be unique.
+Describes the interface for the given method name. The method name is used as the `method` field of the JSON-RPC body. It therefor MUST be unique.
 
 Field Name | Type | Description
 ---|:---:|---
-<a name="method-name"></a>name | `string` | **REQUIRED**. The cannonical name for the method. The name MUST be unique within the methods array.
+<a name="method-name"></a>name | [`string`] | **REQUIRED**. The cannonical name for the method. The name MUST be unique within the methods array.
 <a name="method-tags"></a>tags | [[Tag Object](#tag-object) \| [Reference Object](#reference-object)] | A list of tags for API documentation control. Tags can be used for logical grouping of methods by resources or any other qualifier.
 <a name="method-summary"></a>summary | `string` | A short summary of what the method does.
 <a name="method-description"></a>description | `string` | A verbose explanation of the method behavior. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
@@ -231,7 +231,7 @@ Field Name | Type | Description
 <a name="method-servers"></a>servers | [[Server Object](#server-object)] | An alternative `servers` array to service this method. If an alternative `servers` array is specified at the Root level, it will be overridden by this value.
 <a name="method-errors"></a>errors | [[Error Object](#error-object) \| [Reference Object](#reference-object)] | A list of custom application defined errors that MAY be returned. The Errors MUST have unique error codes.
 <a name="method-links"></a>links | [[Link Object](#link-object) \| [Reference Object](#reference-object)] | A list of possible links from this method call.
-<a name="method-param-structure"></a>paramStructure | `"by-name"` \| `"by-position"` | Format the server expects the params. Defaults to `"by-position"`.
+<a name="method-param-structure"></a>paramStructure | `"by-name"` \| `"by-position"` | Format the server expects the params. Defaults to `"by-positon"`.
 <a name="method-examples"></a>examples | [[Example Pairing Object](#example-pairing-object)] | Array of [Example Pairing Object](#example-pairing-object) where each example includes a valid params-to-result [Content Descriptor](#content-descriptor-object) pairing.
 
 This object MAY be extended with [Specification Extensions](#specification-extensions).
@@ -304,7 +304,7 @@ Field Name  |  Type  | Description
 <a name="link-description"></a>description  | `string` | A description of the link. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
 <a name="link-summary"></a>summary | `string` | Short description for the link.
 <a name="link-method"></a>method | `string` | The name of an _existing_, resolvable OpenRPC method, as defined with a unique `method`. This field MUST resolve to a unique [Method Object](#method-object). As opposed to Open Api, Relative `method` values  ARE NOT permitted.
-<a name="link-parameters"></a>params   | Map[`string`, `Any` \| [Runtime Expression](#runtime-expression)] | A map representing parameters to pass to a method as specified with `method`. The key is the parameter name to be used, whereas the value can be a constant or a [runtime expression](#runtime-expression) to be evaluated and passed to the linked method.
+<a name="link-parameters"></a>params   | Map[`string`, `Any` \| [Runtime Expression](#runtime-expression)]] | A map representing parameters to pass to a method as specified with `method`. The key is the parameter name to be used, whereas the value can be a constant or a [runtime expression](#runtime-expression) to be evaluated and passed to the linked method.
 <a name="link-server"></a>server | [Server Object](#server-object) | A server object to be used by the target method.
 
 A linked method must be identified directly, and must exist in the list of methods defined by the [Methods Object](#method-object).
