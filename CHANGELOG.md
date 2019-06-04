@@ -1,3 +1,10 @@
+## [1.1.10](https://github.com/open-rpc/spec/compare/1.1.9...1.1.10) (2019-06-04)
+
+
+### Bug Fixes
+
+* Require optional params to follow required params ([a031e71](https://github.com/open-rpc/spec/commit/a031e71)), closes [#188](https://github.com/open-rpc/spec/issues/188)
+
 ## [1.1.9](https://github.com/open-rpc/spec/compare/1.1.8...1.1.9) (2019-05-15)
 
 
