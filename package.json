@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/open-rpc/spec#readme",
   "devDependencies": {
-    "@etclabscore/dl-github-releases": "^1.0.9",
+    "@etclabscore/dl-github-releases": "^1.1.0",
     "fs-extra": "^8.0.1",
     "markdown-toc": "^1.2.0",
     "markdownlint-cli": "^0.17.0",
