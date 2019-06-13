@@ -28,12 +28,6 @@
   "homepage": "https://github.com/open-rpc/spec#readme",
   "devDependencies": {
     "@etclabscore/dl-github-releases": "^1.0.9",
-    "@qiwi/semantic-release-gh-pages-plugin": "^1.9.1",
-    "@semantic-release/changelog": "^3.0.2",
-    "@semantic-release/commit-analyzer": "^6.1.0",
-    "@semantic-release/git": "^7.0.8",
-    "@semantic-release/github": "^5.2.10",
-    "@semantic-release/release-notes-generator": "^7.1.4",
     "fs-extra": "^8.0.1",
     "markdown-toc": "^1.2.0",
     "markdownlint-cli": "^0.17.0",
