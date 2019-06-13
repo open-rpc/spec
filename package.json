@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/open-rpc/spec#readme",
   "devDependencies": {
-    "@etclabscore/dl-github-releases": "^1.0.9",
+    "@etclabscore/dl-github-releases": "^1.1.0",
     "@qiwi/semantic-release-gh-pages-plugin": "^1.9.1",
     "@semantic-release/changelog": "^3.0.2",
     "@semantic-release/commit-analyzer": "^6.1.0",
