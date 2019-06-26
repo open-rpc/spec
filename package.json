@@ -34,7 +34,7 @@
     "mdv": "^1.2.0",
     "mkdirp": "^0.5.1",
     "remarkable": "^1.7.1",
-    "semantic-release": "^15.13.3",
+    "semantic-release": "^15.13.17",
     "tslib": "^1.10.0"
   }
 }
