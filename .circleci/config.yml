@@ -47,6 +47,7 @@ jobs:
       - restore_cache: *restore-deps-cache
       - run: npm install
       - run: npm test
+      - run: npm run build
       - run: npm install semantic-release @semantic-release/changelog @semantic-release/git @semantic-release/github @semantic-release/npm @semantic-release/commit-analyzer @semantic-release/release-notes-generator @qiwi/semantic-release-gh-pages-plugin
       - run: ./node_modules/.bin/semantic-release
       - save_cache: *save-deps-cache
