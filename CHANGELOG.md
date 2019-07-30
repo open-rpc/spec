@@ -1,3 +1,10 @@
+## [1.1.12](https://github.com/open-rpc/spec/compare/1.1.11...1.1.12) (2019-07-30)
+
+
+### Bug Fixes
+
+* **circle:** add build ([4c3ae15](https://github.com/open-rpc/spec/commit/4c3ae15))
+
 ## [1.1.11](https://github.com/open-rpc/spec/compare/1.1.10...1.1.11) (2019-07-30)
 
 
