@@ -1,3 +1,12 @@
+## [1.1.11](https://github.com/open-rpc/spec/compare/1.1.10...1.1.11) (2019-07-30)
+
+
+### Bug Fixes
+
+* install semantic release in circle ([641562f](https://github.com/open-rpc/spec/commit/641562f))
+* remove semantic release from packagejson ([d799ce2](https://github.com/open-rpc/spec/commit/d799ce2))
+* update package lock ([c6ecb2a](https://github.com/open-rpc/spec/commit/c6ecb2a))
+
 ## [1.1.10](https://github.com/open-rpc/spec/compare/1.1.9...1.1.10) (2019-06-04)
 
 
