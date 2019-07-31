@@ -34,7 +34,7 @@
     "mdv": "^1.2.0",
     "mkdirp": "^0.5.1",
     "remarkable": "^1.7.2",
-    "semantic-release": "^15.13.18",
+    "semantic-release": "^15.13.19",
     "tslib": "^1.10.0"
   },
   "dependencies": {
