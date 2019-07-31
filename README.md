@@ -2,9 +2,6 @@
   <img alt="open-rpc logo" src="https://github.com/open-rpc/design/blob/master/png/open-rpc-logo-320x320.png?raw=true" />
 
 </p>
-<p align="center">
-<a href="https://etclabs.org">Sponsored by <img alt="Ethereum Classic Lab" src="https://github.com/open-rpc/design/blob/master/png/etc-labs-logo-32x32.png?raw=true" /> Ethereum Classic Labs</a>.
-</p>
 
 # The OpenRPC Specification Repository
 
