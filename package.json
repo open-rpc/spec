@@ -34,16 +34,6 @@
     "mdv": "^1.2.0",
     "mkdirp": "^0.5.1",
     "remarkable": "^1.7.2",
-    "semantic-release": "^15.13.18",
     "tslib": "^1.10.0"
-  },
-  "dependencies": {
-    "@qiwi/semantic-release-gh-pages-plugin": "^1.10.4",
-    "@semantic-release/changelog": "^3.0.4",
-    "@semantic-release/commit-analyzer": "^6.2.0",
-    "@semantic-release/git": "^7.0.16",
-    "@semantic-release/github": "^5.4.2",
-    "@semantic-release/npm": "^5.1.13",
-    "@semantic-release/release-notes-generator": "^7.2.1"
   }
 }
