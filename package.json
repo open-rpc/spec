@@ -30,7 +30,7 @@
     "@etclabscore/dl-github-releases": "^1.1.0",
     "fs-extra": "^8.0.1",
     "markdown-toc": "^1.2.0",
-    "markdownlint-cli": "^0.17.0",
+    "markdownlint-cli": "^0.18.0",
     "mdv": "^1.2.0",
     "mkdirp": "^0.5.1",
     "remarkable": "^1.7.4",
