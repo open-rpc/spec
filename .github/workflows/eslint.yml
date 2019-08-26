@@ -3,7 +3,7 @@ name: ESLint
 on: [pull_request]
 
 jobs:
-  label:
+  lint:
 
     runs-on: ubuntu-latest
 
