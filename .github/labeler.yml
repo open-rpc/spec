@@ -1,0 +1,28 @@
+spec: spec.md
+
+deps:
+- package.json
+- package-lock.json
+
+deploy: 
+- .circleci/**/*
+- bin/**/*
+- .releaserc
+
+ops:
+- .github/**/*
+- .markdownlint.json
+- README.md
+- .gitignore
+
+pristine:
+- BUILDING.md
+- CONTRIBUTING.md
+- CONVENTIONAL_COMMITS.md
+- RELEASING.md
+- VERSIONING.md
+- .gitignore
+
+license: LICENSE.md
+
+never: CHANGELOG.md
