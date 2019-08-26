@@ -8,12 +8,12 @@ deploy:
 - .circleci/**/*
 - bin/**/*
 - .releaserc
--
+
 ops:
 - .github/**/*
 - .markdownlint.json
 - README.md
-- .gitignore.md
+- .gitignore
 
 pristine:
 - BUILDING.md
@@ -21,10 +21,8 @@ pristine:
 - CONVENTIONAL_COMMITS.md
 - RELEASING.md
 - VERSIONING.md
-- .gitignore.md
+- .gitignore
 
-license:
-- LICENSE.md
+license: LICENSE.md
 
-never:
-- CHANGELOG.md
+never: CHANGELOG.md
