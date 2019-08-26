@@ -1,0 +1,2 @@
+- name: ESLint checks
+  uses: gimenete/eslint-action@1.0
