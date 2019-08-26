@@ -9,21 +9,19 @@ deploy:
 - bin/**/*
 - .releaserc
 -
-
 ops:
 - .github/**/*
 - .markdownlint.json
 - README.md
 - .gitignore.md
 
-pristine
+pristine:
 - BUILDING.md
 - CONTRIBUTING.md
 - CONVENTIONAL_COMMITS.md
 - RELEASING.md
 - VERSIONING.md
 - .gitignore.md
-
 
 license:
 - LICENSE.md
