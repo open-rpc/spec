@@ -1,3 +1,20 @@
+# [1.2.0](https://github.com/open-rpc/spec/compare/1.1.12...1.2.0) (2019-09-23)
+
+
+### Bug Fixes
+
+* checkout package after installing semanticrel ([a9d5841](https://github.com/open-rpc/spec/commit/a9d5841))
+* remove additional dash ([0674aaf](https://github.com/open-rpc/spec/commit/0674aaf))
+* remove sem rel deps last time ([5388f19](https://github.com/open-rpc/spec/commit/5388f19))
+* remove sponsor ([85c83e1](https://github.com/open-rpc/spec/commit/85c83e1))
+
+
+### Features
+
+* add first set of labels ([5c86521](https://github.com/open-rpc/spec/commit/5c86521))
+* add greetings action ([8bccaf3](https://github.com/open-rpc/spec/commit/8bccaf3))
+* add labler action ([74b1909](https://github.com/open-rpc/spec/commit/74b1909))
+
 ## [1.1.12](https://github.com/open-rpc/spec/compare/1.1.11...1.1.12) (2019-07-30)
 
 
