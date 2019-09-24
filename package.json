@@ -31,7 +31,7 @@
     "fs-extra": "^8.1.0",
     "markdown-toc": "^1.2.0",
     "markdownlint-cli": "^0.18.0",
-    "mdv": "^1.2.0",
+    "mdv": "^1.2.1",
     "mkdirp": "^0.5.1",
     "remarkable": "^2.0.0",
     "tslib": "^1.10.0"
