@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/open-rpc/spec/compare/1.2.0...1.2.1) (2019-09-26)
+
+
+### Bug Fixes
+
+* add "either" option for param structure ([947c12b](https://github.com/open-rpc/spec/commit/947c12b)), closes [#190](https://github.com/open-rpc/spec/issues/190) [#226](https://github.com/open-rpc/spec/issues/226)
+
 # [1.2.0](https://github.com/open-rpc/spec/compare/1.1.12...1.2.0) (2019-09-23)
 
 
