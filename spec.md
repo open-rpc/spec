@@ -195,7 +195,7 @@ Field Name | Type | Description
 <a name="method-result"></a>result | [Content Descriptor](#content-descriptor-object) \| [Reference Object](#reference-object) \| [OneOf Object](#oneof-object) | **REQUIRED**. The description of the result returned by the method. It MUST be a Content Descriptor.
 <a name="method-deprecated"></a>deprecated | `boolean` | Declares this method to be deprecated. Consumers SHOULD refrain from usage of the declared method. Default value is `false`.
 <a name="method-servers"></a>servers | [[Server Object](#server-object)] | An alternative `servers` array to service this method. If an alternative `servers` array is specified at the Root level, it will be overridden by this value.
-<a name="method-errors"></a>errors | [[Error Object](#error-object) \| [Reference Object](#reference-object)] | A list of custom application defined errors that MAY be returned. The Errors MUST have unique error codes.
+<a name="method-errors"></a>errors | [[Error Object](#error-object) \| [Reference Object](#reference-object)] | A list of custom application defined errors that MAY be returned. The Errors SHOULD have unique error codes. The reference object may refer to an [Error Group](#components-error-groups). When [Method Errors](#method-errors) contains [Error Groups](#components-error-groups), the union of all errors are considered valid for the method.
 <a name="method-links"></a>links | [[Link Object](#link-object) \| [Reference Object](#reference-object)] | A list of possible links from this method call.
 <a name="method-param-structure"></a>paramStructure | `"by-name"` \| `"by-position"` \| `"either"` | The expected format of the parameters. [As per the JSON-RPC 2.0 specification](https://www.jsonrpc.org/specification#parameter_structures), params may be either an array, an object, or either. Defaults to `"by-position"`.
 <a name="method-examples"></a>examples | [[Example Pairing Object](#example-pairing-object)] | Array of [Example Pairing Object](#example-pairing-object) where each example includes a valid params-to-result [Content Descriptor](#content-descriptor-object) pairing.
@@ -320,6 +320,7 @@ Field Name | Type | Description
 <a name="components-errors"></a>errors | Map[`string`, [Error Object](#error-object)] | An object to hold reusable [Error Objects](#error-object).
 <a name="components-example-pairing-objects"></a>examplePairingObjects | Map[`string`, [Example Pairing Object](#example-pairing-object)] | An object to hold reusable [Example Pairing Objects](#example-pairing-object).
 <a name="components-tags"></a>tags | Map[`string`, [Tag Object](#tag-object)] | An object to hold reusable [Tag Objects](#tag-object).
+<a name="components-error-groups"></a>errorGroups | Map[`string`, [[Error Object](#error-object)]] | A set of [Error Objects](#error-object) that comprise a reusable error grouping.
 
 This object MAY be extended with [Specification Extensions](#specification-extensions).
 
