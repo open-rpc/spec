@@ -3,6 +3,7 @@
   "version": "0.0.0-semantic-release-dev",
   "description": "The OPEN-RPC Specification",
   "main": "index.js",
+  "private": true,
   "scripts": {
     "validate": "node_modules/.bin/mdv ./spec.md ./README.md ./build/markdown/*.md",
     "lint": "./node_modules/.bin/markdownlint ./spec.md ./README.md ./build/markdown/*.md",
