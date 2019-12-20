@@ -14,6 +14,16 @@
     "@semantic-release/github",
     "@qiwi/semantic-release-gh-pages-plugin"
   ],
+  "prepare": [
+    "@semantic-release/changelog",
+    "@semantic-release/git",
+    [
+      "@semantic-release/exec",
+      {
+        "publishCmd": "./bin/build.sh"
+      }
+    ]
+  ],
   "publish": [
     ["@semantic-release/github", {
       "assets": ["build/markdown/spec.md"]

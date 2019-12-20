@@ -1,3 +1,20 @@
+## [1.2.2](https://github.com/open-rpc/spec/compare/1.2.1...1.2.2) (2019-12-20)
+
+
+### Bug Fixes
+
+* restore package.json ([9e108bf](https://github.com/open-rpc/spec/commit/9e108bfb0c65931a817cf43774360bdf0c561fda))
+* semantic-release fixups ([c8b33e5](https://github.com/open-rpc/spec/commit/c8b33e5adc2ead057cc6c59f3e4528b6d398c3ef))
+* set version properly ([daf2a82](https://github.com/open-rpc/spec/commit/daf2a8234b7044bfe0bcc4e97dcfc251b4bd12fb)), closes [#191](https://github.com/open-rpc/spec/issues/191)
+* update build accordingly ([af8fe8d](https://github.com/open-rpc/spec/commit/af8fe8d8043736703e442ec73f70cc58edb9c2d6))
+
+## [1.2.1](https://github.com/open-rpc/spec/compare/1.2.0...1.2.1) (2019-09-26)
+
+
+### Bug Fixes
+
+* add "either" option for param structure ([947c12b](https://github.com/open-rpc/spec/commit/947c12b)), closes [#190](https://github.com/open-rpc/spec/issues/190) [#226](https://github.com/open-rpc/spec/issues/226)
+
 # [1.2.0](https://github.com/open-rpc/spec/compare/1.1.12...1.2.0) (2019-09-23)
 
 
