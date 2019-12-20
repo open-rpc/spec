@@ -31,7 +31,7 @@ The OpenRPC Specification does not require rewriting existing JSON-RPC APIs. It 
 
 ## OpenRPC Document
 
-A document (or set of documents) that defines or describes an API. An OpenRPC definition uses and conforms to the OpenRPC Specification.
+A document (or set of documents) that defines or describes an API. An OpenRPC document uses and conforms to the OpenRPC Specification.
 
 ## Patterned Field
 
@@ -100,9 +100,9 @@ Example OpenRPC documents can be found in the [OpenRPC Examples Repository](http
 
 Validating an OpenRPC document can be accomplished using the OpenRPC MetaSchema. The OpenRPC MetaSchema is based on the [Draft 07 JSON Schema](https://json-schema.org/draft-07/schema), and may be used as a JSON meta-schema for various tooling use. Each field in the Specification MUST be included in the OpenRPC MetaSchema, including all constraints that are possible to model with [Draft 07 JSON Schema](https://json-schema.org/draft-07/schema).
 
-# OpenRPC Schema Object
+# OpenRPC Object
 
-This is the root document object of the [OpenRPC document](#openrpc-document).
+This is the root object of the [OpenRPC document](#openrpc-document). The contents of this object represent a whole [OpenRPC document](#openrpc-document). How this object is constructed or stored is outside the scope of the OpenRPC Specification.
 
 Field Name | Type | Description
 ---|:---:|---
