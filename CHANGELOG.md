@@ -1,3 +1,11 @@
+## [1.2.4](https://github.com/open-rpc/spec/compare/1.2.3...1.2.4) (2019-12-20)
+
+
+### Bug Fixes
+
+* set private to true in package json to avoid publishing ([1ff411a](https://github.com/open-rpc/spec/commit/1ff411af447d255705cde16d1f7f9cbcbeafebb7))
+* version fix take 4 ([844eccc](https://github.com/open-rpc/spec/commit/844eccc31d475e55c39e006e05b7b0e9287983fd))
+
 ## [1.2.3](https://github.com/open-rpc/spec/compare/1.2.2...1.2.3) (2019-12-20)
 
 
