@@ -11,8 +11,7 @@
   "verifyConditions": [
     "@semantic-release/changelog",
     "@semantic-release/git",
-    "@semantic-release/github",
-    "@qiwi/semantic-release-gh-pages-plugin"
+    "@semantic-release/github"
   ],
   "prepare": [
     "@semantic-release/changelog",
@@ -20,7 +19,7 @@
     [
       "@semantic-release/exec",
       {
-        "publishCmd": "./bin/build.sh"
+        "prepareCmd": "./bin/build.sh"
       }
     ]
   ],
