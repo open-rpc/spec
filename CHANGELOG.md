@@ -1,3 +1,13 @@
+## [1.2.3](https://github.com/open-rpc/spec/compare/1.2.2...1.2.3) (2019-12-20)
+
+
+### Bug Fixes
+
+* missing run command ([b4144f9](https://github.com/open-rpc/spec/commit/b4144f9c464ca57cf64dacb34591405ef8cff8bb))
+* second attempt at getting version fixed ([b12c828](https://github.com/open-rpc/spec/commit/b12c828426b1da52b4418f769c57af05c8950641))
+* third attempt at fixing version ([9758c93](https://github.com/open-rpc/spec/commit/9758c9309ef71b8f024f70c52cd663b14a0e2449))
+* update definitions and remove the word schema ([4577270](https://github.com/open-rpc/spec/commit/4577270379ed96985ba1d8c6fddbfd7349880446))
+
 ## [1.2.2](https://github.com/open-rpc/spec/compare/1.2.1...1.2.2) (2019-12-20)
 
 
