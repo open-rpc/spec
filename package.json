@@ -33,7 +33,7 @@
     "markdown-toc": "^1.2.0",
     "markdownlint-cli": "^0.20.0",
     "mdv": "^1.2.1",
-    "mkdirp": "^0.5.1",
+    "mkdirp": "^1.0.3",
     "remarkable": "^2.0.0",
     "tslib": "^1.10.0"
   }
