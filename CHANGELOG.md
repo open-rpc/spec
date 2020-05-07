@@ -1,3 +1,10 @@
+## [1.2.5](https://github.com/open-rpc/spec/compare/1.2.4...1.2.5) (2020-05-06)
+
+
+### Bug Fixes
+
+* default paramStructure to either ([558241f](https://github.com/open-rpc/spec/commit/558241fbb25cc59baaa0b3782078e9d4bc470467)), closes [#270](https://github.com/open-rpc/spec/issues/270)
+
 ## [1.2.4](https://github.com/open-rpc/spec/compare/1.2.3...1.2.4) (2019-12-20)
 
 
