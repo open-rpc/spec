@@ -197,7 +197,7 @@ Field Name | Type | Description
 <a name="method-servers"></a>servers | [[Server Object](#server-object)] | An alternative `servers` array to service this method. If an alternative `servers` array is specified at the Root level, it will be overridden by this value.
 <a name="method-errors"></a>errors | [[Error Object](#error-object) \| [Reference Object](#reference-object)] | A list of custom application defined errors that MAY be returned. The Errors MUST have unique error codes.
 <a name="method-links"></a>links | [[Link Object](#link-object) \| [Reference Object](#reference-object)] | A list of possible links from this method call.
-<a name="method-param-structure"></a>paramStructure | `"by-name"` \| `"by-position"` \| `"either"` | The expected format of the parameters. [As per the JSON-RPC 2.0 specification](https://www.jsonrpc.org/specification#parameter_structures), params may be either an array, an object, or either. Defaults to `"by-position"`.
+<a name="method-param-structure"></a>paramStructure | `"by-name"` \| `"by-position"` \| `"either"` | The expected format of the parameters. [As per the JSON-RPC 2.0 specification](https://www.jsonrpc.org/specification#parameter_structures), the params of a [JSON-RPC request object](https://www.jsonrpc.org/specification#request_object) may be an array, object, or either (represented as `by-position`, `by-name`, and `either` respectively). When a method has a `paramStructure` value of `by-name`, callers of the method MUST send a [JSON-RPC request object](https://www.jsonrpc.org/specification#request_object) whose `params` field is an object. Further, the key names of the `params` object MUST be the same as the [`contentDescriptor.name`](#content-descriptor-name)s for the given method. Defaults to `"either"`.
 <a name="method-examples"></a>examples | [[Example Pairing Object](#example-pairing-object)] | Array of [Example Pairing Object](#example-pairing-object) where each example includes a valid params-to-result [Content Descriptor](#content-descriptor-object) pairing.
 
 This object MAY be extended with [Specification Extensions](#specification-extensions).
@@ -208,7 +208,7 @@ Content Descriptors are objects that do just as they suggest - describe content.
 
 Field Name | Type | Description
 ---|:---:|---
-<a name="content-descriptor-name"></a>name | `string` | **REQUIRED**. name of the content that is being described.
+<a name="content-descriptor-name"></a>name | `string` | **REQUIRED**. Name of the content that is being described. If the content described is a method parameter assignable [`by-name`](#method-param-structure), this field SHALL define the parameter's key (_ie_ name).
 <a name="content-descriptor-summary"></a>summary | `string` | A short summary of the content that is being described.
 <a name="content-descriptor-description"></a>description | `string` | A verbose explanation of the content descriptor behavior. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
 <a name="content-descriptor-required"></a>required | `boolean` | Determines if the content is a required field. Default value is `false`.
