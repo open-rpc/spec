@@ -1,3 +1,21 @@
+## [1.2.6](https://github.com/open-rpc/spec/compare/1.2.5...1.2.6) (2020-05-22)
+
+
+### Bug Fixes
+
+* schema required formatting ([1a745b5](https://github.com/open-rpc/spec/commit/1a745b51fd97fc4645d2ec2fd0196b634525ceec))
+* **method.paramStructure:** add spec detailing by-name case of cd.name ([646978c](https://github.com/open-rpc/spec/commit/646978cb550cf336cce1bbad5634263b4f74d6c4))
+* [@belfordz](https://github.com/belfordz) edits for awesomeness ([cbae9e3](https://github.com/open-rpc/spec/commit/cbae9e3165f28e3c9d716a23d76e0a1ac832844a))
+* add another oxford comma ([b1092f6](https://github.com/open-rpc/spec/commit/b1092f699ed7d5f843eeaaccd181416087b1fc08))
+* append 's' to param_s_ field ([9da993b](https://github.com/open-rpc/spec/commit/9da993be2644f8e2461d8daf2d408e9242cd634b))
+* formatting of required on linkObject.name ([63f5410](https://github.com/open-rpc/spec/commit/63f5410217bb15f90ae7dc88a5f54b99cdc7f21c))
+* missing oxford comma ([df8a507](https://github.com/open-rpc/spec/commit/df8a507327d513a4806aa5176bab9d474d813b4c))
+* non-oxfordian missing space after oxfordian comma ([1deef5c](https://github.com/open-rpc/spec/commit/1deef5cffc69e3448bdd95a05ab92b50fd26bc13))
+* remove oneOf ([215b0ae](https://github.com/open-rpc/spec/commit/215b0ae28ef6b7951f1e0d88fee904906da47d27)), closes [#278](https://github.com/open-rpc/spec/issues/278)
+* remove unused dev deps ([11df1e8](https://github.com/open-rpc/spec/commit/11df1e847c2de50f8d4b24fd996206b7c335a19b))
+* s/field/value ([75275e6](https://github.com/open-rpc/spec/commit/75275e6cd7bd6980d01e4ad42904ea6d1cba2026))
+* update FAQ and add to repo ([7c7310c](https://github.com/open-rpc/spec/commit/7c7310c3e660279ab4411680b5afb562bc7a3c84)), closes [#283](https://github.com/open-rpc/spec/issues/283)
+
 ## [1.2.5](https://github.com/open-rpc/spec/compare/1.2.4...1.2.5) (2020-05-06)
 
 
