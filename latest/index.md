@@ -1,6 +1,6 @@
 # OpenRPC Specification
 
-Version 1.2.4
+Version 1.2.6
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [BCP 14](https://tools.ietf.org/html/bcp14) [RFC2119](https://tools.ietf.org/html/rfc2119) [RFC8174](https://tools.ietf.org/html/rfc8174) when, and only when, they appear in all capitals, as shown here.
 
@@ -40,7 +40,6 @@ This document is licensed under [The Apache License, Version 2.0](https://www.ap
   * [Tag Object](#tag-object)
   * [External Documentation Object](#external-documentation-object)
   * [Reference Object](#reference-object)
-  * [oneOf Object](#oneof-object)
   * [Specification Extensions](#specification-extensions)
 
 <!-- tocstop -->
@@ -225,13 +224,13 @@ Field Name | Type | Description
 <a name="method-summary"></a>summary | `string` | A short summary of what the method does.
 <a name="method-description"></a>description | `string` | A verbose explanation of the method behavior. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
 <a name="method-externalDocs"></a>externalDocs | [External Documentation Object](#external-documentation-object) | Additional external documentation for this method.
-<a name="method-params"></a>params | [[Content Descriptor](#content-descriptor-object) \| [Reference Object](#reference-object) \| [OneOf Object](#oneof-object)] | **REQUIRED**. A list of parameters that are applicable for this method. The list MUST NOT include duplicated parameters and therefore require [name](#content-descriptor-name) to be unique. The list can use the [Reference Object](#reference-object) to link to parameters that are defined by the [Content Descriptor Object](#content-descriptor-object). It may also nest the content descriptor or reference object inside of a [OneOf Object](#oneof-object). All optional params (content descriptor objects with "required": false) MUST be positioned after all required params in the list.
-<a name="method-result"></a>result | [Content Descriptor](#content-descriptor-object) \| [Reference Object](#reference-object) \| [OneOf Object](#oneof-object) | **REQUIRED**. The description of the result returned by the method. It MUST be a Content Descriptor.
+<a name="method-params"></a>params | [[Content Descriptor](#content-descriptor-object) \| [Reference Object](#reference-object) | **REQUIRED**. A list of parameters that are applicable for this method. The list MUST NOT include duplicated parameters and therefore require [name](#content-descriptor-name) to be unique. The list can use the [Reference Object](#reference-object) to link to parameters that are defined by the [Content Descriptor Object](#content-descriptor-object). All optional params (content descriptor objects with "required": false) MUST be positioned after all required params in the list.
+<a name="method-result"></a>result | [Content Descriptor](#content-descriptor-object) \| [Reference Object](#reference-object) | **REQUIRED**. The description of the result returned by the method. It MUST be a Content Descriptor.
 <a name="method-deprecated"></a>deprecated | `boolean` | Declares this method to be deprecated. Consumers SHOULD refrain from usage of the declared method. Default value is `false`.
 <a name="method-servers"></a>servers | [[Server Object](#server-object)] | An alternative `servers` array to service this method. If an alternative `servers` array is specified at the Root level, it will be overridden by this value.
 <a name="method-errors"></a>errors | [[Error Object](#error-object) \| [Reference Object](#reference-object)] | A list of custom application defined errors that MAY be returned. The Errors MUST have unique error codes.
 <a name="method-links"></a>links | [[Link Object](#link-object) \| [Reference Object](#reference-object)] | A list of possible links from this method call.
-<a name="method-param-structure"></a>paramStructure | `"by-name"` \| `"by-position"` \| `"either"` | The expected format of the parameters. [As per the JSON-RPC 2.0 specification](https://www.jsonrpc.org/specification#parameter_structures), params may be either an array, an object, or either. Defaults to `"by-position"`.
+<a name="method-param-structure"></a>paramStructure | `"by-name"` \| `"by-position"` \| `"either"` | The expected format of the parameters. [As per the JSON-RPC 2.0 specification](https://www.jsonrpc.org/specification#parameter_structures), the params of a [JSON-RPC request object](https://www.jsonrpc.org/specification#request_object) may be an array, object, or either (represented as `by-position`, `by-name`, and `either` respectively). When a method has a `paramStructure` value of `by-name`, callers of the method MUST send a [JSON-RPC request object](https://www.jsonrpc.org/specification#request_object) whose `params` field is an object. Further, the key names of the `params` object MUST be the same as the [`contentDescriptor.name`](#content-descriptor-name)s for the given method. Defaults to `"either"`.
 <a name="method-examples"></a>examples | [[Example Pairing Object](#example-pairing-object)] | Array of [Example Pairing Object](#example-pairing-object) where each example includes a valid params-to-result [Content Descriptor](#content-descriptor-object) pairing.
 
 This object MAY be extended with [Specification Extensions](#specification-extensions).
@@ -242,11 +241,11 @@ Content Descriptors are objects that do just as they suggest - describe content.
 
 Field Name | Type | Description
 ---|:---:|---
-<a name="content-descriptor-name"></a>name | `string` | **REQUIRED**. name of the content that is being described.
+<a name="content-descriptor-name"></a>name | `string` | **REQUIRED**. Name of the content that is being described. If the content described is a method parameter assignable [`by-name`](#method-param-structure), this field SHALL define the parameter's key (_ie_ name).
 <a name="content-descriptor-summary"></a>summary | `string` | A short summary of the content that is being described.
 <a name="content-descriptor-description"></a>description | `string` | A verbose explanation of the content descriptor behavior. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
 <a name="content-descriptor-required"></a>required | `boolean` | Determines if the content is a required field. Default value is `false`.
-<a name="content-descriptor-schema"></a>**REQUIRED** schema | [Schema Object](#schema-object) | Schema that describes the content.
+<a name="content-descriptor-schema"></a>schema | [Schema Object](#schema-object) | **REQUIRED**. Schema that describes the content.
 <a name="content-descriptor-deprecated"></a>deprecated | `boolean` | Specifies that the content is deprecated and SHOULD be transitioned out of usage. Default value is `false`.
 
 This object MAY be extended with [Specification Extensions](#specification-extensions).
@@ -300,7 +299,7 @@ For computing links, and providing instructions to execute them, a [runtime expr
 
 Field Name  |  Type  | Description
 ---|:---:|---
-<a name="link-name"></a>**REQUIRED** name | `string` | Cannonical name of the link.
+<a name="link-name"></a>name | `string` | **REQUIRED**. Cannonical name of the link.
 <a name="link-description"></a>description  | `string` | A description of the link. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
 <a name="link-summary"></a>summary | `string` | Short description for the link.
 <a name="link-method"></a>method | `string` | The name of an _existing_, resolvable OpenRPC method, as defined with a unique `method`. This field MUST resolve to a unique [Method Object](#method-object). As opposed to Open Api, Relative `method` values  ARE NOT permitted.
@@ -395,16 +394,6 @@ Field Name | Type | Description
 <a name="reference-ref"></a>$ref | `string` | **REQUIRED**. The reference string.
 
 This object cannot be extended with additional properties and any properties added SHALL be ignored.
-
-## oneOf Object
-
-A simple object allowing for conditional content descriptors. It MUST only be used in place of a content descriptor. It specifies that the content descriptor in question must match one of the listed content descriptors. This allows you to define content descriptors more granularly, without having to rely so heavily on json schemas.
-
-The oneOf Object is defined by [JSON Schema](http://json-schema.org/latest/json-schema-validation.html#rfc.section.6.7.3) and follows the same structure, behavior and rules.
-
-Field Name | Type | Description
----|:---:|---
-<a name="oneof-oneof"></a>oneOf | [Content Descriptor](#content-descriptor-object) | **REQUIRED**. The reference string.
 
 ## Specification Extensions
 
