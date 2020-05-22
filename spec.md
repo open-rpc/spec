@@ -266,7 +266,7 @@ For computing links, and providing instructions to execute them, a [runtime expr
 
 Field Name  |  Type  | Description
 ---|:---:|---
-<a name="link-name"></a>**REQUIRED** name | `string` | Cannonical name of the link.
+<a name="link-name"></a>name | `string` | **REQUIRED**. Cannonical name of the link.
 <a name="link-description"></a>description  | `string` | A description of the link. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
 <a name="link-summary"></a>summary | `string` | Short description for the link.
 <a name="link-method"></a>method | `string` | The name of an _existing_, resolvable OpenRPC method, as defined with a unique `method`. This field MUST resolve to a unique [Method Object](#method-object). As opposed to Open Api, Relative `method` values  ARE NOT permitted.
