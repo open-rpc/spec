@@ -16,14 +16,14 @@
   ],
   "prepare": [
     "@semantic-release/changelog",
-    "@semantic-release/git",
     "@semantic-release/npm",
     [
       "@semantic-release/exec",
       {
         "prepareCmd": "./bin/build.sh"
       }
-    ]
+    ],
+    "@semantic-release/git"
   ],
   "publish": [
     ["@semantic-release/github", {
