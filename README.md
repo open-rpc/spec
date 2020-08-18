@@ -27,4 +27,4 @@ How to contribute, build and release are outlined in [CONTRIBUTING.md](CONTRIBUT
 
 ## Contact
 
-To get in touch, drop into the [ETC labs discord](https://discord.gg/jh8n9np) and head to the #open-rpc channel.
+To get in touch, drop into the [OpenRPC discord](https://discord.gg/gREUKuF).
