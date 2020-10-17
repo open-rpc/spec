@@ -1,6 +1,9 @@
 <p align="center">
   <img alt="open-rpc logo" src="https://github.com/open-rpc/design/blob/master/png/open-rpc-logo-320x320.png?raw=true" />
+</p>
 
+<p align="center">
+  Join us on [Discord](https://discord.gg/gREUKuF)!
 </p>
 
 # The OpenRPC Specification Repository
@@ -27,4 +30,4 @@ How to contribute, build and release are outlined in [CONTRIBUTING.md](CONTRIBUT
 
 ## Contact
 
-To get in touch, drop into the [OpenRPC discord](https://discord.gg/gREUKuF).
+Need help or have a question? Join us on [Discord](https://discord.gg/gREUKuF)!
