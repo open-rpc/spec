@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  Join us on [Discord](https://discord.gg/gREUKuF)!
+  Join us on <a href="https://discord.gg/gREUKuF">Discord</a>!
 </p>
 
 # The OpenRPC Specification Repository
