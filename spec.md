@@ -241,7 +241,7 @@ This object MAY be extended with [Specification Extensions](#specification-exten
 
 #### Example Object
 
-The Example object is an object that defines an example that is intended to match a given [Content Descriptor Schema](#content-descriptor-schema). If the [Content Descriptor Schema](#content-descriptor-schema) includes `examples`, the value from *this* [Example Object](#example-object) supercedes the value of the schema example.
+The Example object is an object that defines an example that is intended to match a given [Content Descriptor Schema](#content-descriptor-schema). If the [Content Descriptor Schema](#content-descriptor-schema) includes `examples`, the value from *this* [Example Object](#example-object) supersedes the value of the schema example.
 
 Field Name | Type | Description
 ---|:---:|---
