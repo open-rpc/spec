@@ -227,7 +227,7 @@ This object MAY be extended with [Specification Extensions](#specification-exten
 
 ### Example Pairing Object
 
-The example Pairing object consists of a set of example params and result. The result is what you can expect from the JSON-RPC service given the exact params.
+The Example Pairing object consists of a set of example params and result. The result is what you can expect from the JSON-RPC service given the exact params.
 
 Field Name | Type | Description
 ---|:---:|---
@@ -241,7 +241,7 @@ This object MAY be extended with [Specification Extensions](#specification-exten
 
 #### Example Object
 
-The Example object is an object that defines an example that is intended to match a given [Content Descriptor Schema](#content-descriptor-schema). If the [Content Descriptor Schema](#content-descriptor-schema) includes `examples`, the value from *this* [Example Object](#example-object) supersedes the value of the schema example.
+The Example object is an object that defines an example that is intended to match the `schema` of a given [Content Descriptor](#content-descriptor-schema).
 
 Field Name | Type | Description
 ---|:---:|---
