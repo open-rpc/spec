@@ -241,7 +241,7 @@ This object MAY be extended with [Specification Extensions](#specification-exten
 
 #### Example Object
 
-The Example object is an object that defines an example that is intended to match the `schema` of a given [Content Descriptor](#content-descriptor-schema). 
+The Example object is an object that defines an example that is intended to match the `schema` of a given [Content Descriptor](#content-descriptor-schema).
 
 Field Name | Type | Description
 ---|:---:|---
