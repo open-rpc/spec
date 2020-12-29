@@ -123,6 +123,7 @@ The metadata MAY be used by the clients if needed, and MAY be presented in editi
 Field Name | Type | Description
 ---|:---:|---
 <a name="info-title"></a>title | `string` | **REQUIRED**. The title of the application.
+<a name="info-logoUrl"></a>logoUrl | `string` | A URL to the logo of the application.
 <a name="info-description"></a>description | `string` | A verbose description of the application. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
 <a name="info-termsofservice"></a>termsOfService | `string` | A URL to the Terms of Service for the API. MUST be in the format of a URL.
 <a name="info-contact"></a>contact | [Contact Object](#contact-object) | The contact information for the exposed API.
