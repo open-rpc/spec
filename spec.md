@@ -227,7 +227,7 @@ This object MAY be extended with [Specification Extensions](#specification-exten
 
 ### Example Pairing Object
 
-The Example Pairing object consists of a set of example params and result. The result is what you can expect from the JSON-RPC service given the exact params. JSON-Schema examples MAY be used as a fallback for Example Pairings.
+The Example Pairing object consists of a set of example params and result. The result is what you can expect from the JSON-RPC service given the exact params. JSON Schema examples MAY be used as a fallback for Example Pairings.
 
 Field Name | Type | Description
 ---|:---:|---
