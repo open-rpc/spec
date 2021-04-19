@@ -354,7 +354,7 @@ This object MAY be extended with [Specification Extensions](#specification-exten
 
 A simple object to allow referencing other components in the specification, internally and externally.
 
-The Reference Object is defined by [JSON Schema](https://json-schema.org/latest/json-schema-core.html#rfc.section.8.3) and follows the same structure, behavior and rules.
+The Reference Object is defined by [JSON Schema](https://json-schema.org/draft-07/json-schema-core.html#rfc.section.8.3) and follows the same structure, behavior and rules.
 
 Field Name | Type | Description
 ---|:---:|---
