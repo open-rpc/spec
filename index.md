@@ -1,4 +1,4 @@
-# OpenRPC Specification
+# SamkenXstreamRPC Specification
 
 Version 1.2.6
 
