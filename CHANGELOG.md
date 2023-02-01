@@ -1,3 +1,26 @@
+# [1.3.0](https://github.com/open-rpc/spec/compare/1.2.6...1.3.0) (2023-02-01)
+
+
+### Bug Fixes
+
+* bump node version and update circle config ([52403aa](https://github.com/open-rpc/spec/commit/52403aabd8eb0a2a6cd52ecfe10d7e48b9b4dcde))
+* dont point to latest json schema  ([114202c](https://github.com/open-rpc/spec/commit/114202cf52ce1b0d196d816551aec2e64f0e4230)), closes [#330](https://github.com/open-rpc/spec/issues/330)
+* follow conventional capitalization pattern ([bb3b838](https://github.com/open-rpc/spec/commit/bb3b838d61f2c5c5cf194183ea6015d76e54bdb5))
+* markdown inside html doenst work ([664eec1](https://github.com/open-rpc/spec/commit/664eec189eb19f684913b8517f82ab4c1a2b6bc1))
+* missing bracket  ([8f6e649](https://github.com/open-rpc/spec/commit/8f6e6497d45a5d15db1c389ff1cb1992334887fe))
+* re-order release perparation steps ([4893ac8](https://github.com/open-rpc/spec/commit/4893ac88b623b6af188c500c7d6445734252aa2d)), closes [#292](https://github.com/open-rpc/spec/issues/292)
+* remove example object referencing content descriptor use ([b9f00de](https://github.com/open-rpc/spec/commit/b9f00de8d48494944b04762bca0095cfffab9b91)), closes [/github.com/open-rpc/spec/issues/315#issuecomment-718258896](https://github.com//github.com/open-rpc/spec/issues/315/issues/issuecomment-718258896)
+* s/supercedes/supersedes/ ([91533e3](https://github.com/open-rpc/spec/commit/91533e30e997581ba84c2966c500c30afb92d59b))
+* shamelessly add funding link via open collective ([c3f8de2](https://github.com/open-rpc/spec/commit/c3f8de27cd85d19fd68e1e5fa65b8213e935ca88))
+* typo in Example Object ([c551b21](https://github.com/open-rpc/spec/commit/c551b2128d40a333ed307ae7c608f065e77fe505))
+* update discord link ([d75ceeb](https://github.com/open-rpc/spec/commit/d75ceeb6a8ee23fcb29e83993c4cb3e4016d745a))
+* update labler to v4 ([cd3ac52](https://github.com/open-rpc/spec/commit/cd3ac52959f97ced96c7a7c38983e4b0771879e7))
+
+
+### Features
+
+* add support for strict notification methods ([a9a3091](https://github.com/open-rpc/spec/commit/a9a30917983c1efe417cd72825559896db19fbe1)), closes [#230](https://github.com/open-rpc/spec/issues/230)
+
 ## [1.2.6](https://github.com/open-rpc/spec/compare/1.2.5...1.2.6) (2020-05-22)
 
 
