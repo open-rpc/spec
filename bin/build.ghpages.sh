@@ -21,7 +21,7 @@ const filterAsset = (asset) => {
 }
 
 const build = async () => {
-  const buildDir = "./build/ghpages/";
+  const buildDir = "./build/ghpages";
 
   await fsx.ensureDir(buildDir);
   await fsx.emptyDir(buildDir);
@@ -31,17 +31,25 @@ const build = async () => {
   const previousVersions = await readdir(buildDir);
 
   await Promise.all(previousVersions.map(async (version) => {
-    const dirName = `${buildDir}${version}`;
+    const dirName = `${buildDir}/${version}`;
     const [filename] = await readdir(dirName);
     await fsx.move(`${dirName}/${filename}`, `${dirName}/index.md`);
   }));
 
+
+
   await buildMarkdown();
   const markdownBuildFilename = "./build/markdown/spec.md";
-  const latestVersionFolderName = `${buildDir}/${specVersion}`;
+  let latestVersionFolderName = `${buildDir}/${specVersion}`;
 
   await mkdir(`${buildDir}/latest`);
-  await mkdir(latestVersionFolderName);
+  try {
+    await mkdir(latestVersionFolderName);
+  } catch (e) {
+    console.log(`latest version already exists as a release on github: ${latestVersionFolderName}`);
+    latestVersionFolderName = `${buildDir}/development`;
+    await mkdir(latestVersionFolderName);
+  }
   await copyFile(markdownBuildFilename, `${buildDir}/index.md`);
   await copyFile(markdownBuildFilename, `${buildDir}/latest/index.md`);
   await copyFile("./build/markdown/spec.md", `${latestVersionFolderName}/spec.md`);
