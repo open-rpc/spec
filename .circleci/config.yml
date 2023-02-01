@@ -28,7 +28,7 @@ aliases:
 defaults: &defaults
   working_directory: ~/spec
   docker:
-    - image: circleci/node:10
+    - image: cimg/node:18.13.0
 
 jobs:
   test:
@@ -72,5 +72,6 @@ workflows:
             - test
       - release:
           filters: *filter-only-master
+          context: open-rpc-deployer
           requires:
             - hold
