@@ -1,6 +1,6 @@
 # OpenRPC Specification
 
-Version 1.2.6
+Version 1.3.0
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [BCP 14](https://tools.ietf.org/html/bcp14) [RFC2119](https://tools.ietf.org/html/rfc2119) [RFC8174](https://tools.ietf.org/html/rfc8174) when, and only when, they appear in all capitals, as shown here.
 
@@ -114,6 +114,7 @@ JSON-RPC APIs can support the OpenRPC specification by implementing a service di
     {
       "name": "rpc.discover",
       "description": "Returns an OpenRPC schema as a description of this service",
+      "params": [],
       "result": {
         "name": "OpenRPC Schema",
         "schema": {
@@ -224,8 +225,8 @@ Field Name | Type | Description
 <a name="method-summary"></a>summary | `string` | A short summary of what the method does.
 <a name="method-description"></a>description | `string` | A verbose explanation of the method behavior. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
 <a name="method-externalDocs"></a>externalDocs | [External Documentation Object](#external-documentation-object) | Additional external documentation for this method.
-<a name="method-params"></a>params | [[Content Descriptor](#content-descriptor-object) \| [Reference Object](#reference-object) | **REQUIRED**. A list of parameters that are applicable for this method. The list MUST NOT include duplicated parameters and therefore require [name](#content-descriptor-name) to be unique. The list can use the [Reference Object](#reference-object) to link to parameters that are defined by the [Content Descriptor Object](#content-descriptor-object). All optional params (content descriptor objects with "required": false) MUST be positioned after all required params in the list.
-<a name="method-result"></a>result | [Content Descriptor](#content-descriptor-object) \| [Reference Object](#reference-object) | **REQUIRED**. The description of the result returned by the method. It MUST be a Content Descriptor.
+<a name="method-params"></a>params | [[Content Descriptor](#content-descriptor-object) \| [Reference Object](#reference-object)] | **REQUIRED**. A list of parameters that are applicable for this method. The list MUST NOT include duplicated parameters and therefore require [name](#content-descriptor-name) to be unique. The list can use the [Reference Object](#reference-object) to link to parameters that are defined by the [Content Descriptor Object](#content-descriptor-object). All optional params (content descriptor objects with "required": false) MUST be positioned after all required params in the list.
+<a name="method-result"></a>result | [Content Descriptor](#content-descriptor-object) \| [Reference Object](#reference-object) | The description of the result returned by the method. If defined, it MUST be a Content Descriptor or Reference Object. If undefined, the method MUST only be used as a [notification](https://www.jsonrpc.org/specification#notification).
 <a name="method-deprecated"></a>deprecated | `boolean` | Declares this method to be deprecated. Consumers SHOULD refrain from usage of the declared method. Default value is `false`.
 <a name="method-servers"></a>servers | [[Server Object](#server-object)] | An alternative `servers` array to service this method. If an alternative `servers` array is specified at the Root level, it will be overridden by this value.
 <a name="method-errors"></a>errors | [[Error Object](#error-object) \| [Reference Object](#reference-object)] | A list of custom application defined errors that MAY be returned. The Errors MUST have unique error codes.
@@ -260,7 +261,7 @@ This object MAY be extended with [Specification Extensions](#specification-exten
 
 ### Example Pairing Object
 
-The example Pairing object consists of a set of example params and result. The result is what you can expect from the JSON-RPC service given the exact params.
+The Example Pairing object consists of a set of example params and result. The result is what you can expect from the JSON-RPC service given the exact params.
 
 Field Name | Type | Description
 ---|:---:|---
@@ -274,7 +275,7 @@ This object MAY be extended with [Specification Extensions](#specification-exten
 
 #### Example Object
 
-The Example object is an object the defines an example that is intended to match a given [Content Descriptor Schema](#content-descriptor-schema). If the [Content Descriptor Schema](#content-descriptor-schema) includes `examples`, the value from *this* [Example Object](#example-object) supercedes the value of the schema example.
+The Example object is an object that defines an example that is intended to match the `schema` of a given [Content Descriptor](#content-descriptor-schema).
 
 Field Name | Type | Description
 ---|:---:|---
@@ -387,7 +388,7 @@ This object MAY be extended with [Specification Extensions](#specification-exten
 
 A simple object to allow referencing other components in the specification, internally and externally.
 
-The Reference Object is defined by [JSON Schema](https://json-schema.org/latest/json-schema-core.html#rfc.section.8.3) and follows the same structure, behavior and rules.
+The Reference Object is defined by [JSON Schema](https://json-schema.org/draft-07/json-schema-core.html#rfc.section.8.3) and follows the same structure, behavior and rules.
 
 Field Name | Type | Description
 ---|:---:|---
