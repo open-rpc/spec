@@ -1,3 +1,11 @@
+## [1.3.1](https://github.com/open-rpc/spec/compare/1.3.0...1.3.1) (2023-02-06)
+
+
+### Bug Fixes
+
+* add a note about examplePairingObject.result being undefined ([30aee1b](https://github.com/open-rpc/spec/commit/30aee1b5186d623f197b4f31cb6152bc0bbd23c0))
+* tests borked up ([5f73e6e](https://github.com/open-rpc/spec/commit/5f73e6e157b01b17a7790050c886e70957b4646a))
+
 # [1.3.0](https://github.com/open-rpc/spec/compare/1.2.6...1.3.0) (2023-02-01)
 
 
