@@ -232,10 +232,10 @@ The Example Pairing object consists of a set of example params and result. The r
 
 Field Name | Type | Description
 ---|:---:|---
-<a name="example-pairing-name"></a>name | `string` | Name for the example pairing.
+<a name="example-pairing-name"></a>name | `string` | **REQUIRED** Name for the example pairing.
 <a name="example-pairing-description"></a>description | `string` | A verbose explanation of the example pairing.
 <a name="example-pairing-summary"></a>summary | `string` | Short description for the example pairing.
-<a name="example-pairing-params"></a>params | [[Example Object](#example-object) \| [Reference Object](#reference-object)] | Example parameters.
+<a name="example-pairing-params"></a>params | [[Example Object](#example-object) \| [Reference Object](#reference-object)] | **REQUIRED** Example parameters.
 <a name="example-result"></a>result | [Example Object](#example-object) \| [Reference Object](#reference-object) | Example result. When undefined, the example pairing represents usage of the method as a notification.
 
 This object MAY be extended with [Specification Extensions](#specification-extensions).
