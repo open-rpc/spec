@@ -1,3 +1,10 @@
+## [1.3.2](https://github.com/open-rpc/spec/compare/1.3.1...1.3.2) (2023-07-04)
+
+
+### Bug Fixes
+
+* examplePairingObject.name and params are required in the metaschema ([3cdace9](https://github.com/open-rpc/spec/commit/3cdace9c208d2874d0b966c73687defc7ba40990))
+
 ## [1.3.1](https://github.com/open-rpc/spec/compare/1.3.0...1.3.1) (2023-02-06)
 
 
