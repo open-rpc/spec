@@ -1,6 +1,6 @@
 # OpenRPC Specification
 
-Version 1.3.1
+Version 1.3.2
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [BCP 14](https://tools.ietf.org/html/bcp14) [RFC2119](https://tools.ietf.org/html/rfc2119) [RFC8174](https://tools.ietf.org/html/rfc8174) when, and only when, they appear in all capitals, as shown here.
 
@@ -232,7 +232,7 @@ Field Name | Type | Description
 <a name="method-errors"></a>errors | [[Error Object](#error-object) \| [Reference Object](#reference-object)] | A list of custom application defined errors that MAY be returned. The Errors MUST have unique error codes.
 <a name="method-links"></a>links | [[Link Object](#link-object) \| [Reference Object](#reference-object)] | A list of possible links from this method call.
 <a name="method-param-structure"></a>paramStructure | `"by-name"` \| `"by-position"` \| `"either"` | The expected format of the parameters. [As per the JSON-RPC 2.0 specification](https://www.jsonrpc.org/specification#parameter_structures), the params of a [JSON-RPC request object](https://www.jsonrpc.org/specification#request_object) may be an array, object, or either (represented as `by-position`, `by-name`, and `either` respectively). When a method has a `paramStructure` value of `by-name`, callers of the method MUST send a [JSON-RPC request object](https://www.jsonrpc.org/specification#request_object) whose `params` field is an object. Further, the key names of the `params` object MUST be the same as the [`contentDescriptor.name`](#content-descriptor-name)s for the given method. Defaults to `"either"`.
-<a name="method-examples"></a>examples | [[Example Pairing Object](#example-pairing-object)] | Array of [Example Pairing Object](#example-pairing-object) where each example includes a valid params-to-result [Content Descriptor](#content-descriptor-object) pairing.
+<a name="method-examples"></a>examples | [[Example Pairing Object](#example-pairing-object) \| [Reference Object](#reference-object)] | Array of [Example Pairing Objects](#example-pairing-object) where each example includes a valid params-to-result [Content Descriptor](#content-descriptor-object) pairing.
 
 This object MAY be extended with [Specification Extensions](#specification-extensions).
 
@@ -265,10 +265,10 @@ The Example Pairing object consists of a set of example params and result. The r
 
 Field Name | Type | Description
 ---|:---:|---
-<a name="example-pairing-name"></a>name | `string` | Name for the example pairing.
+<a name="example-pairing-name"></a>name | `string` | **REQUIRED** Name for the example pairing.
 <a name="example-pairing-description"></a>description | `string` | A verbose explanation of the example pairing.
 <a name="example-pairing-summary"></a>summary | `string` | Short description for the example pairing.
-<a name="example-pairing-params"></a>params | [[Example Object](#example-object) \| [Reference Object](#reference-object)] | Example parameters.
+<a name="example-pairing-params"></a>params | [[Example Object](#example-object) \| [Reference Object](#reference-object)] | **REQUIRED** Example parameters.
 <a name="example-result"></a>result | [Example Object](#example-object) \| [Reference Object](#reference-object) | Example result. When undefined, the example pairing represents usage of the method as a notification.
 
 This object MAY be extended with [Specification Extensions](#specification-extensions).
