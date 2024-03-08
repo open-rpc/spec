@@ -1,3 +1,5 @@
+# The OpenRPC Specification Repository
+
 <p align="center">
   <img alt="open-rpc logo" src="https://github.com/open-rpc/design/blob/master/png/open-rpc-logo-320x320.png?raw=true" />
 </p>
@@ -5,8 +7,6 @@
 <p align="center">
   Join us on <a href="https://discord.gg/gREUKuF">Discord</a>!
 </p>
-
-# The OpenRPC Specification Repository
 
 ## Purpose of this Repository
 
