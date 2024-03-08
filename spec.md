@@ -176,7 +176,7 @@ An object representing a Server Variable for server URL template substitution.
 Field Name | Type | Description
 ---|:---:|---
 <a name="server-variable-enum"></a>enum | `[string]` | An enumeration of string values to be used if the substitution options are from a limited set.
-<a name="server-variable-default"></a>default | `string` |  **REQUIRED**. The default value to use for substitution, which SHALL be sent if an alternate value is _not_ supplied. Note this behavior is different than the [Schema Object's](#schema-object) treatment of default values, because in those cases parameter values are optional.
+<a name="server-variable-default"></a>default | `string` |  **REQUIRED**. The default value to use for substitution, which SHALL be sent if an alternate value is *not* supplied. Note this behavior is different than the [Schema Object's](#schema-object) treatment of default values, because in those cases parameter values are optional.
 <a name="server-variable-description"></a>description | `string` | An optional description for the server variable. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
 
 This object MAY be extended with [Specification Extensions](#specification-extensions).
@@ -209,7 +209,7 @@ Content Descriptors are objects that do just as they suggest - describe content.
 
 Field Name | Type | Description
 ---|:---:|---
-<a name="content-descriptor-name"></a>name | `string` | **REQUIRED**. Name of the content that is being described. If the content described is a method parameter assignable [`by-name`](#method-param-structure), this field SHALL define the parameter's key (_ie_ name).
+<a name="content-descriptor-name"></a>name | `string` | **REQUIRED**. Name of the content that is being described. If the content described is a method parameter assignable [`by-name`](#method-param-structure), this field SHALL define the parameter's key (*ie* name).
 <a name="content-descriptor-summary"></a>summary | `string` | A short summary of the content that is being described.
 <a name="content-descriptor-description"></a>description | `string` | A verbose explanation of the content descriptor behavior. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
 <a name="content-descriptor-required"></a>required | `boolean` | Determines if the content is a required field. Default value is `false`.
@@ -261,7 +261,7 @@ In all cases, the example value is expected to be compatible with the type schem
 The `Link object` represents a possible design-time link for a result.
 The presence of a link does not guarantee the caller's ability to successfully invoke it, rather it provides a known relationship and traversal mechanism between results and other methods.
 
-Unlike _dynamic_ links (i.e. links provided **in** the result payload), the OpenRPC linking mechanism does not require link information in the runtime result.
+Unlike *dynamic* links (i.e. links provided **in** the result payload), the OpenRPC linking mechanism does not require link information in the runtime result.
 
 For computing links, and providing instructions to execute them, a [runtime expression](#runtime-expression) is used for accessing values in an method and using them as parameters while invoking the linked method.
 
@@ -270,7 +270,7 @@ Field Name  |  Type  | Description
 <a name="link-name"></a>name | `string` | **REQUIRED**. Cannonical name of the link.
 <a name="link-description"></a>description  | `string` | A description of the link. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
 <a name="link-summary"></a>summary | `string` | Short description for the link.
-<a name="link-method"></a>method | `string` | The name of an _existing_, resolvable OpenRPC method, as defined with a unique `method`. This field MUST resolve to a unique [Method Object](#method-object). As opposed to Open Api, Relative `method` values  ARE NOT permitted.
+<a name="link-method"></a>method | `string` | The name of an *existing*, resolvable OpenRPC method, as defined with a unique `method`. This field MUST resolve to a unique [Method Object](#method-object). As opposed to Open Api, Relative `method` values  ARE NOT permitted.
 <a name="link-parameters"></a>params   | Map[`string`, `Any` \| [Runtime Expression](#runtime-expression)] | A map representing parameters to pass to a method as specified with `method`. The key is the parameter name to be used, whereas the value can be a constant or a [runtime expression](#runtime-expression) to be evaluated and passed to the linked method.
 <a name="link-server"></a>server | [Server Object](#server-object) | A server object to be used by the target method.
 
