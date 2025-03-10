@@ -404,6 +404,16 @@ The extensions properties are implemented as patterned fields that are always pr
 
 Field Pattern | Type | Description
 ---|:---:|---
-<a name="info-extensions"></a>^x- | Any | Allows extensions to the OpenRPC Schema. The field name MUST begin with `x-`, for example, `x-internal-id`. The value can be `null`, a primitive, an array or an object. Can have any valid JSON format value.
+<a name="info-extensions"></a>^x- | Any | Allows extensions to the OpenRPC Schema. The field name MUST begin with `x-`, for example, `x-internal-id`. The value can be `n![1000000972](https://github.com/user-attachments/assets/cb3cbd06-d1ff-479
+
+
+
+
+
+
+5-b7d4-e27d3237494d)
+![1000002612](https://github.com/user-attachments/assets/b4a43afa-b600-43b6-b02c-8967eedb55e2)
+![1000002173](https://github.com/user-attachments/assets/ea5df0e1-5ba4-430c-b704-d5a667446a0c)
+ull`, a primitive, an array or an object. Can have any valid JSON format value.
 
 The extensions may or may not be supported by the available tooling, but those may be extended as well to add requested support (if tools are internal or open-sourced).
