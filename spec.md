@@ -196,6 +196,7 @@ Field Name | Type | Description
 <a name="method-result"></a>result | [Content Descriptor](#content-descriptor-object) \| [Reference Object](#reference-object) | The description of the result returned by the method. If defined, it MUST be a Content Descriptor or Reference Object. If undefined, the method MUST only be used as a [notification](https://www.jsonrpc.org/specification#notification).
 <a name="method-deprecated"></a>deprecated | `boolean` | Declares this method to be deprecated. Consumers SHOULD refrain from usage of the declared method. Default value is `false`.
 <a name="method-servers"></a>servers | [[Server Object](#server-object)] | An alternative `servers` array to service this method. If an alternative `servers` array is specified at the Root level, it will be overridden by this value.
+<a name="method-error-groups"></a>errorGroups | [[Error Group Object](#error-group-object) \| [Reference Object](#reference-object)] | A list of error groups applied to this method.
 <a name="method-errors"></a>errors | [[Error Object](#error-object) \| [Reference Object](#reference-object)] | A list of custom application defined errors that MAY be returned. The Errors MUST have unique error codes.
 <a name="method-links"></a>links | [[Link Object](#link-object) \| [Reference Object](#reference-object)] | A list of possible links from this method call.
 <a name="method-param-structure"></a>paramStructure | `"by-name"` \| `"by-position"` \| `"either"` | The expected format of the parameters. [As per the JSON-RPC 2.0 specification](https://www.jsonrpc.org/specification#parameter_structures), the params of a [JSON-RPC request object](https://www.jsonrpc.org/specification#request_object) may be an array, object, or either (represented as `by-position`, `by-name`, and `either` respectively). When a method has a `paramStructure` value of `by-name`, callers of the method MUST send a [JSON-RPC request object](https://www.jsonrpc.org/specification#request_object) whose `params` field is an object. Further, the key names of the `params` object MUST be the same as the [`contentDescriptor.name`](#content-descriptor-name)s for the given method. Defaults to `"either"`.
@@ -307,6 +308,18 @@ Field Name | Type | Description
 <a name="error-code"></a>code | [Application Defined Error Code](https://www.jsonrpc.org/specification#response_object) | **REQUIRED**. A Number that indicates the error type that occurred. This MUST be an integer. The error codes from and including -32768 to -32000 are reserved for pre-defined errors. These pre-defined errors SHOULD be assumed to be returned from any JSON-RPC api.
 <a name="error-message"></a>message | `string` | **REQUIRED**. A String providing a short description of the error. The message SHOULD be limited to a concise single sentence.
 <a name="error-data"></a>data | `any` | A Primitive or Structured value that contains additional information about the error. This may be omitted. The value of this member is defined by the Server (e.g. detailed error information, nested errors etc.).
+### Error Group Object
+
+Defines a reusable collection of errors.
+
+Field Name | Type | Description
+---|:---:|---
+<a name="error-group-errors"></a>errors | [[Error Object](#error-object) \| [Reference Object](#reference-object)] | **REQUIRED**. Errors that are included in this group.
+<a name="error-group-summary"></a>summary | `string` | A short summary for the group.
+<a name="error-group-description"></a>description | `string` | A verbose explanation of the error group. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
+
+This object MAY be extended with [Specification Extensions](#specification-extensions).
+
 
 ## Components Object
 
@@ -320,6 +333,7 @@ Field Name | Type | Description
 <a name="components-examples"></a>examples | Map[`string`, [Example Object](#example-object)] | An object to hold reusable [Example Objects](#example-object).
 <a name="components-links"></a> links | Map[`string`, [Link Object](#link-object)] | An object to hold reusable [Link Objects](#link-object).
 <a name="components-errors"></a>errors | Map[`string`, [Error Object](#error-object)] | An object to hold reusable [Error Objects](#error-object).
+<a name="components-error-groups"></a>errorGroups | Map[`string`, [Error Group Object](#error-group-object)] | An object to hold reusable [Error Group Objects](#error-group-object).
 <a name="components-example-pairing-objects"></a>examplePairingObjects | Map[`string`, [Example Pairing Object](#example-pairing-object)] | An object to hold reusable [Example Pairing Objects](#example-pairing-object).
 <a name="components-tags"></a>tags | Map[`string`, [Tag Object](#tag-object)] | An object to hold reusable [Tag Objects](#tag-object).
 
