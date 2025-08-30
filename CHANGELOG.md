@@ -1,3 +1,10 @@
+## [1.4.0](https://github.com/open-rpc/spec/compare/1.3.2...1.4.0) (2025-06-20)
+
+
+### Features
+
+* add `streaming` field to Method Object allowing multiple results for the same request ID
+
 ## [1.3.2](https://github.com/open-rpc/spec/compare/1.3.1...1.3.2) (2023-07-04)
 
 
