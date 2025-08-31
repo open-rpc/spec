@@ -111,6 +111,7 @@ Field Name | Type | Description
 <a name="openrpc-info"></a>info | [Info Object](#info-object) | **REQUIRED**. Provides metadata about the API. The metadata MAY be used by tooling as required.
 <a name="openrpc-servers"></a>servers | [[Server Object](#server-object)] | An array of Server Objects, which provide connectivity information to a target server. If the `servers` property is not provided, or is an empty array, the default value would be a [Server Object](#server-object) with a [url](#server-url) value of `localhost`.
 <a name="openrpc-methods"></a>methods | [[Method Object](#method-object) \| [Reference Object](#reference-object)] | **REQUIRED**. The available methods for the API. While it is required, the array may be empty (to handle security filtering, for example).
+<a name="openrpc-listeners"></a>listeners | [[Method Object](#method-object) \| [Reference Object](#reference-object)] | A list of client-side listener methods that the server MAY call as callbacks.
 <a name="openrpc-components"></a>components | [Components Object](#components-object) | An element to hold various schemas for the specification.
 <a name="openrpcExternalDocs"></a>externalDocs | [External Documentation Object](#external-documentation-object) | Additional external documentation.
 
