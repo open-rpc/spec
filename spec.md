@@ -23,9 +23,9 @@ Use cases for machine-readable JSON-RPC API definition documents include, but ar
 - servers
 - automation of test cases.
 
-OpenRPC documents describe a JSON-RPC APIs services and are represented in JSON format. These documents may either be produced and served statically or be generated dynamically from an application.
+OpenRPC documents describe a JSON-RPC APIs services and are represented in JSON format. These documents can either be produced and served statically or be generated dynamically from an application.
 
-The OpenRPC Specification does not require rewriting existing JSON-RPC APIs. It does not require binding any software to a service — the service being described may not even be owned by the creator of its description. It does, however, require the capabilities of the service be described in the structure of the OpenRPC Specification. Not all services can be described by OpenRPC — this specification is not intended to cover REST APIs - It is exclusively for APIs which adhere to the JSON-RPC 2.0 spec. The OpenRPC Specification does not mandate a specific development process such as design-first or code-first. It does facilitate either technique by establishing clear interactions with a JSON-RPC API.
+The OpenRPC Specification does not require rewriting existing JSON-RPC APIs. It does not require binding any software to a service — the service being described might not even be owned by the creator of its description. It does, however, require the capabilities of the service be described in the structure of the OpenRPC Specification. Not all services can be described by OpenRPC — this specification is not intended to cover REST APIs - It is exclusively for APIs which adhere to the JSON-RPC 2.0 spec. The OpenRPC Specification does not mandate a specific development process such as design-first or code-first. It does facilitate either technique by establishing clear interactions with a JSON-RPC API.
 
 # Definitions
 
@@ -53,11 +53,11 @@ The `major.minor` portion of the semver (for example `1.0.x`) SHALL designate th
 
 Subsequent minor version releases of the OpenRPC Specification (incrementing the `minor` version number) SHOULD NOT interfere with tooling developed to a lower minor version and same major version.  Thus a hypothetical `1.1.0` specification SHOULD be usable with tooling designed for `1.0.0`.
 
-An OpenRPC document compatible with OpenRPC 1.0.0 contains a required [`openrpc`](#openrpc-version) field which designates the semantic version of the OpenRPC that it uses.
+An OpenRPC document compatible with OpenRPC 1.0.0 MUST contain an [`openrpc`](#openrpc-version) field which designates the semantic version of the OpenRPC that it uses.
 
 # Format
 
-An OpenRPC document that conforms to the OpenRPC Specification is itself a JSON object, which must be represented in JSON format. Due to the nature of JSON-RPC APIs using JSON formats, strictly use JSON only [as described here](https://tools.ietf.org/html/rfc7159). If you wish to use any other format than JSON, it should be converted outside of any OpenRPC tooling.
+An OpenRPC document that conforms to the OpenRPC Specification is itself a JSON object, which MUST be represented in JSON format. Due to the nature of JSON-RPC APIs using JSON formats, strictly use JSON only [as described here](https://tools.ietf.org/html/rfc7159). If you wish to use any other format than JSON, it MUST be converted outside of any OpenRPC tooling.
 
 It is RECOMMENDED that the OpenRPC document be named: `openrpc.json`. Tooling that requires an OpenRPC document as input MAY assume the default document location to be `./openrpc.json`, where the `./` represents the current working directory.
 
@@ -99,7 +99,7 @@ Example OpenRPC documents can be found in the [OpenRPC Examples Repository](http
 
 # Meta JSON Schema
 
-Validating an OpenRPC document can be accomplished using the OpenRPC MetaSchema. The OpenRPC MetaSchema is based on the [Draft 07 JSON Schema](https://json-schema.org/draft-07/schema), and may be used as a JSON meta-schema for various tooling use. Each field in the Specification MUST be included in the OpenRPC MetaSchema, including all constraints that are possible to model with [Draft 07 JSON Schema](https://json-schema.org/draft-07/schema).
+Validating an OpenRPC document can be accomplished using the OpenRPC MetaSchema. The OpenRPC MetaSchema is based on the [Draft 07 JSON Schema](https://json-schema.org/draft-07/schema), and MAY be used as a JSON meta-schema for various tooling use. Each field in the Specification MUST be included in the OpenRPC MetaSchema, including all constraints that are possible to model with [Draft 07 JSON Schema](https://json-schema.org/draft-07/schema).
 
 # OpenRPC Object
 
@@ -108,9 +108,9 @@ This is the root object of the [OpenRPC document](#openrpc-document). The conten
 Field Name | Type | Description
 ---|:---:|---
 <a name="openrpc-version"></a>openrpc | `string` | **REQUIRED**. This string MUST be the [semantic version number](https://semver.org/spec/v2.0.0.html) of the [OpenRPC Specification version](#versions) that the OpenRPC document uses. The `openrpc` field SHOULD be used by tooling specifications and clients to interpret the OpenRPC document. This is *not* related to the API [`info.version`](#info-version) string.
-<a name="openrpc-info"></a>info | [Info Object](#info-object) | **REQUIRED**. Provides metadata about the API. The metadata MAY be used by tooling as required.
+<a name="openrpc-info"></a>info | [Info Object](#info-object) | **REQUIRED**. Provides metadata about the API. The metadata MAY be used by tooling as necessary.
 <a name="openrpc-servers"></a>servers | [[Server Object](#server-object)] | An array of Server Objects, which provide connectivity information to a target server. If the `servers` property is not provided, or is an empty array, the default value would be a [Server Object](#server-object) with a [url](#server-url) value of `localhost`.
-<a name="openrpc-methods"></a>methods | [[Method Object](#method-object) \| [Reference Object](#reference-object)] | **REQUIRED**. The available methods for the API. While it is required, the array may be empty (to handle security filtering, for example).
+<a name="openrpc-methods"></a>methods | [[Method Object](#method-object) \| [Reference Object](#reference-object)] | **REQUIRED**. The available methods for the API. While this field is **REQUIRED**, the array MAY be empty (to handle security filtering, for example).
 <a name="openrpc-components"></a>components | [Components Object](#components-object) | An element to hold various schemas for the specification.
 <a name="openrpcExternalDocs"></a>externalDocs | [External Documentation Object](#external-documentation-object) | Additional external documentation.
 
@@ -164,7 +164,7 @@ Field Name | Type | Description
 <a name="server-name"></a>name | `string` | **REQUIRED**. A name to be used as the cannonical name for the server.
 <a name="server-url"></a>url | [Runtime Expression](#runtime-expression) | **REQUIRED**. A URL to the target host.  This URL supports Server Variables and MAY be relative, to indicate that the host location is relative to the location where the OpenRPC document is being served. [Server Variables](#server-variables) are passed into the [Runtime Expression](#runtime-expression) to produce a server URL.
 <a name="server-summary"></a>summary | `string` | A short summary of what the server is.
-<a name="server-description"></a>description | `string` | An optional string describing the host designated by the URL. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
+<a name="server-description"></a>description | `string` | An OPTIONAL string describing the host designated by the URL. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
 <a name="server-variables"></a>variables | Map[`string`, [Server Variable Object](#server-variable-object)] | A map between a variable name and its value.  The value is passed into the [Runtime Expression](#runtime-expression) to produce a server URL.
 
 This object MAY be extended with [Specification Extensions](#specification-extensions).
@@ -176,8 +176,8 @@ An object representing a Server Variable for server URL template substitution.
 Field Name | Type | Description
 ---|:---:|---
 <a name="server-variable-enum"></a>enum | `[string]` | An enumeration of string values to be used if the substitution options are from a limited set.
-<a name="server-variable-default"></a>default | `string` |  **REQUIRED**. The default value to use for substitution, which SHALL be sent if an alternate value is *not* supplied. Note this behavior is different than the [Schema Object's](#schema-object) treatment of default values, because in those cases parameter values are optional.
-<a name="server-variable-description"></a>description | `string` | An optional description for the server variable. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
+<a name="server-variable-default"></a>default | `string` |  **REQUIRED**. The default value to use for substitution, which SHALL be sent if an alternate value is *not* supplied. Note this behavior is different than the [Schema Object's](#schema-object) treatment of default values, because in those cases parameter values are not needed.
+<a name="server-variable-description"></a>description | `string` | An OPTIONAL description for the server variable. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
 
 This object MAY be extended with [Specification Extensions](#specification-extensions).
 
@@ -192,13 +192,13 @@ Field Name | Type | Description
 <a name="method-summary"></a>summary | `string` | A short summary of what the method does.
 <a name="method-description"></a>description | `string` | A verbose explanation of the method behavior. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
 <a name="method-externalDocs"></a>externalDocs | [External Documentation Object](#external-documentation-object) | Additional external documentation for this method.
-<a name="method-params"></a>params | [[Content Descriptor](#content-descriptor-object) \| [Reference Object](#reference-object)] | **REQUIRED**. A list of parameters that are applicable for this method. The list MUST NOT include duplicated parameters and therefore require [name](#content-descriptor-name) to be unique. The list can use the [Reference Object](#reference-object) to link to parameters that are defined by the [Content Descriptor Object](#content-descriptor-object). All optional params (content descriptor objects with "required": false) MUST be positioned after all required params in the list.
+<a name="method-params"></a>params | [[Content Descriptor](#content-descriptor-object) \| [Reference Object](#reference-object)] | **REQUIRED**. A list of parameters that are applicable for this method. The list MUST NOT include duplicated parameters and therefore require [name](#content-descriptor-name) to be unique. The list can use the [Reference Object](#reference-object) to link to parameters that are defined by the [Content Descriptor Object](#content-descriptor-object). All OPTIONAL params (content descriptor objects with `"required": false`) MUST be positioned after all REQUIRED params in the list.
 <a name="method-result"></a>result | [Content Descriptor](#content-descriptor-object) \| [Reference Object](#reference-object) | The description of the result returned by the method. If defined, it MUST be a Content Descriptor or Reference Object. If undefined, the method MUST only be used as a [notification](https://www.jsonrpc.org/specification#notification).
 <a name="method-deprecated"></a>deprecated | `boolean` | Declares this method to be deprecated. Consumers SHOULD refrain from usage of the declared method. Default value is `false`.
 <a name="method-servers"></a>servers | [[Server Object](#server-object)] | An alternative `servers` array to service this method. If an alternative `servers` array is specified at the Root level, it will be overridden by this value.
 <a name="method-errors"></a>errors | [[Error Object](#error-object) \| [Reference Object](#reference-object)] | A list of custom application defined errors that MAY be returned. The Errors MUST have unique error codes.
 <a name="method-links"></a>links | [[Link Object](#link-object) \| [Reference Object](#reference-object)] | A list of possible links from this method call.
-<a name="method-param-structure"></a>paramStructure | `"by-name"` \| `"by-position"` \| `"either"` | The expected format of the parameters. [As per the JSON-RPC 2.0 specification](https://www.jsonrpc.org/specification#parameter_structures), the params of a [JSON-RPC request object](https://www.jsonrpc.org/specification#request_object) may be an array, object, or either (represented as `by-position`, `by-name`, and `either` respectively). When a method has a `paramStructure` value of `by-name`, callers of the method MUST send a [JSON-RPC request object](https://www.jsonrpc.org/specification#request_object) whose `params` field is an object. Further, the key names of the `params` object MUST be the same as the [`contentDescriptor.name`](#content-descriptor-name)s for the given method. Defaults to `"either"`.
+<a name="method-param-structure"></a>paramStructure | `"by-name"` \| `"by-position"` \| `"either"` | The expected format of the parameters. [As per the JSON-RPC 2.0 specification](https://www.jsonrpc.org/specification#parameter_structures), the params of a [JSON-RPC request object](https://www.jsonrpc.org/specification#request_object) can be an array, object, or either (represented as `by-position`, `by-name`, and `either` respectively). When a method has a `paramStructure` value of `by-name`, callers of the method MUST send a [JSON-RPC request object](https://www.jsonrpc.org/specification#request_object) whose `params` field is an object. Further, the key names of the `params` object MUST be the same as the [`contentDescriptor.name`](#content-descriptor-name)s for the given method. Defaults to `"either"`.
 <a name="method-examples"></a>examples | [[Example Pairing Object](#example-pairing-object) \| [Reference Object](#reference-object)] | Array of [Example Pairing Objects](#example-pairing-object) where each example includes a valid params-to-result [Content Descriptor](#content-descriptor-object) pairing.
 
 This object MAY be extended with [Specification Extensions](#specification-extensions).
@@ -212,7 +212,7 @@ Field Name | Type | Description
 <a name="content-descriptor-name"></a>name | `string` | **REQUIRED**. Name of the content that is being described. If the content described is a method parameter assignable [`by-name`](#method-param-structure), this field SHALL define the parameter's key (*ie* name).
 <a name="content-descriptor-summary"></a>summary | `string` | A short summary of the content that is being described.
 <a name="content-descriptor-description"></a>description | `string` | A verbose explanation of the content descriptor behavior. [GitHub Flavored Markdown syntax](https://github.github.com/gfm/) MAY be used for rich text representation.
-<a name="content-descriptor-required"></a>required | `boolean` | Determines if the content is a required field. Default value is `false`.
+<a name="content-descriptor-required"></a>required | `boolean` | Indicates whether the content is mandatory. Default value is `false`.
 <a name="content-descriptor-schema"></a>schema | [Schema Object](#schema-object) | **REQUIRED**. Schema that describes the content.
 <a name="content-descriptor-deprecated"></a>deprecated | `boolean` | Specifies that the content is deprecated and SHOULD be transitioned out of usage. Default value is `false`.
 
@@ -237,7 +237,7 @@ Field Name | Type | Description
 <a name="example-pairing-summary"></a>summary | `string` | Short description for the example pairing.
 <a name="example-pairing-params"></a>params | [[Example Object](#example-object) \| [Reference Object](#reference-object)] | **REQUIRED** Example parameters.
 <a name="example-pairing-result"></a>result | [Example Object](#example-object) \| [Reference Object](#reference-object) | Example result. When not provided, the example pairing represents usage of the method as a notification.
-<a name="example-pairing-error"></a>error | [Example Object](#example-object) \| [Reference Object](#reference-object) | Represents an example error response. The provided [Example Object](#example-object) MUST have the entire error object as its value. If provided, the [`examplePairing.result`](#example-pairing-result) must not be provided.
+<a name="example-pairing-error"></a>error | [Example Object](#example-object) \| [Reference Object](#reference-object) | Represents an example error response. The provided [Example Object](#example-object) MUST have the entire error object as its value. If provided, the [`examplePairing.result`](#example-pairing-result) MUST NOT be provided.
 
 This object MAY be extended with [Specification Extensions](#specification-extensions).
 
@@ -275,7 +275,7 @@ Field Name  |  Type  | Description
 <a name="link-parameters"></a>params   | Map[`string`, `Any` \| [Runtime Expression](#runtime-expression)] | A map representing parameters to pass to a method as specified with `method`. The key is the parameter name to be used, whereas the value can be a constant or a [runtime expression](#runtime-expression) to be evaluated and passed to the linked method.
 <a name="link-server"></a>server | [Server Object](#server-object) | A server object to be used by the target method.
 
-A linked method must be identified directly, and must exist in the list of methods defined by the [Methods Object](#method-object).
+A linked method MUST be identified directly, and MUST exist in the list of methods defined by the [Methods Object](#method-object).
 
 When a runtime expression fails to evaluate, no parameter value is passed to the target method.
 
@@ -306,7 +306,7 @@ Field Name | Type | Description
 ---|:---:|---
 <a name="error-code"></a>code | [Application Defined Error Code](https://www.jsonrpc.org/specification#response_object) | **REQUIRED**. A Number that indicates the error type that occurred. This MUST be an integer. The error codes from and including -32768 to -32000 are reserved for pre-defined errors. These pre-defined errors SHOULD be assumed to be returned from any JSON-RPC api.
 <a name="error-message"></a>message | `string` | **REQUIRED**. A String providing a short description of the error. The message SHOULD be limited to a concise single sentence.
-<a name="error-data"></a>data | `any` | A Primitive or Structured value that contains additional information about the error. This may be omitted. The value of this member is defined by the Server (e.g. detailed error information, nested errors etc.).
+<a name="error-data"></a>data | `any` | A Primitive or Structured value that contains additional information about the error. This MAY be omitted. The value of this member is defined by the Server (e.g. detailed error information, nested errors etc.).
 
 ## Components Object
 
@@ -374,4 +374,4 @@ Field Pattern | Type | Description
 ---|:---:|---
 <a name="info-extensions"></a>^x- | Any | Allows extensions to the OpenRPC Schema. The field name MUST begin with `x-`, for example, `x-internal-id`. The value can be `null`, a primitive, an array or an object. Can have any valid JSON format value.
 
-The extensions may or may not be supported by the available tooling, but those may be extended as well to add requested support (if tools are internal or open-sourced).
+Tooling might not support these extensions, but the tools themselves can be extended to add requested support (if tools are internal or open-sourced).

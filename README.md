@@ -14,13 +14,13 @@ This is a repository that contains the OpenRPC specification, and the tooling to
 
 ## Latest OpenRPC Specification
 
-The latest version of the specification may be found [here](https://spec.open-rpc.org/).
+The latest version of the specification can be found [here](https://spec.open-rpc.org/).
 
 ## Previous Versions of the Specification
 
 All versions of the specification can be found on [the Github releases page](https://github.com/open-rpc/spec/releases).
 
-You may also access specific versions of the spec by appending the version to the spec url as follows:
+You can also access specific versions of the spec by appending the version to the spec url as follows:
 
 `https://spec.open-rpc.org/1.0.0`
 
