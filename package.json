@@ -6,9 +6,10 @@
   "private": true,
   "scripts": {
     "validate": "node_modules/.bin/mdv ./spec.md ./README.md ./build/markdown/*.md",
+    "validate:json": "./bin/validate-json.js ./spec.md",
     "lint": "./node_modules/.bin/markdownlint ./spec.md ./README.md ./build/markdown/*.md",
     "build": "./bin/build.sh",
-    "test": "npm run build && npm run validate && npm run lint"
+    "test": "npm run build && npm run validate && npm run lint && npm run validate:json"
   },
   "repository": {
     "type": "git",
