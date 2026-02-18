@@ -1,14 +1,29 @@
 {
-  "name": "open-rpc-spec",
+  "name": "test-open-rpc-spec",
   "version": "1.3.2",
   "description": "The OPEN-RPC Specification",
-  "main": "index.js",
-  "private": true,
+  "type": "module",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "validate": "node_modules/.bin/mdv ./spec.md ./README.md ./build/markdown/*.md",
-    "lint": "./node_modules/.bin/markdownlint ./spec.md ./README.md ./build/markdown/*.md",
-    "build": "./bin/build.sh",
-    "test": "npm run build && npm run validate && npm run lint"
+    "validate": "mdv ./spec.md ./README.md ./build/markdown/*.md",
+    "lint": "markdownlint ./spec.md ./README.md ./build/markdown/*.md",
+    "build": "bun run src/build-main.ts",
+    "generate": "bun run src/generate-index.ts",
+    "build:bundle": "bun run generate && bun run src/build-bundle.ts && tsc -p tsconfig.bundle.json",
+    "test:unit": "bun test",
+    "test": "bun run test:unit && bun run build && bun run validate && bun run lint"
   },
   "repository": {
     "type": "git",
@@ -21,7 +36,7 @@
     "api",
     "spec"
   ],
-  "author": "Zachary Belford",
+  "author": "Zachary Belford, Shane Jonas, Zane Starr",
   "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/open-rpc/spec/issues"
@@ -29,10 +44,21 @@
   "homepage": "https://github.com/open-rpc/spec#readme",
   "devDependencies": {
     "@etclabscore/dl-github-releases": "^1.2.1",
+    "@json-schema-tools/dereferencer": "^1.6.3",
+    "@types/bun": "^1.3.9",
+    "@types/fs-extra": "^11.0.4",
     "fs-extra": "^9.1.0",
     "markdown-toc": "^1.2.0",
     "markdownlint-cli": "^0.39.0",
+    "mdast": "^2.3.2",
+    "mdast-util-from-markdown": "^2.0.2",
+    "mdast-util-gfm": "^3.1.0",
+    "mdast-util-gfm-table": "^2.0.0",
+    "mdast-util-to-markdown": "^2.1.2",
     "mdv": "^1.3.2",
-    "mkdirp": "^1.0.4"
+    "micromark-extension-gfm": "^3.0.0",
+    "mkdirp": "^1.0.4",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
   }
 }

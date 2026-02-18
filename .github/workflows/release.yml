@@ -1,0 +1,58 @@
+name: Release
+
+on:
+  workflow_dispatch:
+
+jobs:
+  prepare-release:
+    runs-on: ubuntu-latest
+    outputs:
+      sha: ${{ steps.commit.outputs.sha }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.PAT }}
+      - name: Configure Git
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "github-actions@github.com"
+      - name: Install Knope
+        uses: knope-dev/action@v2.1.2
+        with:
+          version: 0.22.3
+      - run: knope prepare-release --verbose
+        name: Update versioned files and changelog
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT }}
+      - name: Store commit SHA
+        id: commit
+        run: echo "sha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+
+  release:
+    needs: prepare-release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.prepare-release.outputs.sha }}
+          fetch-depth: 0
+          token: ${{ secrets.PAT }}
+      - name: Install Knope
+        uses: knope-dev/action@v2.1.2
+        with:
+          version: 0.22.3
+      - run: knope release --verbose
+        name: Create GitHub release
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          registry-url: "https://registry.npmjs.org"
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install
+      - run: bun run build:bundle
+      - run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

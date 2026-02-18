@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "./generated",
+    "outDir": "./dist",
+    "emitDeclarationOnly": true
+  },
+  "include": ["generated/index.ts"]
+}
