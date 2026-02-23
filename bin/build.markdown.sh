@@ -13,7 +13,7 @@ const build = async () => {
   const buildDir = "./build/markdown/";
   await fsx.ensureDir(buildDir);
   await fsx.emptyDir(buildDir);
-  const specContent = await readFile("./spec.md", "utf8");
+  const specContent = await readFile("./spec/legacy/spec.md", "utf8");
   const withToc = toc.insert(specContent);
   const withVersion = replaceVersionComments(withToc);
   await writeFile(`${buildDir}/spec.md`, withVersion);

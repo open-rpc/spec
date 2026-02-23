@@ -1,0 +1,27 @@
+name: Create Release PR
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  prepare-release:
+    if: "!contains(github.event.head_commit.message, 'chore: prepare release')"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.PAT }}
+      - name: Configure Git
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "github-actions@github.com"
+      - name: Install Knope
+        uses: knope-dev/action@v2.1.2
+        with:
+          version: 0.22.3
+      - run: knope prepare-release --verbose
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT }}
+        continue-on-error: true
