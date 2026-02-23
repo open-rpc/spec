@@ -219,6 +219,97 @@
 
 * add link for latest version of spec ([ce8ecf0](https://github.com/open-rpc/spec/commit/ce8ecf0))
 
+## 1.6.2 (2026-02-23)
+
+### Fixes
+
+- filter out json schema object ([`ad9bb18`](https://github.com/zcstarr/spec/commit/ad9bb18))
+- remove extra pipe ([`3bcabf5`](https://github.com/zcstarr/spec/commit/3bcabf5))
+
+## 1.6.1 (2026-02-20)
+
+### Fixes
+
+- gh pages deployment ([`46c9845`](https://github.com/zcstarr/spec/commit/46c9845))
+- update workflow for gh deploy ([`02e5107`](https://github.com/zcstarr/spec/commit/02e5107))
+- make sure we're exporting with 1_ ([`330fd89`](https://github.com/zcstarr/spec/commit/330fd89))
+
+## 1.6.0 (2026-02-19)
+
+### Features
+
+- wip this feature changes the repo to support inline schema in spec
+- wip types bundling
+
+### Fixes
+
+- markdownlint issues
+- examplePairingObject had a bad link for result
+- added error to examplePairingObject
+- wip first pass at updating to new schema.json to markdown rendering
+- add github actions deployment
+- adjust legacy scripts now deprecated to support new version layout
+- correct tests for the specs to validate that the specs are written properly
+- add support for a mapping to return that mapping of schemas
+- make sure to use snake_case
+- bundle refactor to use only versioned directories
+- auto generate the proper directory structure and index.ts for packaging the schema
+- add spec-template to be tied to version
+- gh pages bug
+- adjust this just to test releasing
+- add missing workflow
+- ghpages build with tmp remove CNAME
+- temp owner to self
+
+## 1.5.0 (2026-02-19)
+
+### Features
+
+- wip this feature changes the repo to support inline schema in spec
+- wip types bundling
+
+### Fixes
+
+- markdownlint issues
+- examplePairingObject had a bad link for result
+- added error to examplePairingObject
+- wip first pass at updating to new schema.json to markdown rendering
+- add github actions deployment
+- adjust legacy scripts now deprecated to support new version layout
+- correct tests for the specs to validate that the specs are written properly
+- add support for a mapping to return that mapping of schemas
+- make sure to use snake_case
+- bundle refactor to use only versioned directories
+- auto generate the proper directory structure and index.ts for packaging the schema
+- add spec-template to be tied to version
+- gh pages bug
+- adjust this just to test releasing
+- add missing workflow
+- ghpages build with tmp remove CNAME
+
+## 1.4.0 (2026-02-19)
+
+### Features
+
+- wip this feature changes the repo to support inline schema in spec
+- wip types bundling
+
+### Fixes
+
+- markdownlint issues
+- examplePairingObject had a bad link for result
+- added error to examplePairingObject
+- wip first pass at updating to new schema.json to markdown rendering
+- add github actions deployment
+- adjust legacy scripts now deprecated to support new version layout
+- correct tests for the specs to validate that the specs are written properly
+- add support for a mapping to return that mapping of schemas
+- make sure to use snake_case
+- bundle refactor to use only versioned directories
+- auto generate the proper directory structure and index.ts for packaging the schema
+- add spec-template to be tied to version
+- gh pages bug
+
 # 1.0.0 (2019-04-01)
 
 
