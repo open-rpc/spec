@@ -1,14 +1,33 @@
 {
-  "name": "open-rpc-spec",
+  "name": "@open-rpc/spec",
   "version": "1.3.2",
   "description": "The OPEN-RPC Specification",
-  "main": "index.js",
-  "private": true,
+  "type": "module",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./1_4/schema.json": "./dist/1_4/schema.json",
+    "./1_3/schema.json": "./dist/1_3/schema.json"
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "validate": "node_modules/.bin/mdv ./spec.md ./README.md ./build/markdown/*.md",
-    "lint": "./node_modules/.bin/markdownlint ./spec.md ./README.md ./build/markdown/*.md",
-    "build": "./bin/build.sh",
-    "test": "npm run build && npm run validate && npm run lint"
+    "validate": "mdv ./README.md ./docs/*.md ./docs/**/*.md",
+    "lint:md": "markdownlint ./README.md ./docs/z*.md ./docs/**/*.md --ignore ./docs/1.0.0-rc0/** --ignore ./docs/1.0.0-rc1/**",
+    "lint:ts": "eslint .",
+    "lint": "bun run lint:md && bun run lint:ts",
+    "build": "bun run src/build-main.ts",
+    "generate": "bun run src/generate-index.ts",
+    "build:bundle": "bun run generate && bun run src/build-bundle.ts && tsc -p tsconfig.bundle.json",
+    "test:unit": "bun test",
+    "test": "bun run test:unit && bun run build && bun run validate && bun run lint"
   },
   "repository": {
     "type": "git",
@@ -21,18 +40,34 @@
     "api",
     "spec"
   ],
-  "author": "Zachary Belford",
+  "author": "Zachary Belford, Shane Jonas, Zane Starr",
   "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/open-rpc/spec/issues"
   },
   "homepage": "https://github.com/open-rpc/spec#readme",
   "devDependencies": {
+    "@eslint/js": "^10.0.0",
     "@etclabscore/dl-github-releases": "^1.2.1",
+    "@json-schema-tools/dereferencer": "^1.6.3",
+    "@types/bun": "^1.3.9",
+    "@types/fs-extra": "^11.0.4",
+    "@typescript-eslint/eslint-plugin": "^8.55.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.5",
     "fs-extra": "^9.1.0",
+    "globals": "^17.3.0",
     "markdown-toc": "^1.2.0",
-    "markdownlint-cli": "^0.39.0",
-    "mdv": "^1.3.2",
-    "mkdirp": "^1.0.4"
+    "markdownlint-cli": "^0.47.0",
+    "mdast": "^2.3.2",
+    "mdast-util-from-markdown": "^2.0.2",
+    "mdast-util-gfm": "^3.1.0",
+    "mdast-util-gfm-table": "^2.0.0",
+    "mdast-util-to-markdown": "^2.1.2",
+    "micromark-extension-gfm": "^3.0.0",
+    "mkdirp": "^1.0.4",
+    "prettier": "^3.8.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
   }
 }
