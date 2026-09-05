@@ -52,4 +52,15 @@ How to contribute, build and release are outlined in [CONTRIBUTING.md](CONTRIBUT
 
 ## Contact
 
-Need help or have a question? Join us on [Discord](https://discord.gg/gREUKuF)!
+Need help or have a question? Join us on [Discord](https://discord.gg/gREUKuF)! Looking for partnerships or to sponsor OpenRPC? Contact info [AT] open-rpc.org
+
+## Supporter Acknowledgement
+
+Special thanks to [Ethereum Foundation](https://ethereum.org), [Chainlink](https://chain.link), [Quicknode](https://quicknode.com) and [GCC](gccofficial.org), for supporting our efforts to modernize JSON-RPC development.
+
+**Some sponsors have provided additional information about their work and services.**
+
+<p align="left">
+  <a href="https://gccofficial.org/"><img src="https://raw.githubusercontent.com/open-rpc/website/refs/heads/master/public/assets/sponsors/gcc-light.svg" alt="GCC logo" width="110" /></a>
+</p>
+GCC is a community supporting open-source software and digital public goods.
