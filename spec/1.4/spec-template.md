@@ -108,7 +108,7 @@ JSON-RPC APIs can support the OpenRPC specification by implementing a service di
       "result": {
         "name": "OpenRPC Schema",
         "schema": {
-          "$ref": "https://raw.githubusercontent.com/open-rpc/meta-schema/master/schema.json"
+          "$ref": "https://schema.open-rpc.org/1.4"
         }
       }
     }

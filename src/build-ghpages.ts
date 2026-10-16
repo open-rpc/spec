@@ -2,13 +2,9 @@ import { readdir, writeFile } from "fs/promises";
 import fsx from "fs-extra";
 import downloadReleases from "@etclabscore/dl-github-releases";
 import { build as buildMarkdown } from "./build-markdown";
-import { discoverLatestVersion, getAllRecentVersions } from "./version";
+import { getPackageVersion, selectReleaseSchemas } from "./version";
 
 const leaveZipped = false;
-
-const filterRelease = () => {
-  return true;
-};
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const filterAsset = (...args: any[]) => {
@@ -46,6 +42,11 @@ const compareSemver = (v1: string, v2: string): number => {
 export const build = async () => {
   const buildDir = "./docs";
   const specDir = "./spec";
+  const releaseVersion = getPackageVersion();
+  const { latestVersion, versions: recentVersions } = selectReleaseSchemas(
+    releaseVersion,
+    specDir,
+  );
 
   await fsx.ensureDir(buildDir);
   await fsx.emptyDir(buildDir);
@@ -54,7 +55,11 @@ export const build = async () => {
     "open-rpc",
     "spec",
     buildDir,
-    filterRelease,
+    (release?: { tag_name: string; draft?: boolean }) =>
+      !!release &&
+      !release.draft &&
+      /^v?\d+\.\d+\.\d+(?:-[\w.-]+)?$/.test(release.tag_name) &&
+      compareSemver(release.tag_name.replace(/^v/, ""), releaseVersion) <= 0,
     filterAsset,
     leaveZipped,
   );
@@ -71,10 +76,8 @@ export const build = async () => {
     }),
   );
 
-  const latestVersion = discoverLatestVersion();
   // eslint-disable-next-line no-console
   console.log(`latestVersion: ${latestVersion}`);
-  const recentVersions = getAllRecentVersions();
   await Promise.all(
     recentVersions.map(async (version) => {
       // eslint-disable-next-line no-console

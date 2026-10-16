@@ -19,6 +19,9 @@
     "dist"
   ],
   "scripts": {
+    "schema-contract": "bun run src/schema-contract.ts",
+    "schema-release-check": "bun run src/deploy-schema.ts --check",
+    "deploy:schema": "bun run src/deploy-schema.ts",
     "validate": "mdv ./README.md ./docs/*.md ./docs/**/*.md",
     "lint:md": "markdownlint ./README.md ./docs/z*.md ./docs/**/*.md --ignore ./docs/1.0.0-rc0/** --ignore ./docs/1.0.0-rc1/**",
     "lint:ts": "eslint .",

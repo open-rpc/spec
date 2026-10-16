@@ -1,6 +1,6 @@
 {
   "$schema": "https://meta.json-schema.tools/",
-  "$id": "https://meta.open-rpc.org/",
+  "$id": "https://schema.open-rpc.org/1.4",
   "title": "openrpcDocument",
   "type": "object",
   "required": [
@@ -134,7 +134,7 @@
       "title": "metaSchema",
       "description": "JSON Schema URI (used by some editors)",
       "type": "string",
-      "default": "https://meta.open-rpc.org/"
+      "default": "https://schema.open-rpc.org/1.4"
     }
   },
   "definitions": {

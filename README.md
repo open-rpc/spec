@@ -34,6 +34,20 @@ Examples:
 - `@open-rpc/spec/1_3/schema.json`
 - `@open-rpc/spec/1_4/schema.json`
 
+## Canonical Schema Identities
+
+The bundled schemas use versioned canonical IDs: `https://schema.open-rpc.org/1.3` and
+`https://schema.open-rpc.org/1.4`. Their document `$schema` defaults and discovery examples
+use the corresponding versioned URL. The top-level JSON Schema dialect and validation
+constraints are unchanged.
+
+Consumers registering these schemas by `$id` must update lookups that previously used
+`https://meta.open-rpc.org/` to select the intended version. The legacy HTTP endpoint
+continues serving its existing schema.
+
+Run `bun run schema-contract` to check schema identities and defaults locally. This check
+discovers compatibility directories and runs without dependencies or HTTP requests.
+
 ## Regex Change (starting 1.4)
 
 Starting with the `1.4.x` schema line, the `openrpc` constraint moves from explicit patch-level enumeration to a regex-based version-line constraint.
