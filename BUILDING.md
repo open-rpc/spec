@@ -4,6 +4,20 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 This document is licensed under [The Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0.html).
 
+## Specification documentation
+
+Edit `spec/<version>/schema.json` and `spec/<version>/spec-template.md`.
+`bun run build` combines them into `docs/<version>/index.md`, with root and
+`latest` copies for the selected version. `docs/` is ignored by Git and used
+for website deployment; generated files should not be edited directly.
+
+The checked-in `spec/1.3/spec.md` was retained from the older repository layout.
+The current build and release workflows do not regenerate it, so it can become
+stale. Keeping it synchronized would require an explicit generation step.
+See [the renderer](src/build-markdown.ts) and [output writer](src/build-ghpages.ts).
+
+The remaining sections describe the older generic `bin/build.*` convention.
+
 When using the name 'version' we mean the versioning scheme described in [VERSIONING.md](VERSIONING.md)
 
 ## Introduction
