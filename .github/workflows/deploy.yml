@@ -1,42 +1,71 @@
 name: Deploy docs to GitHub Pages
 
 on:
-  push:
-    branches: [master]
+  workflow_call:
+    inputs:
+      release_commit:
+        required: true
+        type: string
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
   group: pages
   cancel-in-progress: false
+  queue: max
+
+env:
+  RELEASE_COMMIT: ${{ inputs.release_commit }}
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    outputs:
+      current: ${{ steps.freshness.outputs.current }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: oven-sh/setup-bun@v2
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
-          bun-version: latest
-      - run: bun install
-      - run: bun run build
-      - uses: actions/jekyll-build-pages@v1
+          ref: ${{ inputs.release_commit }}
+          persist-credentials: false
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2
+      - id: freshness
+        run: bun run src/deploy-schema.ts --check-pages
+      - if: steps.freshness.outputs.current == 'true'
+        run: bun install --frozen-lockfile
+      - if: steps.freshness.outputs.current == 'true'
+        run: bun run build
+      - if: steps.freshness.outputs.current == 'true'
+        uses: actions/jekyll-build-pages@44a6e6beabd48582f863aeeb6cb2151cc1716697 # v1
         with:
           source: docs
           destination: ./_site
-      - uses: actions/upload-pages-artifact@v3
+      - if: steps.freshness.outputs.current == 'true'
+        uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3
         with:
           path: ./_site
 
   deploy:
     needs: build
+    if: needs.build.outputs.current == 'true'
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deploy.outputs.page_url }}
     steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ inputs.release_commit }}
+          persist-credentials: false
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2
+      - id: freshness
+        run: bun run src/deploy-schema.ts --check-pages
       - id: deploy
-        uses: actions/deploy-pages@v4
+        if: steps.freshness.outputs.current == 'true'
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4

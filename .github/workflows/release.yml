@@ -5,28 +5,92 @@ on:
     types: [closed]
     branches: [master]
 
+permissions:
+  contents: read
+
+# Covers schemas and Pages, including reruns. Freshness guards still reject older releases.
+concurrency:
+  group: openrpc-production-release
+  cancel-in-progress: false
+  queue: max
+
 jobs:
   release:
-    if: github.head_ref == 'release' && github.event.pull_request.merged == true
+    if: github.head_ref == 'release' && github.event.pull_request.merged == true && github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Require release merge commit
+        env:
+          RELEASE_COMMIT: ${{ github.event.pull_request.merge_commit_sha }}
+        shell: bash
+        run: |
+          if [[ ! "$RELEASE_COMMIT" =~ ^[0-9a-f]{40}$ ]]; then
+            echo "::error::Release event has no valid merge commit SHA; stopping before checkout."
+            exit 1
+          fi
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           fetch-depth: 0
+          ref: ${{ github.event.pull_request.merge_commit_sha }}
+          persist-credentials: false
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2
+      - run: bun run schema-release-check
       - name: Install Knope
-        uses: knope-dev/action@v2.1.2
+        uses: knope-dev/action@19617851f9f13ab2f27a05989c55efb18aca3675 # v2.1.2
         with:
           version: 0.22.3
       - run: knope release --verbose
         env:
           GITHUB_TOKEN: ${{ secrets.PAT }}
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: "24"
           registry-url: "https://registry.npmjs.org"
-      - uses: oven-sh/setup-bun@v2
-      - run: bun install
+      - run: bun install --frozen-lockfile
       - run: bun run build:bundle
       - run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  deploy-schema:
+    needs: release
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment: schema-production
+    permissions:
+      contents: read
+      id-token: write
+    outputs:
+      published: ${{ steps.publish.outputs.published }}
+    env:
+      RELEASE_COMMIT: ${{ github.event.pull_request.merge_commit_sha }}
+      SCHEMA_BUCKET: ${{ secrets.SCHEMA_BUCKET }}
+      SCHEMA_DISTRIBUTION_ID: ${{ secrets.SCHEMA_DISTRIBUTION_ID }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ github.event.pull_request.merge_commit_sha }}
+          persist-credentials: false
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2
+      - run: bun run schema-release-check
+      - uses: aws-actions/configure-aws-credentials@61815dcd50bd041e203e49132bacad1fd04d2708 # v5
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+          allowed-account-ids: ${{ secrets.AWS_ACCOUNT_ID }}
+          mask-aws-account-id: true
+          role-session-name: schema-${{ github.run_id }}-${{ github.run_attempt }}
+          role-duration-seconds: 1200
+      - id: publish
+        run: bun run deploy:schema
+
+  deploy-docs:
+    needs: deploy-schema
+    if: needs.deploy-schema.outputs.published == 'true'
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    uses: ./.github/workflows/deploy.yml
+    with:
+      release_commit: ${{ github.event.pull_request.merge_commit_sha }}
